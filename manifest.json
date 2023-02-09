@@ -1,0 +1,9 @@
+{
+  "short_name": "Squad - Board",
+  "name": "Dashboard Squad",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
