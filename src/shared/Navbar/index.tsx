@@ -35,6 +35,12 @@ const Navbar = () => {
                 Aplicações
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link to="/notifications" className="nav-link">
+                Notificações
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

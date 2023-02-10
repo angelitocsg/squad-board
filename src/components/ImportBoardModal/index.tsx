@@ -3,9 +3,7 @@ import { useState } from "react";
 import { ImportService } from "../../services/ImportService";
 
 const ImportBoardModal = () => {
-  const [data, setData] = useState(
-    'O arquivo CSV deve conter as colunas abaixo!!! \n   "assigned_to","number","parent","priority","short_description","state","sys_class_name","u_effort","u_iu_agile_sprint","u_squad"'
-  );
+  const [data, setData] = useState("");
 
   const handleLoadData = () => {
     ImportService.ImportCSV(data);
