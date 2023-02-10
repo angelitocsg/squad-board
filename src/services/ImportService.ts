@@ -9,11 +9,14 @@ export const SEM_ALOCACAO = "[SEM ALOCAÇÃO]";
 
 export class ImportService {
   static ImportProjectsJson(data: string) {
-    const projectsData = JSON.parse(data) as IProject[];
+    let projectsData = JSON.parse(data) as IProject[];
     if (projectsData.length === 0) return;
 
-    let repositoriesData: IProjectRepository[] = [];
-    let gmudsData: IProjectGmud[] = [];
+    const repositoriesData: IProjectRepository[] = [];
+    const gmudsData: IProjectGmud[] = [];
+    const config: IProject = projectsData.find((f) => f.id === "config") ?? {};
+
+    projectsData = projectsData.filter((f) => f.id !== "config");
 
     projectsData.forEach((it) => {
       if (it.repositories) {
@@ -37,7 +40,8 @@ export class ImportService {
       });
     });
 
-    localStorage.setItem("projects_data", data);
+    localStorage.setItem("projects_config", JSON.stringify(config));
+    localStorage.setItem("projects_data", JSON.stringify(projectsData));
     localStorage.setItem(
       "projects_repositories",
       JSON.stringify(repositoriesData)
