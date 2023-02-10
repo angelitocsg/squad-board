@@ -1,5 +1,5 @@
-import { IProjectRepository } from '../../../models/IProjectRepository';
-import ProjectRepoLine from './RepoLine';
+import { IProjectRepository } from "../../../models/IProjectRepository";
+import ProjectRepoLine from "./RepoLine";
 
 interface IProps {
   repositories?: IProjectRepository[];
@@ -7,8 +7,8 @@ interface IProps {
 
 const PaneRepositories = ({ repositories }: IProps) => {
   return (
-    <table className="table table-hover">
-      <thead>
+    <table className="table table-striped table-hover">
+      <thead className="table-secondary">
         <tr>
           <th>Tipo</th>
           <th>Repositório</th>
@@ -16,7 +16,7 @@ const PaneRepositories = ({ repositories }: IProps) => {
           <th>Develop</th>
           <th>Homolog</th>
           <th>Production</th>
-          <th>Impedimento</th>
+          <th>Próximo deploy e observações</th>
         </tr>
       </thead>
       <tbody>

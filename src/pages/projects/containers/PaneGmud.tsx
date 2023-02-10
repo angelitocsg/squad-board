@@ -1,3 +1,4 @@
+import BadgeHelper from "../../../helpers/badge.helper";
 import { IProjectGmud } from "../../../models/IProjectGmud";
 
 interface IProps {
@@ -6,8 +7,8 @@ interface IProps {
 
 const PaneGmud = ({ gmuds }: IProps) => {
   return (
-    <table className="table table-hover">
-      <thead>
+    <table className="table table=striped table-hover">
+      <thead className="table-secondary">
         <tr>
           <th>Número</th>
           <th>História</th>
@@ -20,11 +21,19 @@ const PaneGmud = ({ gmuds }: IProps) => {
       <tbody>
         {gmuds.map((gmud) => (
           <tr key={gmud.number}>
-            <td>{gmud.number}</td>
+            <td>
+              <a href={gmud.link} target="_blank" rel="noopener noreferrer">
+                {gmud.number}
+              </a>
+            </td>
             <td>{gmud.story}</td>
             <td>{gmud.date}</td>
             <td>{gmud.time}</td>
-            <td>{gmud.status}</td>
+            <td>
+              <span className={BadgeHelper.getBadgeClass(gmud.status)}>
+                {gmud.status}
+              </span>
+            </td>
             <td>{gmud.repositoryId}</td>
           </tr>
         ))}

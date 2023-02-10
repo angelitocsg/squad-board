@@ -15,7 +15,7 @@ const Projects = () => {
   return projects.length === 0 ? (
     <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
   ) : (
-    <div className="container-fluid pt-3">
+    <div className="container-fluid pt-3 pb-2">
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
 
       <button
