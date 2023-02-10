@@ -5,13 +5,14 @@ import Main from "./shared/Main";
 import Projects from "./pages/projects";
 import HomePage from "./pages/home";
 import NotificationsPage from "./pages/notifications";
+import ErrorPage from "./pages/error";
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
       element: <Main />,
-      errorElement: <div>Error 404</div>,
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "/home",
