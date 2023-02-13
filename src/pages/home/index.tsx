@@ -23,7 +23,7 @@ const HomePage = () => {
         <div className="col">
           <div className="card mb-4 shadow-sm">
             <Link to="/notifications" className="nav-link">
-              <div className="card-header">Notifcações</div>
+              <div className="card-header">Notificações</div>
               <div className="card-body btn-link">Acessar</div>
             </Link>
           </div>
