@@ -6,8 +6,8 @@ interface IProps {
 }
 
 const PaneGmud = ({ gmuds }: IProps) => {
-  return (
-    <table className="table table=striped table-hover">
+  return gmuds && gmuds.length > 0 ? (
+    <table className="table table-sm table-striped table-hover">
       <thead className="table-secondary">
         <tr>
           <th>Número</th>
@@ -39,6 +39,10 @@ const PaneGmud = ({ gmuds }: IProps) => {
         ))}
       </tbody>
     </table>
+  ) : (
+    <div className="alert alert-danger" role="alert">
+      Sem GMUDs registradas
+    </div>
   );
 };
 

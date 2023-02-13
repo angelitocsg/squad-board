@@ -9,8 +9,16 @@ import PaneGmud from "./containers/PaneGmud";
 import PaneRepositories from "./containers/PaneRepositories";
 import useProject from "./useProject";
 import parse from "html-react-parser";
+import PaneMonitoring from "./containers/PaneMonitoring";
 const Projects = () => {
-  const { projects, limparDados, getGmuds, getAsMarkdown, handleLoadFile } = useProject();
+  const {
+    projects,
+    limparDados,
+    getGmuds,
+    getMonitoring,
+    getAsMarkdown,
+    handleLoadFile,
+  } = useProject();
 
   return projects.length === 0 ? (
     <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
@@ -61,21 +69,7 @@ const Projects = () => {
             </TabContent>
 
             <TabContent tabId={`${project.id}-monitoring`}>
-              <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Serviço</th>
-                    <th>Desenvolvimento</th>
-                    <th>Homologação</th>
-                    <th>Produção</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+              <PaneMonitoring monitoring={getMonitoring(project.id)} />
             </TabContent>
           </TabContentGroup>
         </section>

@@ -1,5 +1,5 @@
-import BadgeHelper from '../../../helpers/badge.helper';
-import { IProjectRepository } from '../../../models/IProjectRepository';
+import BadgeHelper from "../../../helpers/badge.helper";
+import { IProjectRepository } from "../../../models/IProjectRepository";
 
 interface IProps {
   repository: IProjectRepository;
@@ -15,27 +15,42 @@ const ProjectRepoLine = ({ repository }: IProps) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {repository.id}
+          {repository.id.replace("itau-corp/", "")}
         </a>
       </td>
       <td>{repository.deploy_sequence}</td>
       <td>
-        <span className={BadgeHelper.getBadgeClass(repository.environments.production?.status)}>
+        <span
+          style={{ minWidth: 83 }}
+          className={BadgeHelper.getBadgeClass(
+            repository.environments.develop?.status
+          )}
+        >
           {repository.environments.develop?.deploy_date}
         </span>
       </td>
       <td>
-        <span className={BadgeHelper.getBadgeClass(repository.environments.production?.status)}>
+        <span
+          style={{ minWidth: 83 }}
+          className={BadgeHelper.getBadgeClass(
+            repository.environments.homolog?.status
+          )}
+        >
           {repository.environments.homolog?.deploy_date}
         </span>
       </td>
       <td>
-        <span className={BadgeHelper.getBadgeClass(repository.environments.production?.status)}>
+        <span
+          style={{ minWidth: 83 }}
+          className={BadgeHelper.getBadgeClass(
+            repository.environments.production?.status
+          )}
+        >
           {repository.environments.production?.deploy_date}
         </span>
       </td>
       <td>
-        <span className="text-danger">{repository.blocks}</span>
+        <span className="small text-danger">{repository.blocks}</span>
       </td>
     </tr>
   );

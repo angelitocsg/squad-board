@@ -1,8 +1,6 @@
 import { TGmudStatus } from "../types/TGmudStatus";
 
 const getBadgeClass = (status?: TGmudStatus) => {
-  console.log({ status });
-
   const basecss = "badge opacity";
   const statuscss =
     status === "AGENDADA" || status === "PENDENTE" || status === "PREENCHIDA"

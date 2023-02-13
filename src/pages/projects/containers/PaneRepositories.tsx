@@ -7,7 +7,7 @@ interface IProps {
 
 const PaneRepositories = ({ repositories }: IProps) => {
   return (
-    <table className="table table-striped table-hover">
+    <table className="table table-sm table-striped table-hover">
       <thead className="table-secondary">
         <tr>
           <th>Tipo</th>

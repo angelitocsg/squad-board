@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { IProjectGmud } from "../../models/IProjectGmud";
-import { IProjectRepository } from "../../models/IProjectRepository";
 import showdown from "showdown";
+
+import { IProjectGmud } from "../../models/IProjectGmud";
+import { IProjectMonitoring } from "../../models/IProjectMonitoring";
 import { IProject } from "../../models/IProjects";
 import { ImportService } from "../../services/ImportService";
 
 const useProject = () => {
   const [projects, set_projects_data] = useState<IProject[]>([]);
-  const [repositories, set_projects_repositories] = useState<
-    IProjectRepository[]
-  >([]);
+  const [monitoring, set_project_monitoring] = useState<IProjectMonitoring[]>(
+    []
+  );
   const [gmuds, set_projects_gmuds] = useState<IProjectGmud[]>([]);
 
   const handleLoadFile = (data: string) => {
@@ -24,8 +25,13 @@ const useProject = () => {
       ? gmuds.filter((g) => g.projectId === projectId)
       : [];
 
+  const getMonitoring = (projectId?: string) =>
+    projectId && projectId !== ""
+      ? monitoring.filter((g) => g.projectId === projectId)
+      : [];
+
   const getAsMarkdown = (text?: string) => {
-    if (!text) return '';
+    if (!text) return "";
     const converter = new showdown.Converter();
     return converter.makeHtml(text);
   };
@@ -33,8 +39,8 @@ const useProject = () => {
   const loadData = () => {
     let ls = localStorage.getItem("projects_data") ?? "[]";
     if (ls) set_projects_data(JSON.parse(ls) as IProject[]);
-    ls = localStorage.getItem("projects_repositories") ?? "[]";
-    if (ls) set_projects_repositories(JSON.parse(ls) as IProjectRepository[]);
+    ls = localStorage.getItem("projects_monitoring") ?? "[]";
+    if (ls) set_project_monitoring(JSON.parse(ls) as IProjectMonitoring[]);
     ls = localStorage.getItem("projects_gmuds") ?? "[]";
     if (ls) set_projects_gmuds(JSON.parse(ls) as IProjectGmud[]);
   };
@@ -55,6 +61,7 @@ const useProject = () => {
     projects,
     limparDados,
     getGmuds,
+    getMonitoring,
     getAsMarkdown,
     handleLoadFile,
   };
