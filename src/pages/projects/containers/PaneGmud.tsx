@@ -12,6 +12,7 @@ const PaneGmud = ({ gmuds }: IProps) => {
         <tr>
           <th>Número</th>
           <th>História</th>
+          <th>Versão</th>
           <th>Data</th>
           <th>Hora</th>
           <th>Status</th>
@@ -27,6 +28,7 @@ const PaneGmud = ({ gmuds }: IProps) => {
               </a>
             </td>
             <td>{gmud.story}</td>
+            <td>{gmud.version}</td>
             <td>{gmud.date}</td>
             <td>{gmud.time}</td>
             <td>

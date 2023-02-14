@@ -8,6 +8,7 @@ export interface IProjectGmud {
   link?: string;
   status?: TGmudStatus;
   description?: string;
+  version?: string;
 
   projectId?: string;
   repositoryId?: string;
