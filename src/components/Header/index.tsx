@@ -26,29 +26,32 @@ const Header = ({
   } = useHeader({ onGroupByClick, onFilterAssigneeClick });
 
   return (
-    <section className="text-center mt-2 mb-4">
-      <div>
-        <div className="d-inline-flex align-items-center me-5">
-          <small>
+    <>
+      <div className="bg-seconary shadow-sm">
+        <nav className="nav p-1 d-flex justify-content-center align-items-center">
+          <small className="text-dark">
             <strong>{sprintName}</strong>
           </small>
-        </div>
-
-        <StoryPoint storyPoints={storyPoints} />
-
-
-        <HeaderGroupBy
-          onGroupByClick={handleGroupByClick}
-          groupSelected={group_selected}
-        />
+          <span className="ps-5"></span>
+          <StoryPoint storyPoints={storyPoints} />
+          <span className="ps-5"></span>
+          <HeaderGroupBy
+            onGroupByClick={handleGroupByClick}
+            groupSelected={group_selected}
+          />
+        </nav>
       </div>
 
-      <HeaderFilterBy
-        assignees={assignees}
-        assigneeSelected={assignee_selected}
-        onFilterAssigneeClick={handleFilterAssigneeClick}
-      />
-    </section>
+      <div className="bg-body shadow-sm p-1 ps-0 mb-4">
+        <nav className="nav p-1 ps-3 d-flex justify-content-center align-items-center">
+          <HeaderFilterBy
+            assignees={assignees}
+            assigneeSelected={assignee_selected}
+            onFilterAssigneeClick={handleFilterAssigneeClick}
+          />
+        </nav>
+      </div>
+    </>
   );
 };
 

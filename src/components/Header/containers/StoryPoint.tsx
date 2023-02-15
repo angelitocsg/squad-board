@@ -4,9 +4,9 @@ interface IProps {
 
 const StoryPoint = ({ storyPoints }: IProps) => (
   <div className="d-inline-flex">
-    <small className="me-2">
+    <small>
       Story Points:
-      <span className=" rounded-circle ms-1 px-1 bg-danger text-light opacity">
+      <span className="rounded-circle ms-1 px-1 bg-danger text-light opacity">
         <strong>{storyPoints}</strong>
       </span>
     </small>

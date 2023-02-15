@@ -11,6 +11,7 @@ const useHeader = ({ onGroupByClick, onFilterAssigneeClick }: IProps) => {
 
   const handleGroupByClick = (group: number) => {
     set_group_selected(group);
+    set_assignee_selected("");
     if (onGroupByClick) onGroupByClick(group);
   };
 

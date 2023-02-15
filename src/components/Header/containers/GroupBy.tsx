@@ -4,8 +4,8 @@ interface IProps {
 }
 
 const HeaderGroupBy = ({ groupSelected, onGroupByClick }: IProps) => (
-  <div className="ps-5 d-inline-flex align-items-center">
-    <small className="me-2">Agrupar por:</small>
+  <div className="d-inline-flex align-items-center">
+    <small className="me-1">Agrupar por:</small>
     <div>
       <button
         type="button"
