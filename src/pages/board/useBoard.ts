@@ -67,6 +67,14 @@ const useBoard = () => {
     }, 500);
   };
 
+  const getStatus = (): IStatus[] => {
+    return bd_status.map((st) => ({
+      id: st.id,
+      status: st.status,
+      count: show_by?.filter((f) => f.status === st.status)?.length ?? 0,
+    }));
+  };
+
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,6 +103,7 @@ const useBoard = () => {
     handleGroupBy,
     handleFilterAssignee,
     handleFileUpload,
+    getStatus,
   };
 };
 

@@ -19,6 +19,7 @@ const BoardPage = () => {
     handleGroupBy,
     handleFilterAssignee,
     handleFileUpload,
+    getStatus,
   } = useBoard();
 
   return show_by.length === 0 ? (
@@ -43,7 +44,7 @@ const BoardPage = () => {
       />
 
       <section className="flex-column d-inline-block w-100">
-        <BoardColumnStatus statusList={bd_status} />
+        <BoardColumnStatus statusList={getStatus()} />
 
         {show_by.map((item) => {
           return (

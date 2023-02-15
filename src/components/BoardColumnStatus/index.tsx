@@ -3,6 +3,7 @@ import { COLUMN_WIDTH } from "../BoardColumn";
 export interface IStatus {
   id: string;
   status: string;
+  count: number;
 }
 
 interface IProps {
@@ -19,8 +20,11 @@ const BoardColumnStatus = ({ statusList }: IProps) => {
           style={{ minWidth: COLUMN_WIDTH, width: "100%" }}
         >
           <div className="px-2">
-            <div className="border rounded bg-dark opacity text-light h6 py-2 shadow-sm">
-              {status.status}
+            <div className="border rounded text-bg-dark opacity h6 py-2 shadow-sm d-flex justify-content-center">
+              <span>{status.status}</span>
+              <span className="ms-2 badge rounded-pill text-bg-light">
+                {status.count}
+              </span>
             </div>
           </div>
         </div>

@@ -51,40 +51,44 @@ const NotificationsPage = () => {
           </div>
         </div>
       </div>
-      <h2 className="h5 mt-4 mb-3">Conteúdo atual</h2>
-      <table className="table table-hover table-sm">
-        <thead className="table-dark">
-          <tr>
-            <th>Chave</th>
-            <th>Valor</th>
-          </tr>
-        </thead>
-        <tbody className="table-light">
-          {Object.keys(valid_data)
-            .filter((f) => f !== "messages")
-            .map((k) => (
-              <tr key={k}>
-                <td>{k}</td>
-                <td>
-                  <input
-                    type="text"
-                    className="form-control form-control-sm"
-                    id={k}
-                    name={k}
-                    value={
-                      typeof valid_data[k] === "string"
-                        ? valid_data[k]
-                        : JSON.stringify(valid_data[k])
-                    }
-                    onChange={(e) =>
-                      updateInputValue(e.target.name, e.target.value)
-                    }
-                  />
-                </td>
+      {Object.keys(valid_data).filter((f) => f !== "messages").length > 0 && (
+        <>
+          <h2 className="h5 mt-4 mb-3">Conteúdo atual</h2>
+          <table className="table table-hover table-sm">
+            <thead className="table-dark">
+              <tr>
+                <th>Chave</th>
+                <th>Valor</th>
               </tr>
-            ))}
-        </tbody>
-      </table>
+            </thead>
+            <tbody className="table-light">
+              {Object.keys(valid_data)
+                .filter((f) => f !== "messages")
+                .map((k) => (
+                  <tr key={k}>
+                    <td>{k}</td>
+                    <td>
+                      <input
+                        type="text"
+                        className="form-control form-control-sm"
+                        id={k}
+                        name={k}
+                        value={
+                          typeof valid_data[k] === "string"
+                            ? valid_data[k]
+                            : JSON.stringify(valid_data[k])
+                        }
+                        onChange={(e) =>
+                          updateInputValue(e.target.name, e.target.value)
+                        }
+                      />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </>
+      )}
       <h2 className="h5 mt-5 mb-3">Notificações registradas</h2>
       <table className="table table-hover table-sm">
         <thead className="table-dark">
