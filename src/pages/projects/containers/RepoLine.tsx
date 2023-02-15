@@ -9,13 +9,14 @@ const ProjectRepoLine = ({ repository }: IProps) => {
   return (
     <tr key={repository.id}>
       <td>{repository.type}</td>
+      <td>{repository.sigla_app}</td>
       <td>
         <a
           href={`http://github.com/${repository.id}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {repository.id.replace("itau-corp/", "")}
+          {repository.id.split("/")[1]}
         </a>
       </td>
       <td>{repository.deploy_sequence}</td>

@@ -11,6 +11,7 @@ const PaneRepositories = ({ repositories }: IProps) => {
       <thead className="table-secondary">
         <tr>
           <th>Tipo</th>
+          <th>Sigla App</th>
           <th>Repositório</th>
           <th>Sequência</th>
           <th>Develop</th>

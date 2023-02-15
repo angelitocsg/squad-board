@@ -6,6 +6,7 @@ export interface IProjectRepository {
   type: string;
   deploy_sequence: string;
   blocks?: string;
+  sigla_app?: string;
   environments: {
     develop: IProjectEnvironments;
     homolog: IProjectEnvironments;

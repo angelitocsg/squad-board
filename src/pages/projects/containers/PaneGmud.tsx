@@ -36,7 +36,7 @@ const PaneGmud = ({ gmuds }: IProps) => {
                 {gmud.status}
               </span>
             </td>
-            <td>{gmud.repositoryId}</td>
+            <td>{gmud.repositoryId?.split("/")[1]}</td>
           </tr>
         ))}
       </tbody>

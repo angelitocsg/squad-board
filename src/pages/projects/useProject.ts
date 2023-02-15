@@ -4,6 +4,7 @@ import showdown from "showdown";
 import { IProjectGmud } from "../../models/IProjectGmud";
 import { IProjectMonitoring } from "../../models/IProjectMonitoring";
 import { IProject } from "../../models/IProjects";
+import { ISummaryIndicators } from "../../models/ISummaryIndicators";
 import { ImportService } from "../../services/ImportService";
 
 const useProject = () => {
@@ -12,6 +13,8 @@ const useProject = () => {
     []
   );
   const [gmuds, set_projects_gmuds] = useState<IProjectGmud[]>([]);
+  const [summary_indicators, set_summary_indicators] =
+    useState<ISummaryIndicators>({});
 
   const handleLoadFile = (data: string) => {
     ImportService.ImportProjectsJson(data);
@@ -43,6 +46,8 @@ const useProject = () => {
     if (ls) set_project_monitoring(JSON.parse(ls) as IProjectMonitoring[]);
     ls = localStorage.getItem("projects_gmuds") ?? "[]";
     if (ls) set_projects_gmuds(JSON.parse(ls) as IProjectGmud[]);
+    ls = localStorage.getItem("projects_summary_indicators") ?? "{}";
+    if (ls) set_summary_indicators(JSON.parse(ls) as ISummaryIndicators);
   };
 
   const limparDados = () => {
@@ -59,6 +64,7 @@ const useProject = () => {
 
   return {
     projects,
+    summary_indicators,
     limparDados,
     getGmuds,
     getMonitoring,

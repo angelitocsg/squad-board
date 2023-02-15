@@ -9,6 +9,8 @@ const getBadgeClass = (status?: TGmudStatus) => {
       ? "text-bg-success"
       : status === "FALHA" || status === "EM APROVAÇÃO"
       ? "text-bg-danger"
+      : status === "EM REVISÃO"
+      ? "text-bg-info"
       : "text-bg-secondary";
   return `${basecss} ${statuscss}`;
 };

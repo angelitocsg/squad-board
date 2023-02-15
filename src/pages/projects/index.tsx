@@ -1,3 +1,5 @@
+import parse from "html-react-parser";
+
 import DropFile from "../../components/DropFile";
 import {
   Tab,
@@ -6,13 +8,15 @@ import {
   TabGroup,
 } from "../../components/Tab";
 import PaneGmud from "./containers/PaneGmud";
-import PaneRepositories from "./containers/PaneRepositories";
-import useProject from "./useProject";
-import parse from "html-react-parser";
 import PaneMonitoring from "./containers/PaneMonitoring";
+import PaneRepositories from "./containers/PaneRepositories";
+import SummaryIndicators from "./containers/SummaryIndicators";
+import useProject from "./useProject";
+
 const Projects = () => {
   const {
     projects,
+    summary_indicators,
     limparDados,
     getGmuds,
     getMonitoring,
@@ -33,6 +37,8 @@ const Projects = () => {
       >
         Limpar dados
       </button>
+
+      <SummaryIndicators indicators={summary_indicators} />
 
       {projects.map((project) => (
         <section key={project.id} className="mb-5">
