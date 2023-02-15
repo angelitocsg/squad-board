@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { IStatus } from "../../components/BoardColumnStatus";
 import { BoardIssues } from "../../interfaces/BoardIssues";
+import { ImportService } from "../../services/ImportService";
 
 const useBoard = () => {
   const [story_points, set_story_points] = useState(0);
@@ -59,6 +60,13 @@ const useBoard = () => {
     );
   };
 
+  const handleFileUpload = (data: string) => {
+    ImportService.ImportCSV(data);
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
+
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,6 +94,7 @@ const useBoard = () => {
     loadData,
     handleGroupBy,
     handleFilterAssignee,
+    handleFileUpload,
   };
 };
 

@@ -1,8 +1,11 @@
 import BoardCard from "../../components/BoardCard";
 import BoardColumn from "../../components/BoardColumn";
 import BoardColumnStatus from "../../components/BoardColumnStatus";
+import ClearCacheButton from "../../components/ClearCacheButton";
+import DropFile from "../../components/DropFile";
 import Header from "../../components/Header";
 import ImportBoardModal from "../../components/ImportBoardModal";
+import NoContentPage from "../noContent";
 import BoardCards from "./containers/Cards";
 import useBoard from "./useBoard";
 
@@ -15,10 +18,22 @@ const BoardPage = () => {
     show_by,
     handleGroupBy,
     handleFilterAssignee,
+    handleFileUpload,
   } = useBoard();
 
-  return (
+  return show_by.length === 0 ? (
+    <>
+      <DropFile encoding="UTF-8" onLoadFile={handleFileUpload} />
+      <NoContentPage title="Painel Tarefas" />
+      <ClearCacheButton />
+      <ImportBoardModal onUploadClick={handleFileUpload} />
+    </>
+  ) : (
     <main id="main" className="container-fluid p-0">
+      <DropFile encoding="iso-8859-1" onLoadFile={handleFileUpload} />
+      <ClearCacheButton />
+      <ImportBoardModal onUploadClick={handleFileUpload} />
+
       <Header
         sprintName={bd_sprint_name}
         storyPoints={story_points}
@@ -107,8 +122,6 @@ const BoardPage = () => {
             </div>
           )}
       </section>
-
-      <ImportBoardModal />
     </main>
   );
 };

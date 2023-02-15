@@ -1,7 +1,5 @@
 import useNotifications from "./useNotifications";
 
-interface IProps {}
-
 const NotificationsPage = () => {
   const {
     messages,

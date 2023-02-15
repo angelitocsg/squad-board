@@ -9,7 +9,7 @@ import {
   ISummaryIndicators,
   ISummaryIndicatorsGmuds,
 } from "../models/ISummaryIndicators";
-import { GmudStatusOrder } from "../types/TGmudStatus";
+import { GmudStatus, GmudStatusOrder } from "../types/TGmudStatus";
 
 export const SEM_ALOCACAO = "[SEM ALOCAÇÃO]";
 
@@ -56,7 +56,9 @@ export class ImportService {
     });
 
     const gmudsByStatusAndDate = gmudsData.map((gm) => ({
-      order: GmudStatusOrder.indexOf(gm.status ?? "PENDENTE").toString(),
+      order: GmudStatusOrder.indexOf(
+        gm.status ?? GmudStatus.PENDENTE
+      ).toString(),
       status: gm.status,
       date: gm.date,
     }));
