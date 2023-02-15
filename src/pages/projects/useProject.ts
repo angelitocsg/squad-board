@@ -50,13 +50,6 @@ const useProject = () => {
     if (ls) set_summary_indicators(JSON.parse(ls) as ISummaryIndicators);
   };
 
-  const limparDados = () => {
-    localStorage.clear();
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  };
-
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,7 +58,6 @@ const useProject = () => {
   return {
     projects,
     summary_indicators,
-    limparDados,
     getGmuds,
     getMonitoring,
     getAsMarkdown,

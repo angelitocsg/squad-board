@@ -1,10 +1,24 @@
 import { ISummaryIndicators } from "../../../models/ISummaryIndicators";
+import { GmudStatus } from "../../../types/TGmudStatus";
 
 interface IProps {
   indicators?: ISummaryIndicators;
 }
 
 const SummaryIndicators = ({ indicators }: IProps) => {
+  const resolveStatusBg = (status?: GmudStatus) => {
+    const defClass = "card-body bg-opacity-75";
+    return status === GmudStatus.PENDENTE
+      ? `${defClass} bg-warning`
+      : status === GmudStatus.FALHA
+      ? `${defClass} bg-danger`
+      : status === GmudStatus.EM_REVISAO
+      ? `${defClass} bg-info`
+      : status === GmudStatus.PUBLICADA
+      ? `${defClass} bg-success`
+      : `${defClass} bg-secondary`;
+  };
+
   return (
     <div>
       <h1 className="h4">GMUDs</h1>
@@ -13,7 +27,7 @@ const SummaryIndicators = ({ indicators }: IProps) => {
           <div key={g.status} className="col">
             <div className="card mb-4 shadow-sm">
               <div className="card-header text-bg-dark">{g.status}&nbsp;</div>
-              <div className="card-body text-bg-secondary">
+              <div className={resolveStatusBg(g.status)}>
                 <span className="h1">{g.count}</span>
               </div>
             </div>

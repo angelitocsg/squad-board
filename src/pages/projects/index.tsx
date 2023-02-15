@@ -1,12 +1,15 @@
 import parse from "html-react-parser";
+import ClearCacheButton from "../../components/ClearCacheButton";
 
 import DropFile from "../../components/DropFile";
+import ImportBoardModal from "../../components/ImportBoardModal";
 import {
   Tab,
   TabContent,
   TabContentGroup,
   TabGroup,
 } from "../../components/Tab";
+import NoContentPage from "../noContent";
 import PaneGmud from "./containers/PaneGmud";
 import PaneMonitoring from "./containers/PaneMonitoring";
 import PaneRepositories from "./containers/PaneRepositories";
@@ -17,7 +20,6 @@ const Projects = () => {
   const {
     projects,
     summary_indicators,
-    limparDados,
     getGmuds,
     getMonitoring,
     getAsMarkdown,
@@ -25,18 +27,18 @@ const Projects = () => {
   } = useProject();
 
   return projects.length === 0 ? (
-    <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
+    <>
+      <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
+      <NoContentPage title="Aplicações" />
+      <ClearCacheButton />
+      <ImportBoardModal onUploadClick={handleLoadFile} />
+    </>
   ) : (
     <div className="container-fluid pt-3 pb-2">
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
 
-      <button
-        type="button"
-        className="btn btn-sm btn-link"
-        onClick={limparDados}
-      >
-        Limpar dados
-      </button>
+      <ClearCacheButton />
+      <ImportBoardModal onUploadClick={handleLoadFile} />
 
       <SummaryIndicators indicators={summary_indicators} />
 
