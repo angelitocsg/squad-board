@@ -8,6 +8,7 @@ const ImportButton = () => {
         right: 15,
         width: 50,
         height: 50,
+        zIndex: 999,
       }}
       title="Importar conteúdo"
       data-bs-toggle="modal"

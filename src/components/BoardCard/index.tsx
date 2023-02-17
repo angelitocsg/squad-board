@@ -36,7 +36,14 @@ const BoardCard = ({
   ...props
 }: IProps) => {
   const { expanded, featureColor, parentDescription, handleClick } =
-    useBoardCard({ status, story_points, type, parent_description, onClick });
+    useBoardCard({
+      status,
+      story_points,
+      type,
+      parent_id,
+      parent_description,
+      onClick,
+    });
 
   if (hidden) return <></>;
 

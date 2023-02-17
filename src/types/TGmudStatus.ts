@@ -1,34 +1,34 @@
 export enum GmudStatus {
+  CANCELADA = "CANCELADA",
+  FALHA = "FALHA",
   PENDENTE = "PENDENTE",
   PREENCHIDA = "PREENCHIDA",
   EM_APROVACAO = "EM APROVAÇÃO",
   APROVADA = "APROVADA",
-  CANCELADA = "CANCELADA",
   AGENDADA = "AGENDADA",
-  FALHA = "FALHA",
   EM_REVISAO = "EM REVISÃO",
   PUBLICADA = "PUBLICADA",
 }
 
 export type TGmudStatus =
+  | GmudStatus.CANCELADA
+  | GmudStatus.FALHA
   | GmudStatus.PENDENTE
   | GmudStatus.PREENCHIDA
   | GmudStatus.EM_APROVACAO
   | GmudStatus.APROVADA
-  | GmudStatus.CANCELADA
   | GmudStatus.AGENDADA
-  | GmudStatus.FALHA
   | GmudStatus.EM_REVISAO
   | GmudStatus.PUBLICADA;
 
 export const GmudStatusOrder = [
+  GmudStatus.CANCELADA,
+  GmudStatus.FALHA,
   GmudStatus.PENDENTE,
   GmudStatus.PREENCHIDA,
   GmudStatus.EM_APROVACAO,
   GmudStatus.APROVADA,
-  GmudStatus.CANCELADA,
   GmudStatus.AGENDADA,
-  GmudStatus.FALHA,
   GmudStatus.EM_REVISAO,
   GmudStatus.PUBLICADA,
 ];

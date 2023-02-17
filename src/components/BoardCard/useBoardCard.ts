@@ -5,6 +5,7 @@ interface IProps {
   status?: string;
   story_points?: number;
   type?: string;
+  parent_id?: string;
   parent_description?: string;
   onClick?: (expanded: boolean) => void;
 }
@@ -13,6 +14,7 @@ const useBoardCard = ({
   status,
   story_points,
   type,
+  parent_id,
   parent_description,
   onClick,
 }: IProps) => {
@@ -25,6 +27,7 @@ const useBoardCard = ({
   };
 
   type = type?.toLocaleLowerCase() as TFeatureType;
+  type = parent_id?.startsWith("BUG") ? "sub-bug" : type;
 
   const featureColor =
     type === "task" || type === "sub-task"

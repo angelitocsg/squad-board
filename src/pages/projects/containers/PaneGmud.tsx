@@ -36,7 +36,15 @@ const PaneGmud = ({ gmuds }: IProps) => {
                 {gmud.status}
               </span>
             </td>
-            <td>{gmud.repositoryId?.split("/")[1]}</td>
+            <td>
+              <a
+                href={`http://github.com/${gmud.repositoryId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {gmud.repositoryId?.split("/")[1]}
+              </a>
+            </td>
           </tr>
         ))}
       </tbody>

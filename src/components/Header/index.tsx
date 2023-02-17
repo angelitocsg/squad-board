@@ -6,6 +6,7 @@ import useHeader from "./useHeader";
 interface IProps {
   sprintName: string;
   storyPoints: number;
+  totalTasks: number;
   assignees?: string[];
   onGroupByClick: (opt: number) => void;
   onFilterAssigneeClick: (assignee: string) => void;
@@ -14,6 +15,7 @@ interface IProps {
 const Header = ({
   sprintName,
   storyPoints,
+  totalTasks,
   assignees,
   onGroupByClick,
   onFilterAssigneeClick,
@@ -33,7 +35,9 @@ const Header = ({
             <strong>{sprintName}</strong>
           </small>
           <span className="ps-5"></span>
-          <StoryPoint storyPoints={storyPoints} />
+          <StoryPoint storyPoints={storyPoints} label="Story Points" />
+          <span className="ps-5"></span>
+          <StoryPoint storyPoints={totalTasks} label="Tarefas" />
           <span className="ps-5"></span>
           <HeaderGroupBy
             onGroupByClick={handleGroupByClick}

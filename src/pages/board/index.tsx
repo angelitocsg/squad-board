@@ -20,6 +20,7 @@ const BoardPage = () => {
     handleFilterAssignee,
     handleFileUpload,
     getStatus,
+    getTotalTasks,
   } = useBoard();
 
   return show_by.length === 0 ? (
@@ -38,6 +39,7 @@ const BoardPage = () => {
       <Header
         sprintName={bd_sprint_name}
         storyPoints={story_points}
+        totalTasks={getTotalTasks()}
         assignees={bd_assignees.map((it) => it.assignee)}
         onGroupByClick={handleGroupBy}
         onFilterAssigneeClick={handleFilterAssignee}

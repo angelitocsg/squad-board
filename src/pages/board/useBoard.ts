@@ -67,13 +67,27 @@ const useBoard = () => {
     }, 500);
   };
 
+  const countStatus = (status: string) => {
+    return show_by.reduce((p, c) => {
+      const count1: number = c.status === status ? 1 : 0;
+      const count2 =
+        c.issues?.reduce(
+          (pp, cc) => (cc.status === status ? (pp = pp + 1) : pp),
+          0
+        ) ?? 0;
+      return p + count1 + count2;
+    }, 0);
+  };
+
   const getStatus = (): IStatus[] => {
     return bd_status.map((st) => ({
       id: st.id,
       status: st.status,
-      count: show_by?.filter((f) => f.status === st.status)?.length ?? 0,
+      count: countStatus(st.status), // show_by?.filter((f) => f.status === st.status)?.length ?? 0,
     }));
   };
+
+  const getTotalTasks = () => getStatus().reduce((p, c) => p + c.count, 0);
 
   useEffect(() => {
     loadData();
@@ -104,6 +118,7 @@ const useBoard = () => {
     handleFilterAssignee,
     handleFileUpload,
     getStatus,
+    getTotalTasks,
   };
 };
 
