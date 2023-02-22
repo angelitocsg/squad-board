@@ -5,6 +5,7 @@ import { BoardIssues } from "../../interfaces/BoardIssues";
 import { ImportService } from "../../services/ImportService";
 
 const useBoard = () => {
+  const [assignee_selected, set_assignee_selected] = useState("");
   const [story_points, set_story_points] = useState(0);
   const [bd_status, set_bd_status] = useState<IStatus[]>([]);
   const [bd_sprint_name, set_bd_sprint_name] = useState("Sprint");
@@ -31,6 +32,7 @@ const useBoard = () => {
   };
 
   const handleGroupBy = (opt: number) => {
+    set_assignee_selected("");
     switch (opt) {
       case 2:
         set_show_by(bd_story_task_bug);
@@ -44,6 +46,14 @@ const useBoard = () => {
   };
 
   const handleFilterAssignee = (assignee: string) => {
+    if (assignee_selected === assignee) {
+      set_assignee_selected("");
+      set_show_by(JSON.parse(JSON.stringify(last_show_by)));
+      return;
+    }
+    
+    set_assignee_selected(assignee);
+
     const last_show_by_copy: BoardIssues[] = JSON.parse(
       JSON.stringify(last_show_by)
     );
@@ -107,6 +117,7 @@ const useBoard = () => {
   }, [bd_story_task_bug]);
 
   return {
+    assignee_selected,
     story_points,
     bd_sprint_name,
     bd_squad_name,

@@ -11,6 +11,7 @@ import useBoard from "./useBoard";
 
 const BoardPage = () => {
   const {
+    assignee_selected,
     story_points,
     bd_sprint_name,
     bd_status,
@@ -37,6 +38,7 @@ const BoardPage = () => {
       <ImportBoardModal onUploadClick={handleFileUpload} />
 
       <Header
+        assigneeSelected={assignee_selected}
         sprintName={bd_sprint_name}
         storyPoints={story_points}
         totalTasks={getTotalTasks()}

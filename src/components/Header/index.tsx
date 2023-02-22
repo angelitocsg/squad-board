@@ -4,6 +4,7 @@ import StoryPoint from "./containers/StoryPoint";
 import useHeader from "./useHeader";
 
 interface IProps {
+  assigneeSelected: string;
   sprintName: string;
   storyPoints: number;
   totalTasks: number;
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 const Header = ({
+  assigneeSelected,
   sprintName,
   storyPoints,
   totalTasks,
@@ -22,7 +24,6 @@ const Header = ({
 }: IProps) => {
   const {
     group_selected,
-    assignee_selected,
     handleGroupByClick,
     handleFilterAssigneeClick,
   } = useHeader({ onGroupByClick, onFilterAssigneeClick });
@@ -50,7 +51,7 @@ const Header = ({
         <nav className="nav p-1 ps-3 d-flex justify-content-center align-items-center">
           <HeaderFilterBy
             assignees={assignees}
-            assigneeSelected={assignee_selected}
+            assigneeSelected={assigneeSelected}
             onFilterAssigneeClick={handleFilterAssigneeClick}
           />
         </nav>
