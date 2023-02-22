@@ -6,6 +6,7 @@ import { ImportService } from "../../services/ImportService";
 
 const useBoard = () => {
   const [assignee_selected, set_assignee_selected] = useState("");
+  const [status_selected, set_status_selected] = useState("");
   const [story_points, set_story_points] = useState(0);
   const [bd_status, set_bd_status] = useState<IStatus[]>([]);
   const [bd_sprint_name, set_bd_sprint_name] = useState("Sprint");
@@ -45,29 +46,72 @@ const useBoard = () => {
     }
   };
 
-  const handleFilterAssignee = (assignee: string) => {
-    if (assignee_selected === assignee) {
-      set_assignee_selected("");
-      set_show_by(JSON.parse(JSON.stringify(last_show_by)));
-      return;
-    }
-    
-    set_assignee_selected(assignee);
-
+  const _getLastShowByAssignee = () => {
+    set_status_selected("");
     const last_show_by_copy: BoardIssues[] = JSON.parse(
       JSON.stringify(last_show_by)
     );
-    set_show_by(
-      last_show_by_copy.filter((f) => {
-        const filtered = f.issues?.filter((s) => s.assignee === assignee);
+    return last_show_by_copy;
+  };
 
-        if (f.assignee === assignee || (filtered?.length ?? 0) > 0) {
-          f.issues = filtered;
-          return true;
-        }
-        return false;
-      })
-    );
+  const handleFilterAssignee = (assignee: string, composition?: boolean) => {
+    if (assignee_selected === assignee && !composition) {
+      set_assignee_selected("");
+      set_show_by(_getLastShowByAssignee());
+      return last_show_by;
+    }
+
+    set_assignee_selected(assignee);
+
+    const filterByAssignee = _getLastShowByAssignee().filter((f) => {
+      const filtered = f.issues?.filter((s) => s.assignee === assignee);
+
+      if (f.assignee === assignee || (filtered?.length ?? 0) > 0) {
+        f.issues = filtered;
+        return true;
+      }
+      return false;
+    });
+
+    set_show_by(filterByAssignee);
+    return filterByAssignee;
+  };
+
+  const _getLastShowByStatus = () => {
+    let last_show_by_copy: BoardIssues[];
+
+    if (assignee_selected) {
+      last_show_by_copy = handleFilterAssignee(assignee_selected, true);
+    } else {
+      last_show_by_copy = JSON.parse(JSON.stringify(last_show_by));
+    }
+
+    return last_show_by_copy;
+  };
+
+  const handleFilterByStatus = (status: string, composition?: boolean) => {
+    const last_show_by_copy = _getLastShowByStatus();
+
+    if (status_selected === status && !composition) {
+      set_status_selected("");
+      set_show_by(last_show_by_copy);
+      return last_show_by;
+    }
+
+    set_status_selected(status);
+
+    const filterByStatus = last_show_by_copy.filter((f) => {
+      const filtered = f.issues?.filter((s) => s.status === status);
+
+      if (f.status === status || (filtered?.length ?? 0) > 0) {
+        f.issues = filtered;
+        return true;
+      }
+      return false;
+    });
+
+    set_show_by(filterByStatus);
+    return filterByStatus;
   };
 
   const handleFileUpload = (data: string) => {
@@ -118,6 +162,7 @@ const useBoard = () => {
 
   return {
     assignee_selected,
+    status_selected,
     story_points,
     bd_sprint_name,
     bd_squad_name,
@@ -127,6 +172,7 @@ const useBoard = () => {
     loadData,
     handleGroupBy,
     handleFilterAssignee,
+    handleFilterByStatus,
     handleFileUpload,
     getStatus,
     getTotalTasks,

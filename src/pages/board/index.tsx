@@ -12,6 +12,7 @@ import useBoard from "./useBoard";
 const BoardPage = () => {
   const {
     assignee_selected,
+    status_selected,
     story_points,
     bd_sprint_name,
     bd_status,
@@ -19,6 +20,7 @@ const BoardPage = () => {
     show_by,
     handleGroupBy,
     handleFilterAssignee,
+    handleFilterByStatus,
     handleFileUpload,
     getStatus,
     getTotalTasks,
@@ -48,7 +50,11 @@ const BoardPage = () => {
       />
 
       <section className="flex-column d-inline-block w-100">
-        <BoardColumnStatus statusList={getStatus()} />
+        <BoardColumnStatus
+          statusSelected={status_selected}
+          statusList={getStatus()}
+          onStatusClick={handleFilterByStatus}
+        />
 
         {show_by.map((item) => {
           return (

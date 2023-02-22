@@ -7,10 +7,28 @@ export interface IStatus {
 }
 
 interface IProps {
+  statusSelected: string;
   statusList: IStatus[];
+  onStatusClick: (status: string) => void;
 }
 
-const BoardColumnStatus = ({ statusList }: IProps) => {
+const BoardColumnStatus = ({
+  statusSelected,
+  statusList,
+  onStatusClick,
+}: IProps) => {
+  const handleStatusClick = (status: string) => {
+    onStatusClick && onStatusClick(status);
+  };
+
+  const getClassName = (status: string) => {
+    const cssDefault =
+      "border rounded opacity h6 py-2 shadow-sm d-flex justify-content-center";
+    return statusSelected === status
+      ? `${cssDefault} text-bg-warning`
+      : `${cssDefault} text-bg-dark`;
+  };
+
   return (
     <div className="col-status d-flex text-center">
       {statusList.map((status) => (
@@ -20,7 +38,11 @@ const BoardColumnStatus = ({ statusList }: IProps) => {
           style={{ minWidth: COLUMN_WIDTH, width: "100%" }}
         >
           <div className="px-2">
-            <div className="border rounded text-bg-dark opacity h6 py-2 shadow-sm d-flex justify-content-center">
+            <div
+              role="button"
+              className={getClassName(status.status)}
+              onClick={() => handleStatusClick(status.status)}
+            >
               <span>{status.status}</span>
               <span className="ms-2 badge rounded-pill text-bg-light">
                 {status.count}
