@@ -1,6 +1,7 @@
 import Papa from "papaparse";
 
 import { BoardIssues } from "../interfaces/BoardIssues";
+import { IOverview } from "../models/IOverview";
 import { IProjectGmud } from "../models/IProjectGmud";
 import { IProjectMonitoring } from "../models/IProjectMonitoring";
 import { IProjectRepository } from "../models/IProjectRepository";
@@ -14,6 +15,14 @@ import { GmudStatus, GmudStatusOrder } from "../types/TGmudStatus";
 export const SEM_ALOCACAO = "[SEM ALOCAÇÃO]";
 
 export class ImportService {
+  static ImportOverviewJson(data: string) {
+    let overviewData = JSON.parse(data) as IOverview;
+    
+    // localStorage.setItem("overview_data", JSON.stringify(overviewData));
+    localStorage.setItem("overview_members", JSON.stringify(overviewData.members));
+    localStorage.setItem("overview_tasks", JSON.stringify(overviewData.tasks));   
+  }
+
   static ImportProjectsJson(data: string) {
     let projectsData = JSON.parse(data) as IProject[];
     if (projectsData.length === 0) return;

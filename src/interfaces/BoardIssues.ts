@@ -6,7 +6,7 @@ export interface BoardIssues {
   assignee: string;
   status?: string;
   description?: string;
-  priority?: "low" | "medium" | "high";
+  priority?: TPriority;
   sprint_name?: string;
   squad_name?: string;
   issues?: BoardIssues[];
@@ -22,4 +22,13 @@ export type TFeatureType =
   | "sub-bug"
   | "other";
 
-export type TPriority = "low" | "medium" | "high";
+export enum PriorityEnum {
+  LOW = "low",
+  MEDIUM = "medium",
+  HIGH = "high",
+}
+
+export type TPriority =
+  | PriorityEnum.LOW
+  | PriorityEnum.MEDIUM
+  | PriorityEnum.HIGH;

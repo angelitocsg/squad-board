@@ -16,7 +16,7 @@ import PaneRepositories from "./containers/PaneRepositories";
 import SummaryIndicators from "./containers/SummaryIndicators";
 import useProject from "./useProject";
 
-const Projects = () => {
+const ProjectsPage = () => {
   const {
     projects,
     summary_indicators,
@@ -86,4 +86,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default ProjectsPage;

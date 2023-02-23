@@ -1,13 +1,14 @@
-import BoardCard from "../../components/BoardCard";
-import BoardColumn from "../../components/BoardColumn";
-import BoardColumnStatus from "../../components/BoardColumnStatus";
-import ClearCacheButton from "../../components/ClearCacheButton";
-import DropFile from "../../components/DropFile";
-import Header from "../../components/Header";
-import ImportBoardModal from "../../components/ImportBoardModal";
-import NoContentPage from "../noContent";
-import BoardCards from "./containers/Cards";
-import useBoard from "./useBoard";
+import BoardCard from '../../components/BoardCard';
+import BoardColumn from '../../components/BoardColumn';
+import BoardColumnStatus from '../../components/BoardColumnStatus';
+import ClearCacheButton from '../../components/ClearCacheButton';
+import DropFile from '../../components/DropFile';
+import Header from '../../components/Header';
+import ImportBoardModal from '../../components/ImportBoardModal';
+import { PriorityEnum } from '../../interfaces/BoardIssues';
+import NoContentPage from '../noContent';
+import BoardCards from './containers/Cards';
+import useBoard from './useBoard';
 
 const BoardPage = () => {
   const {
@@ -65,7 +66,7 @@ const BoardPage = () => {
                   assignee={item.assignee}
                   id={item.id}
                   type={item.type}
-                  priority={item.priority ?? "medium"}
+                  priority={item.priority ?? PriorityEnum.MEDIUM}
                   status={item.status}
                   story_points={item.story_points}
                   group={(item.issues?.length ?? 0) > 0 ?? false}
@@ -100,7 +101,7 @@ const BoardPage = () => {
                   description="OUTROS ITENS"
                   id=""
                   type="other"
-                  priority="medium"
+                  priority={PriorityEnum.MEDIUM}
                   group={true}
                   data-bs-toggle="collapse"
                   data-bs-target={"#OTHERS"}

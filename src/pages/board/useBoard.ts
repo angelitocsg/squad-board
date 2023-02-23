@@ -163,8 +163,6 @@ const useBoard = () => {
       .map((x) => +(x.story_points?.toString() ?? "0"))
       .reduce((p, c) => p + c, 0);
 
-    console.log(bd_story_task_bug.filter((x) => x.status !== "ENCERRADO/ATIVADO/CANCELADO"));
-
     set_story_points({ total: points, ended: points_ended });
   }, [bd_story_task_bug]);
 

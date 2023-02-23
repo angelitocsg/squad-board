@@ -1,11 +1,12 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom';
 
-import BoardPage from "./pages/board";
-import Main from "./shared/Main";
-import Projects from "./pages/projects";
-import HomePage from "./pages/home";
-import NotificationsPage from "./pages/notifications";
-import ErrorPage from "./pages/error";
+import BoardPage from './pages/board';
+import ErrorPage from './pages/error';
+import HomePage from './pages/home';
+import NotificationsPage from './pages/notifications';
+import OverviewPage from './pages/overview';
+import ProjectsPage from './pages/projects';
+import Main from './shared/Main';
 
 const router = createBrowserRouter(
   [
@@ -24,7 +25,11 @@ const router = createBrowserRouter(
         },
         {
           path: "/projects",
-          element: <Projects />,
+          element: <ProjectsPage />,
+        },
+        {
+          path: "/overview",
+          element: <OverviewPage />,
         },
         {
           path: "/notifications",

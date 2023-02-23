@@ -1,6 +1,6 @@
-import BoardCard from "../../../components/BoardCard";
-import { IStatus } from "../../../components/BoardColumnStatus";
-import { BoardIssues } from "../../../interfaces/BoardIssues";
+import BoardCard from '../../../components/BoardCard';
+import { IStatus } from '../../../components/BoardColumnStatus';
+import { BoardIssues, PriorityEnum } from '../../../interfaces/BoardIssues';
 
 interface IProps {
   item: BoardIssues;
@@ -22,7 +22,7 @@ const BoardCards = ({ item, status }: IProps) => (
             story_points={subitem.story_points}
             parent_description={subitem.parent_description}
             type={subitem.type}
-            priority={subitem.priority ?? "medium"}
+            priority={subitem.priority ?? PriorityEnum.MEDIUM}
           />
         );
       })}

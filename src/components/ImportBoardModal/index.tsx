@@ -1,11 +1,18 @@
 import { useState } from "react";
+import ExportButton from "./ExportButton";
 import ImportButton from "./ImportButton";
 
 interface IProps {
+  showExport?: boolean;
   onUploadClick: (data: string) => void;
+  onDownloadClick?: (data: string) => void;
 }
 
-const ImportBoardModal = ({ onUploadClick }: IProps) => {
+const ImportBoardModal = ({
+  showExport,
+  onUploadClick,
+  onDownloadClick,
+}: IProps) => {
   const [data, setData] = useState("");
 
   const handleLoadData = () => {
@@ -13,9 +20,14 @@ const ImportBoardModal = ({ onUploadClick }: IProps) => {
     setData("");
   };
 
+  const handleExportData = () => {
+    onDownloadClick && onDownloadClick(data);
+  };
+
   return (
     <>
       <ImportButton />
+      {showExport && <ExportButton onClick={handleExportData}/>}
       <div
         className="modal fade"
         id="importBoard"
