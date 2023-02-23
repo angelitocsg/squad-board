@@ -7,7 +7,7 @@ import { ImportService } from "../../services/ImportService";
 const useBoard = () => {
   const [assignee_selected, set_assignee_selected] = useState("");
   const [status_selected, set_status_selected] = useState("");
-  const [story_points, set_story_points] = useState(0);
+  const [story_points, set_story_points] = useState({ total: 0, ended: 0 });
   const [bd_status, set_bd_status] = useState<IStatus[]>([]);
   const [bd_sprint_name, set_bd_sprint_name] = useState("Sprint");
   const [bd_squad_name, set_bd_squad_name] = useState("squad");
@@ -34,6 +34,7 @@ const useBoard = () => {
 
   const handleGroupBy = (opt: number) => {
     set_assignee_selected("");
+    set_status_selected("");
     switch (opt) {
       case 2:
         set_show_by(bd_story_task_bug);
@@ -154,10 +155,17 @@ const useBoard = () => {
     set_last_show_by(bd_story_task_bug);
 
     const points = bd_story_task_bug
-      .map((x) => +(x.story_points?.toString() ?? ""))
+      .map((x) => +(x.story_points?.toString() ?? "0"))
       .reduce((p, c) => p + c, 0);
 
-    set_story_points(points);
+    const points_ended = bd_story_task_bug
+      .filter((x) => x.status === "ENCERRADO/ATIVADO/CANCELADO")
+      .map((x) => +(x.story_points?.toString() ?? "0"))
+      .reduce((p, c) => p + c, 0);
+
+    console.log(bd_story_task_bug.filter((x) => x.status !== "ENCERRADO/ATIVADO/CANCELADO"));
+
+    set_story_points({ total: points, ended: points_ended });
   }, [bd_story_task_bug]);
 
   return {
