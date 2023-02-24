@@ -27,7 +27,7 @@ const ProjectRepoLine = ({ repository }: IProps) => {
             repository.environments.develop?.status
           )}
         >
-          {repository.environments.develop?.deploy_date}
+          {repository.environments.develop?.status}
         </span>
       </td>
       <td>
@@ -37,7 +37,7 @@ const ProjectRepoLine = ({ repository }: IProps) => {
             repository.environments.homolog?.status
           )}
         >
-          {repository.environments.homolog?.deploy_date}
+          {repository.environments.homolog?.status}
         </span>
       </td>
       <td>
@@ -47,7 +47,7 @@ const ProjectRepoLine = ({ repository }: IProps) => {
             repository.environments.production?.status
           )}
         >
-          {repository.environments.production?.deploy_date}
+          {repository.environments.production?.status}
         </span>
       </td>
       <td>

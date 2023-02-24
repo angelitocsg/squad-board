@@ -30,7 +30,6 @@ const OverviewPage = () => {
 
       <ClearCacheButton />
       <ImportBoardModal
-        showExport={true}
         onUploadClick={handleLoadFile}
         onDownloadClick={handleDownloadFile}
       />

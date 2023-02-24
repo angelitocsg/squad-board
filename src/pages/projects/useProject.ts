@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import showdown from "showdown";
+import ExportHelper from "../../helpers/export.helper";
 
 import { IProjectGmud } from "../../models/IProjectGmud";
 import { IProjectMonitoring } from "../../models/IProjectMonitoring";
@@ -21,6 +22,11 @@ const useProject = () => {
     setTimeout(() => {
       window.location.reload();
     }, 500);
+  };
+
+  const handleDownloadFile = () => {
+    const exportData = [...projects];
+    ExportHelper.jsonFile(exportData, "projects");
   };
 
   const getGmuds = (projectId?: string) =>
@@ -62,6 +68,7 @@ const useProject = () => {
     getMonitoring,
     getAsMarkdown,
     handleLoadFile,
+    handleDownloadFile,
   };
 };
 

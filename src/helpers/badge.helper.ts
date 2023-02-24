@@ -1,15 +1,19 @@
-import { TGmudStatus } from "../types/TGmudStatus";
+import { GmudStatus, TGmudStatus } from "../types/TGmudStatus";
 
 const getBadgeClass = (status?: TGmudStatus) => {
   const basecss = "badge opacity";
   const statuscss =
-    status === "AGENDADA" || status === "PENDENTE" || status === "PREENCHIDA"
+    status === GmudStatus.AGENDADA ||
+    status === GmudStatus.PENDENTE ||
+    status === GmudStatus.PREENCHIDA
       ? "text-bg-warning"
-      : status === "PUBLICADA"
+      : status === GmudStatus.PUBLICADA
       ? "text-bg-success"
-      : status === "FALHA" || status === "EM APROVAÇÃO"
+      : status === GmudStatus.FALHA ||
+        status === GmudStatus.EM_APROVACAO ||
+        status === GmudStatus.BUG
       ? "text-bg-danger"
-      : status === "EM REVISÃO"
+      : status === GmudStatus.EM_REVISAO
       ? "text-bg-info"
       : "text-bg-secondary";
   return `${basecss} ${statuscss}`;

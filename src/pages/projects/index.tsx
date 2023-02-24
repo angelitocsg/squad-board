@@ -24,6 +24,7 @@ const ProjectsPage = () => {
     getMonitoring,
     getAsMarkdown,
     handleLoadFile,
+    handleDownloadFile
   } = useProject();
 
   return projects.length === 0 ? (
@@ -38,7 +39,7 @@ const ProjectsPage = () => {
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
 
       <ClearCacheButton />
-      <ImportBoardModal onUploadClick={handleLoadFile} />
+      <ImportBoardModal onUploadClick={handleLoadFile} onDownloadClick={handleDownloadFile} />
 
       <SummaryIndicators indicators={summary_indicators} />
 

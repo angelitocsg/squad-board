@@ -1,5 +1,6 @@
 export enum GmudStatus {
   CANCELADA = "CANCELADA",
+  BUG = "BUG",
   FALHA = "FALHA",
   PENDENTE = "PENDENTE",
   PREENCHIDA = "PREENCHIDA",
@@ -12,6 +13,7 @@ export enum GmudStatus {
 
 export type TGmudStatus =
   | GmudStatus.CANCELADA
+  | GmudStatus.BUG
   | GmudStatus.FALHA
   | GmudStatus.PENDENTE
   | GmudStatus.PREENCHIDA
@@ -23,6 +25,7 @@ export type TGmudStatus =
 
 export const GmudStatusOrder = [
   GmudStatus.CANCELADA,
+  GmudStatus.BUG,
   GmudStatus.FALHA,
   GmudStatus.PENDENTE,
   GmudStatus.PREENCHIDA,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import showdown from "showdown";
 import { v4 as uuidv4 } from "uuid";
+import ExportHelper from "../../helpers/export.helper";
 
 import { PriorityEnum, TPriority } from "../../interfaces/BoardIssues";
 import {
@@ -32,14 +33,7 @@ const useOverview = () => {
       tasks: overview_tasks,
     };
 
-    const dataStr =
-      "data:text/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify(exportData));
-    const dlAnchorElem = document.createElement("a");
-    dlAnchorElem?.setAttribute("href", dataStr);
-    dlAnchorElem?.setAttribute("download", `overview_${Date.now()}.json`);
-    dlAnchorElem?.click();
-    dlAnchorElem?.remove();
+    ExportHelper.jsonFile(exportData, "overview");
   };
 
   const getAsMarkdown = (text?: string) => {

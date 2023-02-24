@@ -3,13 +3,11 @@ import ExportButton from "./ExportButton";
 import ImportButton from "./ImportButton";
 
 interface IProps {
-  showExport?: boolean;
   onUploadClick: (data: string) => void;
   onDownloadClick?: (data: string) => void;
 }
 
 const ImportBoardModal = ({
-  showExport,
   onUploadClick,
   onDownloadClick,
 }: IProps) => {
@@ -27,7 +25,7 @@ const ImportBoardModal = ({
   return (
     <>
       <ImportButton />
-      {showExport && <ExportButton onClick={handleExportData}/>}
+      {onDownloadClick && <ExportButton onClick={handleExportData}/>}
       <div
         className="modal fade"
         id="importBoard"
