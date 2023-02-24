@@ -1,11 +1,20 @@
-import { IProjectRepository } from "../../../models/IProjectRepository";
+import {
+  IProjectRepository,
+  TEnvironment,
+} from "../../../models/IProjectRepository";
 import ProjectRepoLine from "./RepoLine";
 
 interface IProps {
   repositories?: IProjectRepository[];
+  onChangeValue: (
+    repositoryId?: string,
+    name?: string,
+    value?: string,
+    environment?: TEnvironment
+  ) => void;
 }
 
-const PaneRepositories = ({ repositories }: IProps) => {
+const PaneRepositories = ({ repositories, onChangeValue }: IProps) => {
   return (
     <table className="table table-sm table-striped table-hover">
       <thead className="table-secondary">
@@ -22,7 +31,11 @@ const PaneRepositories = ({ repositories }: IProps) => {
       </thead>
       <tbody>
         {repositories?.map((repository) => (
-          <ProjectRepoLine key={repository.id} repository={repository} />
+          <ProjectRepoLine
+            key={repository.id}
+            repository={repository}
+            onChangeValue={onChangeValue}
+          />
         ))}
       </tbody>
     </table>

@@ -1,16 +1,11 @@
-import Papa from "papaparse";
+import Papa from 'papaparse';
 
-import { BoardIssues } from "../interfaces/BoardIssues";
-import { IOverview } from "../models/IOverview";
-import { IProjectGmud } from "../models/IProjectGmud";
-import { IProjectMonitoring } from "../models/IProjectMonitoring";
-import { IProjectRepository } from "../models/IProjectRepository";
-import { IProject } from "../models/IProjects";
-import {
-  ISummaryIndicators,
-  ISummaryIndicatorsGmuds,
-} from "../models/ISummaryIndicators";
-import { GmudStatus, GmudStatusOrder } from "../types/TGmudStatus";
+import { BoardIssues } from '../interfaces/BoardIssues';
+import { IOverview } from '../models/IOverview';
+import { IProjectGmud } from '../models/IProjectGmud';
+import { IProjectMonitoring } from '../models/IProjectMonitoring';
+import { IProjectRepository } from '../models/IProjectRepository';
+import { IProject } from '../models/IProjects';
 
 export const SEM_ALOCACAO = "[SEM ALOCAÇÃO]";
 
@@ -65,30 +60,6 @@ export class ImportService {
       });
     });
 
-    const gmudsByStatusAndDate = gmudsData.map((gm) => ({
-      order: GmudStatusOrder.indexOf(
-        gm.status ?? GmudStatus.PENDENTE
-      ).toString(),
-      status: gm.status,
-      date: gm.date,
-    }));
-    let a: ISummaryIndicatorsGmuds[] = [];
-
-    const gmudsSummary = gmudsByStatusAndDate.reduce((p, c) => {
-      if (p.find((f) => f.status === c.status)) {
-        p = p.map((m) =>
-          m.status === c.status ? { ...m, count: m.count + 1 } : m
-        );
-        return p;
-      }
-      p.push({ status: c.status, order: c.order, count: 1 });
-      return p;
-    }, a);
-
-    const indicators: ISummaryIndicators = {
-      gmuds: gmudsSummary.sort((a, b) => a.order.localeCompare(b.order)),
-    };
-
     localStorage.setItem("projects_config", JSON.stringify(config));
     localStorage.setItem("projects_data", JSON.stringify(projectsData));
     localStorage.setItem(
@@ -97,10 +68,6 @@ export class ImportService {
     );
     localStorage.setItem("projects_monitoring", JSON.stringify(monitoringData));
     localStorage.setItem("projects_gmuds", JSON.stringify(gmudsData));
-    localStorage.setItem(
-      "projects_summary_indicators",
-      JSON.stringify(indicators)
-    );
   }
 
   static ImportCSV(data: string) {

@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
 import showdown from "showdown";
-import ExportHelper from "../../helpers/export.helper";
 
+import ExportHelper from "../../helpers/export.helper";
 import { IProjectGmud } from "../../models/IProjectGmud";
 import { IProjectMonitoring } from "../../models/IProjectMonitoring";
+import {
+  IProjectRepository,
+  TEnvironment,
+} from "../../models/IProjectRepository";
 import { IProject } from "../../models/IProjects";
-import { ISummaryIndicators } from "../../models/ISummaryIndicators";
+import {
+  ISummaryIndicators,
+  ISummaryIndicatorsGmuds,
+} from "../../models/ISummaryIndicators";
 import { ImportService } from "../../services/ImportService";
+import { GmudStatus, GmudStatusOrder } from "../../types/TGmudStatus";
 
 const useProject = () => {
   const [projects, set_projects_data] = useState<IProject[]>([]);
+  const [projects_config, set_projects_config] = useState<IProject>({});
+  const [repositories, set_repositories_data] = useState<IProjectRepository[]>(
+    []
+  );
   const [monitoring, set_project_monitoring] = useState<IProjectMonitoring[]>(
     []
   );
@@ -25,9 +37,24 @@ const useProject = () => {
   };
 
   const handleDownloadFile = () => {
-    const exportData = [...projects];
+    const exportData: IProject[] = [
+      projects_config,
+      ...projects.map((proj) => {
+        proj.repositories = getRepositories(proj.id);
+        return proj;
+      }),
+    ];
     ExportHelper.jsonFile(exportData, "projects");
   };
+
+  const getProjects = () => {
+    return projects;
+  };
+
+  const getRepositories = (projectId?: string) =>
+    projectId && projectId !== ""
+      ? repositories.filter((r) => r.projectId === projectId)
+      : [];
 
   const getGmuds = (projectId?: string) =>
     projectId && projectId !== ""
@@ -48,13 +75,113 @@ const useProject = () => {
   const loadData = () => {
     let ls = localStorage.getItem("projects_data") ?? "[]";
     if (ls) set_projects_data(JSON.parse(ls) as IProject[]);
+
+    ls = localStorage.getItem("projects_config") ?? "{}";
+    if (ls) set_projects_config(JSON.parse(ls) as IProject);
+
+    ls = localStorage.getItem("projects_repositories") ?? "[]";
+    if (ls) set_repositories_data(JSON.parse(ls) as IProjectRepository[]);
+
     ls = localStorage.getItem("projects_monitoring") ?? "[]";
     if (ls) set_project_monitoring(JSON.parse(ls) as IProjectMonitoring[]);
+
     ls = localStorage.getItem("projects_gmuds") ?? "[]";
     if (ls) set_projects_gmuds(JSON.parse(ls) as IProjectGmud[]);
-    ls = localStorage.getItem("projects_summary_indicators") ?? "{}";
-    if (ls) set_summary_indicators(JSON.parse(ls) as ISummaryIndicators);
   };
+
+  const _findRepository = (repositoryId: string) =>
+    repositories?.find((f) => f.id === repositoryId);
+
+  const _findGmud = (number: string) => gmuds?.find((g) => g.number === number);
+
+  const _getRepositoriesUpdated = (repository: IProjectRepository) =>
+    repositories.map((r) => (r.id === repository.id ? repository : r));
+
+  const _getGmudsUpdated = (gmud: IProjectGmud) =>
+    gmuds.map((g) => (g.number === gmud.number ? gmud : g));
+
+  const handleRepositoryValueChange = (
+    repositoryId?: string,
+    name?: string,
+    value?: string,
+    environment?: TEnvironment
+  ) => {
+    if (!repositoryId) return;
+    if (!name) return;
+
+    let repository = _findRepository(repositoryId);
+
+    if (!repository) return;
+
+    if (environment) {
+      repository.environments[environment] = {
+        ...repository.environments[environment],
+        [name]: value,
+      };
+    } else {
+      repository = {
+        ...repository,
+        [name]: value,
+      };
+    }
+
+    const repositoriesUpdated = _getRepositoriesUpdated(repository);
+    set_repositories_data(repositoriesUpdated);
+  };
+
+  const handleGmudValueChange = (
+    gmudNumber?: string,
+    name?: string,
+    value?: string
+  ) => {
+    if (!gmudNumber) return;
+    if (!name) return;
+
+    let gmud = _findGmud(gmudNumber);
+
+    if (!gmud) return;
+
+    gmud = {
+      ...gmud,
+      [name]: value,
+    };
+
+    const gmudsUpdated = _getGmudsUpdated(gmud);
+
+    set_projects_gmuds(gmudsUpdated);
+  };
+
+  useEffect(() => {
+    if (gmuds.length === 0) {
+      return;
+    }
+
+    const gmudsByStatusAndDate = gmuds.map((gm) => ({
+      order: GmudStatusOrder.indexOf(
+        gm.status ?? GmudStatus.PENDENTE
+      ).toString(),
+      status: gm.status,
+      date: gm.date,
+    }));
+    let a: ISummaryIndicatorsGmuds[] = [];
+
+    const gmudsSummary = gmudsByStatusAndDate.reduce((p, c) => {
+      if (p.find((f) => f.status === c.status)) {
+        p = p.map((m) =>
+          m.status === c.status ? { ...m, count: m.count + 1 } : m
+        );
+        return p;
+      }
+      p.push({ status: c.status, order: c.order, count: 1 });
+      return p;
+    }, a);
+
+    const indicators: ISummaryIndicators = {
+      gmuds: gmudsSummary.sort((a, b) => a.order.localeCompare(b.order)),
+    };
+
+    set_summary_indicators(indicators);
+  }, [gmuds]);
 
   useEffect(() => {
     loadData();
@@ -62,13 +189,16 @@ const useProject = () => {
   }, []);
 
   return {
-    projects,
     summary_indicators,
+    getProjects,
+    getRepositories,
     getGmuds,
     getMonitoring,
     getAsMarkdown,
     handleLoadFile,
     handleDownloadFile,
+    handleGmudValueChange,
+    handleRepositoryValueChange,
   };
 };
 

@@ -16,3 +16,14 @@ export interface IProjectRepository {
 
   projectId?: string;
 }
+
+export enum EnvironmentEnum {
+  DEVELOP = "develop",
+  HOMOLOG = "homolog",
+  PRODUCTION = "production",
+}
+
+export type TEnvironment =
+  | EnvironmentEnum.DEVELOP
+  | EnvironmentEnum.HOMOLOG
+  | EnvironmentEnum.PRODUCTION;

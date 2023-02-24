@@ -1,11 +1,40 @@
-import BadgeHelper from "../../../helpers/badge.helper";
-import { IProjectRepository } from "../../../models/IProjectRepository";
+import BadgeStatus from '../../../components/BadgeStatus';
+import { EnvironmentEnum, IProjectRepository, TEnvironment } from '../../../models/IProjectRepository';
+import { TGmudStatus } from '../../../types/TGmudStatus';
 
 interface IProps {
   repository: IProjectRepository;
+  onChangeValue: (
+    repositoryId?: string,
+    name?: string,
+    value?: string,
+    environment?: TEnvironment
+  ) => void;
 }
 
-const ProjectRepoLine = ({ repository }: IProps) => {
+const ProjectRepoLine = ({ repository, onChangeValue }: IProps) => {
+  const handleStatusChange = (
+    status: TGmudStatus,
+    environment: TEnvironment
+  ) => {
+    onChangeValue &&
+      onChangeValue(
+        repository.id,
+        "status",
+        status,
+        environment
+      );
+  };
+
+  const handleDevelopStatusChange = (status: TGmudStatus) =>
+    handleStatusChange(status, EnvironmentEnum.DEVELOP);
+
+  const handleHomologStatusChange = (status: TGmudStatus) =>
+    handleStatusChange(status, EnvironmentEnum.HOMOLOG);
+
+  const handleProductionStatusChange = (status: TGmudStatus) =>
+    handleStatusChange(status, EnvironmentEnum.PRODUCTION);
+
   return (
     <tr key={repository.id}>
       <td>{repository.type}</td>
@@ -21,34 +50,22 @@ const ProjectRepoLine = ({ repository }: IProps) => {
       </td>
       <td>{repository.deploy_sequence}</td>
       <td>
-        <span
-          style={{ minWidth: 83 }}
-          className={BadgeHelper.getBadgeClass(
-            repository.environments.develop?.status
-          )}
-        >
-          {repository.environments.develop?.status}
-        </span>
+        <BadgeStatus
+          status={repository.environments.develop?.status}
+          onChange={handleDevelopStatusChange}
+        />
       </td>
       <td>
-        <span
-          style={{ minWidth: 83 }}
-          className={BadgeHelper.getBadgeClass(
-            repository.environments.homolog?.status
-          )}
-        >
-          {repository.environments.homolog?.status}
-        </span>
+        <BadgeStatus
+          status={repository.environments.homolog?.status}
+          onChange={handleHomologStatusChange}
+        />
       </td>
       <td>
-        <span
-          style={{ minWidth: 83 }}
-          className={BadgeHelper.getBadgeClass(
-            repository.environments.production?.status
-          )}
-        >
-          {repository.environments.production?.status}
-        </span>
+        <BadgeStatus
+          status={repository.environments.production?.status}
+          onChange={handleProductionStatusChange}
+        />
       </td>
       <td>
         <span className="small text-danger">{repository.blocks}</span>

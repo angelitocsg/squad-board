@@ -5,7 +5,8 @@ const getBadgeClass = (status?: TGmudStatus) => {
   const statuscss =
     status === GmudStatus.AGENDADA ||
     status === GmudStatus.PENDENTE ||
-    status === GmudStatus.PREENCHIDA
+    status === GmudStatus.PREENCHIDA ||
+    status === GmudStatus.APROVADA
       ? "text-bg-warning"
       : status === GmudStatus.PUBLICADA
       ? "text-bg-success"

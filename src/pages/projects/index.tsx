@@ -18,16 +18,19 @@ import useProject from "./useProject";
 
 const ProjectsPage = () => {
   const {
-    projects,
     summary_indicators,
+    getProjects,
+    getRepositories,
     getGmuds,
     getMonitoring,
     getAsMarkdown,
     handleLoadFile,
-    handleDownloadFile
+    handleDownloadFile,
+    handleGmudValueChange,
+    handleRepositoryValueChange,
   } = useProject();
 
-  return projects.length === 0 ? (
+  return getProjects().length === 0 ? (
     <>
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
       <NoContentPage title="Aplicações" />
@@ -39,11 +42,14 @@ const ProjectsPage = () => {
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
 
       <ClearCacheButton />
-      <ImportBoardModal onUploadClick={handleLoadFile} onDownloadClick={handleDownloadFile} />
+      <ImportBoardModal
+        onUploadClick={handleLoadFile}
+        onDownloadClick={handleDownloadFile}
+      />
 
       <SummaryIndicators indicators={summary_indicators} />
 
-      {projects.map((project) => (
+      {getProjects().map((project) => (
         <section key={project.id} className="mb-5">
           <h1 className="h4 pb-3">{project.name}</h1>
           <TabGroup>
@@ -67,11 +73,17 @@ const ProjectsPage = () => {
 
           <TabContentGroup>
             <TabContent active={true} tabId={`${project.id}-repositories`}>
-              <PaneRepositories repositories={project.repositories} />
+              <PaneRepositories
+                repositories={getRepositories(project.id)}
+                onChangeValue={handleRepositoryValueChange}
+              />
             </TabContent>
 
             <TabContent tabId={`${project.id}-gmud`}>
-              <PaneGmud gmuds={getGmuds(project.id)} />
+              <PaneGmud
+                gmuds={getGmuds(project.id)}
+                onChangeValue={handleGmudValueChange}
+              />
             </TabContent>
             <TabContent tabId={`${project.id}-features`}>
               {parse(getAsMarkdown(project.description))}

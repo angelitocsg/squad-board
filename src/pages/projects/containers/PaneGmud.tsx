@@ -1,11 +1,16 @@
-import BadgeHelper from "../../../helpers/badge.helper";
+import BadgeStatus from "../../../components/BadgeStatus";
 import { IProjectGmud } from "../../../models/IProjectGmud";
+import { TGmudStatus } from "../../../types/TGmudStatus";
 
 interface IProps {
   gmuds: IProjectGmud[];
+  onChangeValue: (gmudNumber?: string, name?: string, value?: string) => void;
 }
 
-const PaneGmud = ({ gmuds }: IProps) => {
+const PaneGmud = ({ gmuds, onChangeValue }: IProps) => {
+  const handleStatusChange = (gmud: IProjectGmud, status: TGmudStatus) => {
+    onChangeValue && onChangeValue(gmud.number, "status", status);
+  };
   return gmuds && gmuds.length > 0 ? (
     <table className="table table-sm table-striped table-hover">
       <thead className="table-secondary">
@@ -32,9 +37,11 @@ const PaneGmud = ({ gmuds }: IProps) => {
             <td>{gmud.date}</td>
             <td>{gmud.time}</td>
             <td>
-              <span className={BadgeHelper.getBadgeClass(gmud.status)}>
-                {gmud.status}
-              </span>
+              <BadgeStatus
+                status={gmud.status}
+                gmud
+                onChange={(status) => handleStatusChange(gmud, status)}
+              />
             </td>
             <td>
               <a
