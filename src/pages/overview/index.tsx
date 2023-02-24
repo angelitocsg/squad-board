@@ -55,18 +55,16 @@ const OverviewPage = () => {
           ))}
         </div>
 
-        <div className="d-flex justify-content-between">
-          <h1 className="h4">Objetivos da sprint atual</h1>
+        <h1 className="h4">Objetivos da sprint atual</h1>
 
-          <button
-            type="button"
-            className="btn btn-sm btn-primary mb-3"
-            style={{ minWidth: 200 }}
-            onClick={addLine}
-          >
-            Adicionar linha
-          </button>
-        </div>
+        <button
+          type="button"
+          className="btn btn-sm btn-primary mb-3"
+          style={{ minWidth: 150 }}
+          onClick={addLine}
+        >
+          <i className="bi bi-plus-square"></i> adicionar
+        </button>
 
         {getUsers().map((m) =>
           getUserTasks(m.user).length ? (
@@ -89,29 +87,6 @@ const OverviewPage = () => {
             </div>
           ) : undefined
         )}
-        {/* <table className="table table-sm  table-hover">
-          <thead className="table-secondary">
-            <tr>
-              <th>Ordem</th>
-              <th>Prioridade</th>
-              <th>Tarefa</th>
-              <th>Observações</th>
-              <th>Membro</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody>
-            {overview_tasks.map((t) => (
-              <OverviewLine
-                key={t.id}
-                members={overview_members}
-                task={t}
-                onRemoveLineClick={removeLine}
-                onTaskValueChange={handleTaskValueChange}
-              />
-            ))}
-          </tbody>
-        </table> */}
       </section>
     </div>
   );

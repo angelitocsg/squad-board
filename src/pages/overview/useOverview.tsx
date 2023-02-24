@@ -1,9 +1,8 @@
-import { BlobOptions } from "buffer";
 import { useEffect, useState } from "react";
 import showdown from "showdown";
 import { v4 as uuidv4 } from "uuid";
-import { PriorityEnum } from "../../interfaces/BoardIssues";
 
+import { PriorityEnum, TPriority } from "../../interfaces/BoardIssues";
 import {
   IMember,
   IOverview,
@@ -49,13 +48,27 @@ const useOverview = () => {
     return converter.makeHtml(text);
   };
 
+  const getPriorityOrder = (priority?: TPriority) => {
+    return priority === PriorityEnum.VERY_HIGH
+      ? 5
+      : priority === PriorityEnum.HIGH
+      ? 4
+      : priority === PriorityEnum.MEDIUM
+      ? 3
+      : priority === PriorityEnum.LOW
+      ? 2
+      : priority === PriorityEnum.VERY_LOW
+      ? 1
+      : 0;
+  };
+
   const loadData = () => {
     let ls = localStorage.getItem("overview_tasks") ?? "[]";
 
     if (ls)
       set_overview_tasks(
         (JSON.parse(ls) as IOverviewTask[]).sort((a, b) =>
-          +a.order > +b.order ? 0 : -1
+          getPriorityOrder(a.priority) > getPriorityOrder(b.priority) ? -1 : 0
         )
       );
 

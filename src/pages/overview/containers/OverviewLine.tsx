@@ -89,13 +89,13 @@ const OverviewLine = ({
           ))}
         </select>
       </td>
-      <td className="p-0">
+      <td className="p-0" style={{ maxWidth: 50 }}>
         <button
           type="button"
           className="btn btn-sm btn-danger w-100"
           onClick={handleRemoveLine}
         >
-          excluir
+          <i className="bi bi-trash"></i> excluir
         </button>
       </td>
     </tr>
