@@ -1,22 +1,41 @@
-import Papa from 'papaparse';
+import Papa from "papaparse";
 
-import { BoardIssues } from '../interfaces/BoardIssues';
-import { IOverview } from '../models/IOverview';
-import { IProjectGmud } from '../models/IProjectGmud';
-import { IProjectMonitoring } from '../models/IProjectMonitoring';
-import { IProjectRepository } from '../models/IProjectRepository';
-import { IProject } from '../models/IProjects';
+import { BoardIssues } from "../interfaces/BoardIssues";
+import { IMember, IOverview } from "../models/IOverview";
+import { IProjectGmud } from "../models/IProjectGmud";
+import { IProjectMonitoring } from "../models/IProjectMonitoring";
+import { IProjectRepository } from "../models/IProjectRepository";
+import { IProject } from "../models/IProjects";
 
 export const SEM_ALOCACAO = "[SEM ALOCAÇÃO]";
 
 export class ImportService {
+  static UpdateOverviewMembers = (assigness: string[]) => {
+    const current = localStorage.getItem("overview_members");
+    if (current) return;
+    console.log({ current });
+
+    const members: IMember[] = assigness.map((a) => ({
+      name:
+        a === SEM_ALOCACAO ? a : `${a.split(" ")[0]} ${a.split(" ")[1][0]}.`,
+      user: a === SEM_ALOCACAO ? a : `${a.split(" ")[0]}`,
+    }));
+    localStorage.setItem("overview_members", JSON.stringify(members));
+  };
+
   static ImportOverviewJson(data: string) {
     let overviewData = JSON.parse(data) as IOverview;
-    
+
     // localStorage.setItem("overview_data", JSON.stringify(overviewData));
-    localStorage.setItem("overview_features", JSON.stringify(overviewData.features));
-    localStorage.setItem("overview_members", JSON.stringify(overviewData.members));
-    localStorage.setItem("overview_tasks", JSON.stringify(overviewData.tasks));   
+    localStorage.setItem(
+      "overview_features",
+      JSON.stringify(overviewData.features)
+    );
+    localStorage.setItem(
+      "overview_members",
+      JSON.stringify(overviewData.members)
+    );
+    localStorage.setItem("overview_tasks", JSON.stringify(overviewData.tasks));
   }
 
   static ImportProjectsJson(data: string) {
@@ -251,6 +270,8 @@ export class ImportService {
     );
     localStorage.setItem("board_data_assignees", JSON.stringify(assignees));
     localStorage.setItem("board_data_status", JSON.stringify(status));
+
+    this.UpdateOverviewMembers(assignees.map((a) => a.assignee));
     return "";
   }
 

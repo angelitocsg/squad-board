@@ -10,7 +10,7 @@ import {
   IOverviewFeatures,
   IOverviewTask,
 } from "../../models/IOverview";
-import { ImportService } from "../../services/ImportService";
+import { ImportService, SEM_ALOCACAO } from "../../services/ImportService";
 
 const useOverview = () => {
   const [overview_features, set_overview_features] = useState<
@@ -96,6 +96,7 @@ const useOverview = () => {
       order: 0,
       priority: PriorityEnum.MEDIUM,
       id: uuidv4(),
+      user: SEM_ALOCACAO,
     };
     const tasksUpdated = [...overview_tasks, newTask];
     set_overview_tasks(tasksUpdated);
@@ -117,15 +118,8 @@ const useOverview = () => {
     return overview_features;
   };
 
-  const getUsers = (select?: boolean): IMember[] => {
-    const empty: IMember = {
-      user: "",
-      name: "--",
-    };
+  const getUsers = (): IMember[] => {
     const members: IMember[] = [];
-
-    if (!select) members.push(empty);
-
     return [...members, ...overview_members];
   };
 

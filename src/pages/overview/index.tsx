@@ -41,7 +41,7 @@ const OverviewPage = () => {
           {getUsers().map((m) => (
             <div key={m.user} className="col">
               <div className="card mb-4 shadow-sm">
-                <div className="card-header text-bg-dark">{m.name}&nbsp;</div>
+                <div className="card-header text-bg-dark small p-1">{m.name}&nbsp;</div>
                 <div
                   className={`card-body bg-opacity-75 ${
                     getUserTasks(m.user)?.length ? "bg-success" : "bg-warning"
@@ -75,7 +75,7 @@ const OverviewPage = () => {
                     <OverviewLine
                       key={t.id}
                       features={getFeatures()}
-                      members={getUsers(true)}
+                      members={getUsers()}
                       task={t}
                       onRemoveLineClick={removeLine}
                       onTaskValueChange={handleTaskValueChange}
