@@ -1,8 +1,13 @@
 import { TPriority } from "../interfaces/BoardIssues";
 
 export interface IOverview {
+  features?: IOverviewFeatures[];
   members: IMember[];
   tasks: IOverviewTask[];
+}
+
+export interface IOverviewFeatures {
+  name: string;
 }
 
 export interface IOverviewTask {
@@ -15,9 +20,9 @@ export interface IOverviewTask {
 }
 
 export interface IMember {
-  user?: string;
+  user: string;
   name: string;
-  skill: SkillEnum;
+  skill?: SkillEnum;
 }
 
 export enum SkillEnum {

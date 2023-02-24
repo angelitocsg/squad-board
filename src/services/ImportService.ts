@@ -19,6 +19,7 @@ export class ImportService {
     let overviewData = JSON.parse(data) as IOverview;
     
     // localStorage.setItem("overview_data", JSON.stringify(overviewData));
+    localStorage.setItem("overview_features", JSON.stringify(overviewData.features));
     localStorage.setItem("overview_members", JSON.stringify(overviewData.members));
     localStorage.setItem("overview_tasks", JSON.stringify(overviewData.tasks));   
   }

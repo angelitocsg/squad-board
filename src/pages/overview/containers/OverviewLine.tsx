@@ -1,6 +1,11 @@
-import { IMember, IOverviewTask } from "../../../models/IOverview";
+import {
+  IMember,
+  IOverviewFeatures,
+  IOverviewTask,
+} from "../../../models/IOverview";
 
 interface IProps {
+  features: IOverviewFeatures[];
   members: IMember[];
   task: IOverviewTask;
   onRemoveLineClick: (id: string) => void;
@@ -8,6 +13,7 @@ interface IProps {
 }
 
 const OverviewLine = ({
+  features,
   members,
   task,
   onRemoveLineClick,
@@ -24,17 +30,7 @@ const OverviewLine = ({
 
   return (
     <tr>
-      <td style={{ maxWidth: 100 }}>
-        <input
-          type="number"
-          name="order"
-          id="order"
-          className="form-control form-control-sm"
-          value={task.order}
-          onChange={handleTaskChange}
-        />
-      </td>
-      <td style={{ maxWidth: 100 }}>
+      <td className="p-0" style={{ maxWidth: 100 }}>
         <select
           className="form-select form-select-sm"
           name="priority"
@@ -43,32 +39,40 @@ const OverviewLine = ({
           id="priority"
           aria-label="Default select example"
         >
+          <option value="very-low">muito baixa</option>
           <option value="low">baixa</option>
           <option value="medium">média</option>
           <option value="high">alta</option>
+          <option value="very-high">muito alta</option>
         </select>
       </td>
-      <td>
+      <td className="p-0" style={{ maxWidth: 100 }}>
         <input
           type="string"
           name="summary"
           id="summary"
           className="form-control form-control-sm"
           value={task.summary}
+          list="featuresOptions"
           onChange={handleTaskChange}
         />
+        <datalist id="featuresOptions">
+          {features.map((a) => (
+            <option key={a.name} value={a.name} />
+          ))}
+        </datalist>
       </td>
-      <td>
-        <textarea
+      <td className="p-0" style={{ maxWidth: 300 }}>
+        <input
+          type="string"
           name="description"
           id="description"
-          rows={1}
           className="form-control form-control-sm"
           value={task.description}
           onChange={handleTaskChange}
         />
       </td>
-      <td style={{ maxWidth: 100 }}>
+      <td className="p-0" style={{ maxWidth: 100 }}>
         <select
           className="form-select form-select-sm"
           name="user"
@@ -85,7 +89,7 @@ const OverviewLine = ({
           ))}
         </select>
       </td>
-      <td>
+      <td className="p-0">
         <button
           type="button"
           className="btn btn-sm btn-danger w-100"
