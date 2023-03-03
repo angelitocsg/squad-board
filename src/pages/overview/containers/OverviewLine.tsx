@@ -51,6 +51,7 @@ const OverviewLine = ({
           type="string"
           name="summary"
           id="summary"
+          autoComplete="false"
           className="form-control form-control-sm"
           value={task.summary}
           list="featuresOptions"

@@ -78,7 +78,7 @@ const useOverview = () => {
     if (ls)
       set_overview_features(
         (JSON.parse(ls) as IOverviewFeatures[]).sort((a, b) =>
-          a.name.localeCompare(b.name) ? -1 : 0
+          a.name.localeCompare(b.name) ? 0 : -1
         )
       );
   };
