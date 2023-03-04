@@ -41,6 +41,12 @@ const Navbar = () => {
                 Notificações
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link to="/faq-editor" className="nav-link">
+                Editor FAQ
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

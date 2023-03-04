@@ -1,12 +1,13 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from "react-router-dom";
 
-import BoardPage from './pages/board';
-import ErrorPage from './pages/error';
-import HomePage from './pages/home';
-import NotificationsPage from './pages/notifications';
-import OverviewPage from './pages/overview';
-import ProjectsPage from './pages/projects';
-import Main from './shared/Main';
+import BoardPage from "./pages/board";
+import ErrorPage from "./pages/error";
+import FaqEditorPage from "./pages/faq-editor";
+import HomePage from "./pages/home";
+import NotificationsPage from "./pages/notifications";
+import OverviewPage from "./pages/overview";
+import ProjectsPage from "./pages/projects";
+import Main from "./shared/Main";
 
 const router = createBrowserRouter(
   [
@@ -34,6 +35,10 @@ const router = createBrowserRouter(
         {
           path: "/notifications",
           element: <NotificationsPage />,
+        },
+        {
+          path: "/faq-editor",
+          element: <FaqEditorPage />,
         },
       ],
     },

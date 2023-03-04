@@ -1,6 +1,8 @@
 import Papa from "papaparse";
+import { v4 as uuidv4 } from "uuid";
 
 import { BoardIssues } from "../interfaces/BoardIssues";
+import { IFaqCategory } from "../models/IFaqCategory";
 import { IMember, IOverview } from "../models/IOverview";
 import { IProjectGmud } from "../models/IProjectGmud";
 import { IProjectMonitoring } from "../models/IProjectMonitoring";
@@ -10,6 +12,19 @@ import { IProject } from "../models/IProjects";
 export const SEM_ALOCACAO = "[SEM ALOCAÇÃO]";
 
 export class ImportService {
+  static ImportFaqJson = (data: string) => {
+    let faqData = JSON.parse(data) as IFaqCategory[];
+    faqData = faqData.map((faq) => ({
+      ...faq,
+      id: faq.id?.toString().length > 5 ? faq.id : uuidv4(),
+      conteudo: faq.conteudo.map((cont) => ({
+        ...cont,
+        id: cont.id ? cont.id : uuidv4(),
+      })),
+    }));
+    localStorage.setItem("faq_data", JSON.stringify(faqData));
+  };
+
   static UpdateOverviewMembers = (assigness: string[]) => {
     const current = localStorage.getItem("overview_members");
     if (current) return;

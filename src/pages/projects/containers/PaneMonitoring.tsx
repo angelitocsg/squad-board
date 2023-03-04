@@ -7,7 +7,7 @@ interface IProps {
 const PaneMonitoring = ({ monitoring }: IProps) => {
   return monitoring && monitoring.length > 0 ? (
     <table className="table table-sm table-striped table-hover">
-      <thead>
+      <thead className="table-secondary">
         <tr>
           <th>Serviço</th>
           <th>Ambiente</th>
