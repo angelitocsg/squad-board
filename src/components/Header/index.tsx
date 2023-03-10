@@ -7,7 +7,7 @@ interface IProps {
   assigneeSelected: string;
   sprintName: string;
   storyPoints: { total: number; ended: number };
-  totalTasks: number;
+  totalTasks: { total: number; ended: number };
   assignees?: string[];
   onGroupByClick: (opt: number) => void;
   onFilterAssigneeClick: (assignee: string) => void;
@@ -35,7 +35,7 @@ const Header = ({
           <span className="ps-5"></span>
           <StoryPoint storyPoints={storyPoints} label="Story Points" />
           <span className="ps-5"></span>
-          <StoryPoint storyPoints={{ total: totalTasks }} label="Tarefas" />
+          <StoryPoint storyPoints={totalTasks} label="Tarefas" />
           <span className="ps-5"></span>
           <HeaderGroupBy
             onGroupByClick={handleGroupByClick}

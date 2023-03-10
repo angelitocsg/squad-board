@@ -1,14 +1,14 @@
-import BoardCard from '../../components/BoardCard';
-import BoardColumn from '../../components/BoardColumn';
-import BoardColumnStatus from '../../components/BoardColumnStatus';
-import ClearCacheButton from '../../components/ClearCacheButton';
-import DropFile from '../../components/DropFile';
-import Header from '../../components/Header';
-import ImportBoardModal from '../../components/ImportBoardModal';
-import { PriorityEnum } from '../../interfaces/BoardIssues';
-import NoContentPage from '../noContent';
-import BoardCards from './containers/Cards';
-import useBoard from './useBoard';
+import BoardCard from "../../components/BoardCard";
+import BoardColumn from "../../components/BoardColumn";
+import BoardColumnStatus from "../../components/BoardColumnStatus";
+import ClearCacheButton from "../../components/ClearCacheButton";
+import DropFile from "../../components/DropFile";
+import Header from "../../components/Header";
+import ImportBoardModal from "../../components/ImportBoardModal";
+import { PriorityEnum } from "../../interfaces/BoardIssues";
+import NoContentPage from "../noContent";
+import BoardCards from "./containers/Cards";
+import useBoard from "./useBoard";
 
 const BoardPage = () => {
   const {
@@ -58,7 +58,7 @@ const BoardPage = () => {
         />
 
         {show_by.map((item) => {
-          return (
+          return (item.issues?.length ?? 0) === 0 ? undefined : (
             <div key={item.id}>
               <BoardColumn>
                 <BoardCard

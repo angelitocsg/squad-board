@@ -7,7 +7,10 @@ import { ImportService } from "../../services/ImportService";
 const useBoard = () => {
   const [assignee_selected, set_assignee_selected] = useState("");
   const [status_selected, set_status_selected] = useState("");
-  const [story_points, set_story_points] = useState({ total: 0, ended: 0 });
+  const [story_points, set_story_points] = useState({
+    total: 0,
+    ended: 0,
+  });
   const [bd_status, set_bd_status] = useState<IStatus[]>([]);
   const [bd_sprint_name, set_bd_sprint_name] = useState("Sprint");
   const [bd_squad_name, set_bd_squad_name] = useState("squad");
@@ -142,7 +145,10 @@ const useBoard = () => {
     }));
   };
 
-  const getTotalTasks = () => getStatus().reduce((p, c) => p + c.count, 0);
+  const getTotalTasks = () =>({
+    total:  getStatus().reduce((p, c) => p + c.count, 0),
+    ended: bd_story_task_bug.length
+  });
 
   useEffect(() => {
     loadData();
@@ -163,7 +169,10 @@ const useBoard = () => {
       .map((x) => +(x.story_points?.toString() ?? "0"))
       .reduce((p, c) => p + c, 0);
 
-    set_story_points({ total: points, ended: points_ended });
+    set_story_points({
+      total: points,
+      ended: points_ended,
+    });
   }, [bd_story_task_bug]);
 
   return {

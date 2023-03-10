@@ -1,6 +1,13 @@
-import BadgeStatus from '../../../components/BadgeStatus';
-import { EnvironmentEnum, IProjectRepository, TEnvironment } from '../../../models/IProjectRepository';
-import { TGmudStatus } from '../../../types/TGmudStatus';
+import DOMPurify from "dompurify";
+import { marked } from "marked";
+
+import BadgeStatus from "../../../components/BadgeStatus";
+import {
+  EnvironmentEnum,
+  IProjectRepository,
+  TEnvironment,
+} from "../../../models/IProjectRepository";
+import { TGmudStatus } from "../../../types/TGmudStatus";
 
 interface IProps {
   repository: IProjectRepository;
@@ -18,12 +25,7 @@ const ProjectRepoLine = ({ repository, onChangeValue }: IProps) => {
     environment: TEnvironment
   ) => {
     onChangeValue &&
-      onChangeValue(
-        repository.id,
-        "status",
-        status,
-        environment
-      );
+      onChangeValue(repository.id, "status", status, environment);
   };
 
   const handleDevelopStatusChange = (status: TGmudStatus) =>
@@ -68,7 +70,12 @@ const ProjectRepoLine = ({ repository, onChangeValue }: IProps) => {
         />
       </td>
       <td>
-        <span className="small text-danger">{repository.blocks}</span>
+        <span
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(marked.parse(repository.blocks ?? "")),
+          }}
+          className="small"
+        ></span>
       </td>
     </tr>
   );
