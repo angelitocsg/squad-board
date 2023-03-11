@@ -12,7 +12,7 @@ const SummaryIndicators = ({ indicators }: IProps) => {
       status === GmudStatus.APROVADA ||
       status === GmudStatus.AGENDADA
       ? `${defClass} bg-warning`
-      : status === GmudStatus.EM_APROVACAO
+      : status === GmudStatus.EM_APROVACAO || status === GmudStatus.FALHA
       ? `${defClass} bg-danger`
       : status === GmudStatus.EM_REVISAO
       ? `${defClass} bg-info`
@@ -25,16 +25,18 @@ const SummaryIndicators = ({ indicators }: IProps) => {
     <div>
       <h1 className="h4">GMUDs</h1>
       <div className="row mb-3 text-center">
-        {indicators?.gmuds?.map((g) => (
-          <div key={g.status} className="col">
-            <div className="card mb-4 shadow-sm">
-              <div className="card-header text-bg-dark">{g.status}&nbsp;</div>
-              <div className={resolveStatusBg(g.status)}>
-                <span className="h1">{g.count}</span>
+        {indicators?.gmuds
+          ?.filter((f) => f.status !== GmudStatus.IGNORADA)
+          ?.map((g) => (
+            <div key={g.status} className="col">
+              <div className="card mb-4 shadow-sm">
+                <div className="card-header text-bg-dark">{g.status}&nbsp;</div>
+                <div className={resolveStatusBg(g.status)}>
+                  <span className="h1">{g.count}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 export enum GmudStatus {
   INDEFINIDA = "-",
+  IGNORADA = "IGNORADA",
   CANCELADA = "CANCELADA",
   BUG = "BUG",
   FALHA = "FALHA",
@@ -14,6 +15,7 @@ export enum GmudStatus {
 
 export type TGmudStatus =
   | GmudStatus.INDEFINIDA
+  | GmudStatus.IGNORADA
   | GmudStatus.CANCELADA
   | GmudStatus.BUG
   | GmudStatus.FALHA
@@ -26,6 +28,7 @@ export type TGmudStatus =
   | GmudStatus.PUBLICADA;
 
 export const GmudStatusOrder = [
+  GmudStatus.IGNORADA,
   GmudStatus.CANCELADA,
   GmudStatus.FALHA,
   GmudStatus.PENDENTE,
