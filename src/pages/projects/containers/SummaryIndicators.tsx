@@ -8,9 +8,7 @@ interface IProps {
 const SummaryIndicators = ({ indicators }: IProps) => {
   const resolveStatusBg = (status?: GmudStatus) => {
     const defClass = "card-body bg-opacity-75";
-    return status === GmudStatus.PENDENTE ||
-      status === GmudStatus.APROVADA ||
-      status === GmudStatus.AGENDADA
+    return status === GmudStatus.PENDENTE || status === GmudStatus.APROVADA
       ? `${defClass} bg-warning`
       : status === GmudStatus.EM_APROVACAO || status === GmudStatus.FALHA
       ? `${defClass} bg-danger`
@@ -18,6 +16,8 @@ const SummaryIndicators = ({ indicators }: IProps) => {
       ? `${defClass} bg-info`
       : status === GmudStatus.PUBLICADA
       ? `${defClass} bg-success`
+      : status === GmudStatus.AGENDADA
+      ? `${defClass} bg-primary`
       : `${defClass} bg-secondary`;
   };
 

@@ -90,6 +90,10 @@ const useNotifications = () => {
     } catch {}
   }, [input_data]);
 
+  useEffect(() => {
+    document.title = "Notificações | Squad";
+  }, []);
+
   return {
     messages,
     notification,

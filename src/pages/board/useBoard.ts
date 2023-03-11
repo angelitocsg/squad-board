@@ -151,6 +151,7 @@ const useBoard = () => {
   });
 
   useEffect(() => {
+    document.title = "Tarefas | Squad"
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

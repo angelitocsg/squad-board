@@ -129,6 +129,7 @@ const useOverview = () => {
   }, [overview_tasks]);
 
   useEffect(() => {
+    document.title = "Visão Geral | Squad"
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

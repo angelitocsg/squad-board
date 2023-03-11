@@ -184,6 +184,7 @@ const useProject = () => {
   }, [gmuds]);
 
   useEffect(() => {
+    document.title = "Aplicações | Squad"
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

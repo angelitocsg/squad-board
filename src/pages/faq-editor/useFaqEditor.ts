@@ -96,6 +96,7 @@ const useFaqEditor = () => {
   };
 
   useEffect(() => {
+    document.title = "FAQ | Squad"
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
