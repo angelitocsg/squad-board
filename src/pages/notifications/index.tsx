@@ -6,6 +6,7 @@ const NotificationsPage = () => {
     notification,
     valid_data,
     input_data,
+    invalid_json,
     editNotification,
     saveNotification,
     set_input_data,
@@ -26,12 +27,13 @@ const NotificationsPage = () => {
             </label>
             <textarea
               style={{ fontFamily: "courier", fontSize: 12 }}
-              className="form-control"
+              className={`form-control ${invalid_json ? "is-invalid" : ""}`}
               id="origem"
               rows={8}
               value={input_data}
               onChange={(e) => set_input_data(e.target.value)}
             ></textarea>
+            <span className="text-danger">{invalid_json}</span>
           </div>
         </div>
 
@@ -89,49 +91,56 @@ const NotificationsPage = () => {
           </table>
         </>
       )}
-      <h2 className="h5 mt-5 mb-3">Notificações registradas</h2>
-      <table className="table table-hover table-sm">
-        <thead className="table-dark">
-          <tr>
-            <th>Tipo</th>
-            <th>Mensagem</th>
-            <th colSpan={2}>Vigência</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody className="table-light">
-          {(messages as any[]).map((msg, idx) => (
-            <tr key={idx}>
-              <td>
-                {msg.t === "info"
-                  ? "Novidade"
-                  : msg.t === "warn"
-                  ? "Alerta"
-                  : msg.t === "error"
-                  ? "Erro"
-                  : msg.t === "danger"
-                  ? "Erro crítico"
-                  : "-"}
-              </td>
-              <td>{msg.m}</td>
-              <td>{`${msg.st ?? "0000-00-00"} ${msg.sth ?? "00:00"}`}</td>
-              <td>{`${msg.ed ?? "0000-00-00"} ${msg.edh ?? "00:00"}`}</td>
-              <td>
-                <span
-                  role="button"
-                  onClick={(e) => editNotification(idx)}
-                  className="me-2"
-                >
-                  <i className="bi bi-pencil"></i>
-                </span>
-                <span role="button" onClick={(e) => removeNotification(idx)}>
-                  <i className="bi bi-trash"></i>
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {messages && messages.length ? (
+        <>
+          <h2 className="h5 mt-5 mb-3">Notificações registradas</h2>
+          <table className="table table-hover table-sm">
+            <thead className="table-dark">
+              <tr>
+                <th>Tipo</th>
+                <th>Mensagem</th>
+                <th colSpan={2}>Vigência</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody className="table-light">
+              {(messages as any[]).map((msg, idx) => (
+                <tr key={idx}>
+                  <td>
+                    {msg.t === "info"
+                      ? "Novidade"
+                      : msg.t === "warn"
+                      ? "Alerta"
+                      : msg.t === "error"
+                      ? "Erro"
+                      : msg.t === "danger"
+                      ? "Erro crítico"
+                      : "-"}
+                  </td>
+                  <td>{msg.m}</td>
+                  <td>{`${msg.st ?? "0000-00-00"} ${msg.sth ?? "00:00"}`}</td>
+                  <td>{`${msg.ed ?? "0000-00-00"} ${msg.edh ?? "00:00"}`}</td>
+                  <td>
+                    <span
+                      role="button"
+                      onClick={(e) => editNotification(idx)}
+                      className="me-2"
+                    >
+                      <i className="bi bi-pencil"></i>
+                    </span>
+                    <span
+                      role="button"
+                      onClick={(e) => removeNotification(idx)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      ) : undefined}
       <h2 className="h5 mt-5 mb-3">Adicionar notificação</h2>
       <form onSubmit={saveNotification}>
         <div className="row">

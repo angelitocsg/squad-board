@@ -26,6 +26,7 @@ const notificationInitial: Notification = {
 
 const useNotifications = () => {
   const [input_data, set_input_data] = useState("{}");
+  const [invalid_json, set_invalid_json] = useState<string | undefined>();
   const [valid_data, set_valid_data] = useState<any>({});
   const [notification, set_notification] =
     useState<Notification>(notificationInitial);
@@ -84,10 +85,13 @@ const useNotifications = () => {
   }, [valid_data]);
 
   useEffect(() => {
+    set_invalid_json(undefined);
     try {
       const jsonData = JSON.parse(input_data);
       set_valid_data({ messages: [], ...jsonData });
-    } catch {}
+    } catch {
+      set_invalid_json("Conteúdo do 'input-data' atual inválido!");
+    }
   }, [input_data]);
 
   useEffect(() => {
@@ -99,6 +103,7 @@ const useNotifications = () => {
     notification,
     valid_data,
     input_data,
+    invalid_json,
     editNotification,
     set_notification,
     saveNotification,
