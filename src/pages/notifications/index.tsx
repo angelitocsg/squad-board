@@ -150,7 +150,6 @@ const NotificationsPage = () => {
                 Versão
               </label>
               <input
-                disabled
                 type="text"
                 className="form-control"
                 id="v"
@@ -208,7 +207,6 @@ const NotificationsPage = () => {
                 Reexibir a cada x minutos
               </label>
               <input
-                disabled
                 type="text"
                 className="form-control"
                 id="rcm"
@@ -276,7 +274,6 @@ const NotificationsPage = () => {
                 Rota dentro do MFE
               </label>
               <input
-                disabled
                 type="text"
                 className="form-control"
                 id="pg"
@@ -293,7 +290,6 @@ const NotificationsPage = () => {
                 Operação dentro do MFE
               </label>
               <input
-                disabled
                 type="text"
                 className="form-control"
                 id="op"
@@ -310,7 +306,6 @@ const NotificationsPage = () => {
                 Redirecionar para link/ação ao clicar
               </label>
               <input
-                disabled
                 type="text"
                 className="form-control"
                 id="lk"
@@ -330,7 +325,6 @@ const NotificationsPage = () => {
                 Data início da vigência
               </label>
               <input
-                disabled
                 type="date"
                 className="form-control"
                 id="st"
@@ -347,7 +341,6 @@ const NotificationsPage = () => {
                 Hora início da vigência
               </label>
               <input
-                disabled
                 type="time"
                 className="form-control"
                 id="sth"
@@ -364,7 +357,6 @@ const NotificationsPage = () => {
                 Data final da vigência
               </label>
               <input
-                disabled
                 type="date"
                 className="form-control"
                 id="ed"
@@ -381,7 +373,6 @@ const NotificationsPage = () => {
                 Hora final da vigência
               </label>
               <input
-                disabled
                 type="time"
                 className="form-control"
                 id="edh"
