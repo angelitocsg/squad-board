@@ -13,6 +13,7 @@ import NoContentPage from "../noContent";
 import PaneGmud from "./containers/PaneGmud";
 import PaneMonitoring from "./containers/PaneMonitoring";
 import PaneRepositories from "./containers/PaneRepositories";
+import SummaryActiveGmuds from "./containers/SummaryActiveGmuds";
 import SummaryIndicators from "./containers/SummaryIndicators";
 import useProject from "./useProject";
 
@@ -22,6 +23,7 @@ const ProjectsPage = () => {
     getProjects,
     getRepositories,
     getGmuds,
+    getActiveGmuds,
     getMonitoring,
     getAsMarkdown,
     handleLoadFile,
@@ -48,6 +50,7 @@ const ProjectsPage = () => {
       />
 
       <SummaryIndicators indicators={summary_indicators} />
+      <SummaryActiveGmuds gmuds={getActiveGmuds()} />
 
       {getProjects().map((project) => (
         <section key={project.id} className="mb-5">

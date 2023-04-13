@@ -61,6 +61,17 @@ const useProject = () => {
       ? gmuds.filter((g) => g.projectId === projectId)
       : [];
 
+  const getActiveGmuds = () =>
+    gmuds.filter(
+      (f) =>
+        f.status === GmudStatus.PENDENTE ||
+        f.status === GmudStatus.PREENCHIDA ||
+        f.status === GmudStatus.EM_APROVACAO ||
+        f.status === GmudStatus.APROVADA ||
+        f.status === GmudStatus.AGENDADA ||
+        f.status === GmudStatus.EM_REVISAO
+    );
+
   const getMonitoring = (projectId?: string) =>
     projectId && projectId !== ""
       ? monitoring.filter((g) => g.projectId === projectId)
@@ -184,7 +195,7 @@ const useProject = () => {
   }, [gmuds]);
 
   useEffect(() => {
-    document.title = "Aplicações | Squad"
+    document.title = "Aplicações | Squad";
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -194,6 +205,7 @@ const useProject = () => {
     getProjects,
     getRepositories,
     getGmuds,
+    getActiveGmuds,
     getMonitoring,
     getAsMarkdown,
     handleLoadFile,

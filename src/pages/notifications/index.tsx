@@ -256,12 +256,14 @@ const NotificationsPage = () => {
                   updateSelectMultiple(e.target.name, e.target.options)
                 }
               >
+                <option value="mf-corban-chassi">Chassi</option>
                 <option value="mf-corban-configuracoes">Configurações</option>
-                <option value="mf-corban-relatorios">Relatórios</option>
+                <option value="mf-faq-ui">FAQ</option>
                 <option value="mf-corban-gestao-propostas">
                   Gestão propostas
                 </option>
-                <option value="mf-faq-ui">FAQ</option>
+                <option value="mf-corban-embed">Incorporação Legado</option>
+                <option value="mf-corban-relatorios">Relatórios</option>
               </select>
             </div>
           </div>
