@@ -34,7 +34,7 @@ const PaneMonitoring = ({ monitoring }: IProps) => {
       </tbody>
     </table>
   ) : (
-    <div className="alert alert-danger" role="alert">
+    <div className="alert alert-secondary" role="alert">
       Sem itens de monitoramento registrados
     </div>
   );

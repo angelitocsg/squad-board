@@ -7,23 +7,34 @@ import { TGmudStatus } from "../../../types/TGmudStatus";
 
 interface IProps {
   gmuds: IProjectGmud[];
+  segmentEnabled?: boolean;
   onChangeValue: (gmudNumber?: string, name?: string, value?: string) => void;
 }
 
 interface ISegmented {
   repositoryId?: string;
   gmuds: IProjectGmud[];
+  segmentEnabled?: boolean;
 }
 
-const PaneGmud = ({ gmuds, onChangeValue }: IProps) => {
+const PaneGmud = ({ gmuds, segmentEnabled, onChangeValue }: IProps) => {
   const handleStatusChange = (gmud: IProjectGmud, status: TGmudStatus) => {
     onChangeValue && onChangeValue(gmud.number, "status", status);
   };
 
-  const getGmudsSegmented = () => {
+  const getSegments = () => {
+    if (!gmuds) return [];
+
     let segments: ISegmented[] = [];
 
-    if (!gmuds) return;
+    if (!segmentEnabled) {
+      return [
+        {
+          gmuds: gmuds,
+          segmentEnabled: false,
+        },
+      ];
+    }
 
     segments = gmuds.reduce((p, c) => {
       return p.find((f) => f.repositoryId === c.repositoryId)
@@ -36,18 +47,28 @@ const PaneGmud = ({ gmuds, onChangeValue }: IProps) => {
       return x;
     });
 
+    return segments;
+  };
+
+  const getGmudsSegmented = () => {
+    const segments: ISegmented[] = getSegments();
+
+    if (!segments.length) return;
+
     return segments.map((segment) => (
       <div key={segment.repositoryId} className="table-responsive">
-        <div className="mb-1">
-          <span className="h6">Repositório: </span>
-          <a
-            href={`http://github.com/${segment.repositoryId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {segment.repositoryId?.split("/")[1]}
-          </a>
-        </div>
+        {segmentEnabled ?? (
+          <div className="mb-1">
+            <span className="h6">Repositório: </span>
+            <a
+              href={`http://github.com/${segment.repositoryId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {segment.repositoryId?.split("/")[1]}
+            </a>
+          </div>
+        )}
         <table className="table table-sm table-striped table-hover">
           <thead className="table-secondary">
             <tr>
@@ -57,7 +78,8 @@ const PaneGmud = ({ gmuds, onChangeValue }: IProps) => {
               <th style={{ width: "95px" }}>Data</th>
               <th style={{ width: "55px" }}>Hora</th>
               <th style={{ width: "100px" }}>Status</th>
-              <th style={{ width: "350px" }}>Repositório</th>
+              <th style={{ minWidth: "150px" }}>Repositório</th>
+              <th style={{ width: "150px" }}>Responsável</th>
               <th>Detalhes</th>
             </tr>
           </thead>
@@ -89,6 +111,7 @@ const PaneGmud = ({ gmuds, onChangeValue }: IProps) => {
                     {gmud.repositoryId?.split("/")[1]}
                   </a>
                 </td>
+                <td>{gmud.owner}</td>
                 <td>
                   <span
                     dangerouslySetInnerHTML={{
@@ -110,7 +133,7 @@ const PaneGmud = ({ gmuds, onChangeValue }: IProps) => {
   return gmuds && gmuds.length > 0 ? (
     <>{getGmudsSegmented()}</>
   ) : (
-    <div className="alert alert-danger" role="alert">
+    <div className="alert alert-secondary" role="alert">
       Sem GMUDs registradas
     </div>
   );

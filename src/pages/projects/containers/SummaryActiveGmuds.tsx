@@ -6,11 +6,11 @@ interface IProps {
 }
 
 const SummaryActiveGmuds = ({ gmuds }: IProps) => {
-  return gmuds ? (
+  return gmuds && gmuds.length > 0 ? (
     <>
-      <h1 className="h4 pb-2">GMUDs ativas</h1>
+      <h1 className="h4 pb-2">GMUDs ativas / previsão de publicação</h1>
       <div className="border bg-white p-3 mb-5">
-        <PaneGmud gmuds={gmuds} onChangeValue={() => {}} />
+        <PaneGmud gmuds={gmuds} onChangeValue={() => {}} segmentEnabled={false} />
       </div>
     </>
   ) : (

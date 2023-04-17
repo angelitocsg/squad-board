@@ -30,7 +30,11 @@ const useBoardCard = ({
   type = parent_id?.startsWith("BUG") ? "sub-bug" : type;
 
   const featureColor =
-    type === "task" || type === "sub-task"
+    status === "ENCERRADO/ATIVADO/CANCELADO"
+      ? "bg-secondary"
+      : status === "EM TESTES"
+      ? "bg-success opacity-disabled"
+      : type === "task" || type === "sub-task"
       ? "bg-primary"
       : type === "feature"
       ? "bg-info"
