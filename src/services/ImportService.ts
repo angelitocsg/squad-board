@@ -79,6 +79,7 @@ export class ImportService {
             ...r.gmuds.map((gm) => ({
               ...gm,
               projectId: it.id,
+              projectName: it.name,
               repositoryId: r.id,
             }))
           );

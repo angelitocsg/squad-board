@@ -85,6 +85,7 @@ const ProjectsPage = () => {
             <TabContent tabId={`${project.id}-gmud`}>
               <PaneGmud
                 gmuds={getGmuds(project.id)}
+                segmentBy="repositoryId"
                 onChangeValue={handleGmudValueChange}
               />
             </TabContent>

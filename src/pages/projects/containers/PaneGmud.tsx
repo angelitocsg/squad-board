@@ -7,17 +7,17 @@ import { TGmudStatus } from "../../../types/TGmudStatus";
 
 interface IProps {
   gmuds: IProjectGmud[];
-  segmentEnabled?: boolean;
+  segmentBy: "repositoryId" | "projectName";
   onChangeValue: (gmudNumber?: string, name?: string, value?: string) => void;
 }
 
 interface ISegmented {
-  repositoryId?: string;
+  id?: string;
   gmuds: IProjectGmud[];
-  segmentEnabled?: boolean;
+  segmentBy: "repositoryId" | "projectName";
 }
 
-const PaneGmud = ({ gmuds, segmentEnabled, onChangeValue }: IProps) => {
+const PaneGmud = ({ gmuds, segmentBy, onChangeValue }: IProps) => {
   const handleStatusChange = (gmud: IProjectGmud, status: TGmudStatus) => {
     onChangeValue && onChangeValue(gmud.number, "status", status);
   };
@@ -25,26 +25,44 @@ const PaneGmud = ({ gmuds, segmentEnabled, onChangeValue }: IProps) => {
   const getSegments = () => {
     if (!gmuds) return [];
 
+    switch (segmentBy) {
+      case "projectName":
+        return segmentByProjectName();
+      case "repositoryId":
+      default:
+        return segmentByRepositoryId();
+    }
+  };
+
+  const segmentByRepositoryId = (): ISegmented[] => {
     let segments: ISegmented[] = [];
 
-    if (!segmentEnabled) {
-      return [
-        {
-          gmuds: gmuds,
-          segmentEnabled: false,
-        },
-      ];
-    }
-
-    segments = gmuds.reduce((p, c) => {
-      return p.find((f) => f.repositoryId === c.repositoryId)
+    segments = gmuds.reduce((p, gmud) => {
+      return p.find((segment) => segment.id === gmud.repositoryId)
         ? p
-        : [...p, { repositoryId: c.repositoryId, gmuds: [] }];
+        : ([...p, { id: gmud.repositoryId, gmuds: [] }] as ISegmented[]);
     }, segments);
 
-    segments = segments.map((x) => {
-      x.gmuds = gmuds.filter((f) => f.repositoryId === x.repositoryId);
-      return x;
+    segments = segments.map((segment) => {
+      segment.gmuds = gmuds.filter((gmud) => gmud.repositoryId === segment.id);
+      return segment;
+    });
+
+    return segments;
+  };
+
+  const segmentByProjectName = (): ISegmented[] => {
+    let segments: ISegmented[] = [];
+
+    segments = gmuds.reduce((p, gmud) => {
+      return p.find((segment) => segment.id === gmud.projectName)
+        ? p
+        : ([...p, { id: gmud.projectName, gmuds: [] }] as ISegmented[]);
+    }, segments);
+
+    segments = segments.map((segment) => {
+      segment.gmuds = gmuds.filter((gmud) => gmud.projectName === segment.id);
+      return segment;
     });
 
     return segments;
@@ -56,17 +74,21 @@ const PaneGmud = ({ gmuds, segmentEnabled, onChangeValue }: IProps) => {
     if (!segments.length) return;
 
     return segments.map((segment) => (
-      <div key={segment.repositoryId} className="table-responsive">
-        {segmentEnabled ?? (
+      <div key={segment.id} className="table-responsive">
+        {segmentBy === "repositoryId" ? (
           <div className="mb-1">
             <span className="h6">Repositório: </span>
             <a
-              href={`http://github.com/${segment.repositoryId}`}
+              href={`http://github.com/${segment.id}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {segment.repositoryId?.split("/")[1]}
+              {segment.id?.split("/")[1]}
             </a>
+          </div>
+        ) : (
+          <div className="mb-1">
+            <span className="h6">{segment.id}</span>
           </div>
         )}
         <table className="table table-sm table-striped table-hover">

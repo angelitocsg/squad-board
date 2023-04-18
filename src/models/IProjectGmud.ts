@@ -12,5 +12,6 @@ export interface IProjectGmud {
   owner?: string;
 
   projectId?: string;
+  projectName?: string;
   repositoryId?: string;
 }
