@@ -7,6 +7,7 @@ import HomePage from "./pages/home";
 import NotificationsPage from "./pages/notifications";
 import OverviewPage from "./pages/overview";
 import ProjectsPage from "./pages/projects";
+import GmudReport from "./pages/projects/reports/GmudReport";
 import Main from "./shared/Main";
 
 const router = createBrowserRouter(
@@ -39,6 +40,15 @@ const router = createBrowserRouter(
         {
           path: "/faq-editor",
           element: <FaqEditorPage />,
+        },
+        {
+          path: "/reports",
+          children: [
+            {
+              path: "/reports/gmuds",
+              element: <GmudReport />,
+            },
+          ],
         },
       ],
     },

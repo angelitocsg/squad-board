@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const location = useLocation();
@@ -56,6 +56,27 @@ const Navbar = () => {
               <Link to="/overview" className={getActiveCss("/overview")}>
                 Visão Geral
               </Link>
+            </li>
+
+            <li className="nav-item dropdown">
+              <span
+                className="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Relatórios
+              </span>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link to="/reports/gmuds" className="dropdown-item">
+                    Gmuds
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+              </ul>
             </li>
           </ul>
         </div>

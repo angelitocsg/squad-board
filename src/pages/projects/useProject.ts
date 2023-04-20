@@ -75,6 +75,8 @@ const useProject = () => {
         f.status === GmudStatus.EM_REVISAO
     );
 
+  const getAllGmuds = () => gmuds;
+
   const getMonitoring = (projectId?: string) =>
     projectId && projectId !== ""
       ? monitoring.filter((g) => g.projectId === projectId)
@@ -206,6 +208,7 @@ const useProject = () => {
   return {
     summary_indicators,
     getAppRepositories,
+    getAllGmuds,
     getProjects,
     getRepositories,
     getGmuds,
