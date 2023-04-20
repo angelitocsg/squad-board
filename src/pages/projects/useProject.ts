@@ -56,6 +56,9 @@ const useProject = () => {
       ? repositories.filter((r) => r.projectId === projectId)
       : [];
 
+  const getAppRepositories = () =>
+    repositories.filter((repo) => repo.sigla_app);
+
   const getGmuds = (projectId?: string) =>
     projectId && projectId !== ""
       ? gmuds.filter((g) => g.projectId === projectId)
@@ -202,6 +205,7 @@ const useProject = () => {
 
   return {
     summary_indicators,
+    getAppRepositories,
     getProjects,
     getRepositories,
     getGmuds,

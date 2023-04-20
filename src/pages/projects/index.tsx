@@ -16,10 +16,12 @@ import PaneRepositories from "./containers/PaneRepositories";
 import SummaryActiveGmuds from "./containers/SummaryActiveGmuds";
 import SummaryIndicators from "./containers/SummaryIndicators";
 import useProject from "./useProject";
+import PentestSummary from "./containers/PentestSummary";
 
 const ProjectsPage = () => {
   const {
     summary_indicators,
+    getAppRepositories,
     getProjects,
     getRepositories,
     getGmuds,
@@ -50,7 +52,10 @@ const ProjectsPage = () => {
       />
 
       <SummaryIndicators indicators={summary_indicators} />
+
       <SummaryActiveGmuds gmuds={getActiveGmuds()} />
+
+      <PentestSummary repositories={getAppRepositories()} />
 
       {getProjects().map((project) => (
         <section key={project.id} className="mb-5">

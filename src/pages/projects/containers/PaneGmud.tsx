@@ -100,7 +100,7 @@ const PaneGmud = ({ gmuds, segmentBy, onChangeValue }: IProps) => {
               <th style={{ width: "95px" }}>Data</th>
               <th style={{ width: "55px" }}>Hora</th>
               <th style={{ width: "100px" }}>Status</th>
-              <th style={{ minWidth: "150px" }}>Repositório</th>
+              <th style={{ width: "380px" }}>Repositório</th>
               <th style={{ width: "150px" }}>Responsável</th>
               <th>Detalhes</th>
             </tr>

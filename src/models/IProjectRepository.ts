@@ -1,5 +1,6 @@
 import { IProjectEnvironments } from "./IProjectEnvironment";
 import { IProjectGmud } from "./IProjectGmud";
+import { IProjectRepositoryPentest } from "./IProjectRepositoryPentest";
 
 export interface IProjectRepository {
   id: string;
@@ -13,6 +14,7 @@ export interface IProjectRepository {
     production: IProjectEnvironments;
   };
   gmuds?: IProjectGmud[];
+  pentests?: IProjectRepositoryPentest[];
 
   projectId?: string;
 }
