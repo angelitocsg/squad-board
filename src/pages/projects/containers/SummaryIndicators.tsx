@@ -3,9 +3,10 @@ import { GmudStatus } from "../../../types/TGmudStatus";
 
 interface IProps {
   indicators?: ISummaryIndicators;
+  titleHidden?: boolean;
 }
 
-const SummaryIndicators = ({ indicators }: IProps) => {
+const SummaryIndicators = ({ indicators, titleHidden }: IProps) => {
   const resolveStatusBg = (status?: GmudStatus) => {
     const defClass = "card-body bg-opacity-75";
     return status === GmudStatus.PENDENTE || status === GmudStatus.APROVADA
@@ -23,7 +24,7 @@ const SummaryIndicators = ({ indicators }: IProps) => {
 
   return (
     <div>
-      <h1 className="h4">GMUDs</h1>
+      {titleHidden ? "" : <h1 className="h4">GMUDs</h1>}
       <div className="row mb-3 text-center">
         {indicators?.gmuds
           ?.filter((f) => f.status !== GmudStatus.IGNORADA)
@@ -37,6 +38,16 @@ const SummaryIndicators = ({ indicators }: IProps) => {
               </div>
             </div>
           ))}
+        <div className="col">
+          <div className="card mb-4 shadow-sm">
+            <div className="card-header text-bg-dark">TOTAL</div>
+            <div className="card-body bg-opacity-75 bg-secondary">
+              <span className="h1">
+                {indicators?.gmuds?.reduce((p, c) => p + c.count, 0)}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

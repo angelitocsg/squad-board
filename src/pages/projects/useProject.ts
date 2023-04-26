@@ -57,7 +57,9 @@ const useProject = () => {
       : [];
 
   const getAppRepositories = () =>
-    repositories.filter((repo) => repo.sigla_app);
+    repositories.filter(
+      (repo) => repo.sigla_app && repo.type.indexOf("-DEP") === -1
+    );
 
   const getGmuds = (projectId?: string) =>
     projectId && projectId !== ""
