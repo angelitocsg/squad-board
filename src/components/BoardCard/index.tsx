@@ -50,13 +50,14 @@ const BoardCard = ({
   return (
     <div
       className={`card rounded shadow-sm ${group ? "mb-2" : "mb-3"}`}
-      role={group ? "button" : "cell"}
-      onClick={handleClick}
       {...props}
     >
       <BoardCardTitle
+        id={id}
         featureColor={featureColor}
         parentDescription={parentDescription}
+        handleClick={handleClick}
+        role={group ? "button" : "cell"}
       />
       <BoardCardBody group={group}>
         <BoardCardDetails

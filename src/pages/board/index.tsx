@@ -71,10 +71,6 @@ const BoardPage = () => {
                   story_points={item.story_points}
                   group={(item.issues?.length ?? 0) > 0 ?? false}
                   hidden={(item.issues?.length ?? 0) === 0}
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#${item.id}`}
-                  aria-expanded="false"
-                  aria-controls={`${item.id}`}
                 />
               </BoardColumn>
 
