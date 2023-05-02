@@ -54,8 +54,8 @@ const useBoardCard = ({
       : "";
 
   const parentDescription = parent_description
-    ? parent_description?.substring(0, 45) +
-      ((parent_description?.length ?? 0) > 45 ? "..." : "")
+    ? parent_description?.substring(0, 43) +
+      ((parent_description?.length ?? 0) > 43 ? "..." : "")
     : `${parentDescriptionAlternative} ${
         story_points ? `(${story_points})` : ""
       } ${status ? `[${status}]` : ""}`;

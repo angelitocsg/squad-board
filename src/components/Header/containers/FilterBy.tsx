@@ -14,7 +14,7 @@ const HeaderFilterBy = ({
   (assignees?.length ?? 0) > 0 ? (
     <div
       className="d-inline-flex align-items-center"
-      style={{ maxWidth: 1000 }}
+      style={{ maxWidth: 1200 }}
     >
       <small className="me-2">Filtrar por:</small>
       <div>

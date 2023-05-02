@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 interface Notification {
+  id: string;
   v: number;
   t: "error" | "warn" | "danger" | "info";
   m: string;
@@ -17,6 +19,7 @@ interface Notification {
 }
 
 const notificationInitial: Notification = {
+  id: uuidv4().split('-')[0],
   v: 1,
   t: "info",
   fx: 0,
@@ -63,7 +66,7 @@ const useNotifications = () => {
       ...valid_data,
       messages: valid_data.messages,
     });
-    set_notification(notificationInitial);
+    set_notification({ ...notificationInitial, id: uuidv4().split('-')[0] });
   };
 
   const removeNotification = (idx: number) => {

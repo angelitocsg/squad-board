@@ -235,12 +235,12 @@ export class ImportService {
       switch (status) {
         case "A FAZER":
           return "0";
+        case "EM REFINAMENTO":
+          return "1";
         case "EM EXECUÇÃO":
           return "2";
         case "EM TESTES":
           return "3";
-        case "EM REFINAMENTO":
-          return "4";
         case "ENCERRADO/ATIVADO/CANCELADO":
           return "7";
         default:
@@ -254,12 +254,17 @@ export class ImportService {
         items: 0,
       },
       {
-        id: "1",
+        id: "2",
         status: "EM EXECUÇÃO",
         items: 0,
       },
       {
-        id: "4",
+        id: "3",
+        status: "EM TESTES",
+        items: 0,
+      },
+      {
+        id: "7",
         status: "ENCERRADO/ATIVADO/CANCELADO",
         items: 0,
       },
