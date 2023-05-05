@@ -6,6 +6,7 @@ import { ImportService } from "../../services/ImportService";
 
 const useBoard = () => {
   const [assignee_selected, set_assignee_selected] = useState("");
+  const [feature_selected, set_feature_selected] = useState("");
   const [status_selected, set_status_selected] = useState("");
   const [story_points, set_story_points] = useState({
     total: 0,
@@ -18,6 +19,7 @@ const useBoard = () => {
     []
   );
   const [bd_assignees, set_bd_assignees] = useState<BoardIssues[]>([]);
+  const [features, set_features] = useState<string[]>([]);
   const [show_by, set_show_by] = useState<BoardIssues[]>([]);
   const [last_show_by, set_last_show_by] = useState<BoardIssues[]>([]);
 
@@ -38,6 +40,7 @@ const useBoard = () => {
   const handleGroupBy = (opt: number) => {
     set_assignee_selected("");
     set_status_selected("");
+    set_feature_selected("");
     switch (opt) {
       case 2:
         set_show_by(bd_story_task_bug);
@@ -58,7 +61,20 @@ const useBoard = () => {
     return last_show_by_copy;
   };
 
+  const _getLastShowByFeature = () => {
+    set_status_selected("");
+    set_assignee_selected("");
+    const last_show_by_copy: BoardIssues[] = JSON.parse(
+      JSON.stringify(last_show_by)
+    );
+    console.log({ last_show_by_copy });
+
+    return last_show_by_copy;
+  };
+
   const handleFilterAssignee = (assignee: string, composition?: boolean) => {
+    set_feature_selected("");
+
     if (assignee_selected === assignee && !composition) {
       set_assignee_selected("");
       set_show_by(_getLastShowByAssignee());
@@ -81,11 +97,39 @@ const useBoard = () => {
     return filterByAssignee;
   };
 
+  const handleFilterFeature = (feature: string, composition?: boolean) => {
+    if (feature_selected === feature && !composition) {
+      set_feature_selected("");
+      set_show_by(_getLastShowByFeature());
+      return last_show_by;
+    }
+
+    set_feature_selected(feature);
+
+    const filterByFeature = _getLastShowByFeature().filter((f) => {
+      const filtered = f.issues?.filter((s) => s.parent_id === feature);
+
+      console.log({ issues: f.issues, filtered, feature });
+      console.table(f.issues);
+
+      if (f.parent_id === feature || (filtered?.length ?? 0) > 0) {
+        // f.issues = filtered;
+        return true;
+      }
+      return false;
+    });
+
+    set_show_by(filterByFeature);
+    return filterByFeature;
+  };
+
   const _getLastShowByStatus = () => {
     let last_show_by_copy: BoardIssues[];
 
     if (assignee_selected) {
       last_show_by_copy = handleFilterAssignee(assignee_selected, true);
+    } else if (feature_selected) {
+      last_show_by_copy = handleFilterFeature(feature_selected, true);
     } else {
       last_show_by_copy = JSON.parse(JSON.stringify(last_show_by));
     }
@@ -145,13 +189,33 @@ const useBoard = () => {
     }));
   };
 
-  const getTotalTasks = () =>({
-    total:  getStatus().reduce((p, c) => p + c.count, 0),
-    ended: bd_story_task_bug.length
+  const getTotalTasks = () => ({
+    total: getStatus().reduce((p, c) => p + c.count, 0),
+    ended: bd_story_task_bug.length,
   });
 
+  const getFeatures = (): string[] => {
+    if (features.length > 0) return features;
+
+    const items: string[] = [];
+    const result = show_by
+      .map((x) => x.parent_id)
+      .reduce((p, c) => {
+        if (p.find((f) => f === c)) {
+          return p;
+        } else {
+          if (c?.indexOf("FETR") !== -1 || c?.indexOf("SPNT") !== -1)
+            p.push(c ?? "");
+          return p;
+        }
+      }, items);
+
+    set_features(result);
+    return result;
+  };
+
   useEffect(() => {
-    document.title = "Tarefas | Squad"
+    document.title = "Tarefas | Squad";
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -178,6 +242,7 @@ const useBoard = () => {
 
   return {
     assignee_selected,
+    feature_selected,
     status_selected,
     story_points,
     bd_sprint_name,
@@ -190,8 +255,10 @@ const useBoard = () => {
     handleFilterAssignee,
     handleFilterByStatus,
     handleFileUpload,
+    handleFilterFeature,
     getStatus,
     getTotalTasks,
+    getFeatures,
   };
 };
 

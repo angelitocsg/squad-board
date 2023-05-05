@@ -13,6 +13,7 @@ import useBoard from "./useBoard";
 const BoardPage = () => {
   const {
     assignee_selected,
+    feature_selected,
     status_selected,
     story_points,
     bd_sprint_name,
@@ -22,9 +23,11 @@ const BoardPage = () => {
     handleGroupBy,
     handleFilterAssignee,
     handleFilterByStatus,
+    handleFilterFeature,
     handleFileUpload,
     getStatus,
     getTotalTasks,
+    getFeatures
   } = useBoard();
 
   return show_by.length === 0 ? (
@@ -41,11 +44,14 @@ const BoardPage = () => {
       <ImportBoardModal onUploadClick={handleFileUpload} />
 
       <Header
-        assigneeSelected={assignee_selected}
         sprintName={bd_sprint_name}
         storyPoints={story_points}
         totalTasks={getTotalTasks()}
         assignees={bd_assignees.map((it) => it.assignee)}
+        assigneeSelected={assignee_selected}
+        features={getFeatures()}
+        featureSelected={feature_selected}
+        onFilterFeatureClick={handleFilterFeature}
         onGroupByClick={handleGroupBy}
         onFilterAssigneeClick={handleFilterAssignee}
       />
@@ -65,6 +71,7 @@ const BoardPage = () => {
                   description={item.description}
                   assignee={item.assignee}
                   id={item.id}
+                  parent_id={item.parent_id}
                   type={item.type}
                   priority={item.priority ?? PriorityEnum.MEDIUM}
                   status={item.status}
@@ -101,12 +108,12 @@ const BoardPage = () => {
                   group={true}
                   data-bs-toggle="collapse"
                   data-bs-target={"#OTHERS"}
-                  aria-expanded="false"
+                  aria-expanded="true"
                   aria-controls={"OTHERS"}
                 />
               </BoardColumn>
 
-              <div id="OTHERS" className="collapse">
+              <div id="OTHERS" className="collapse show">
                 <div className="d-flex">
                   {bd_status.map((st) => {
                     const issues = show_by

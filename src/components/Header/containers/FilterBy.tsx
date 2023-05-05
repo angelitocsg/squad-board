@@ -10,27 +10,30 @@ const HeaderFilterBy = ({
   assignees,
   assigneeSelected,
   onFilterAssigneeClick,
-}: IProps) =>
-  (assignees?.length ?? 0) > 0 ? (
+}: IProps) => {
+  const getFormatedName = (assignee: string) => {
+    const parts = assignee.split(" ");
+    return parts.length > 1 ? `${parts[0]} ${parts[1][0]}.` : assignee;
+  };
+
+  return (assignees?.length ?? 0) > 0 ? (
     <div
       className="d-inline-flex align-items-center"
       style={{ maxWidth: 1200 }}
     >
       <small className="me-2">Filtrar por:</small>
       <div>
-        {assignees?.map((a) => (
+        {assignees?.map((assignee) => (
           <span
-            key={a}
+            key={assignee}
             className={`btn badge opacity me-1 ${
-              assigneeSelected === a
+              assigneeSelected === assignee
                 ? "fw-bold text-bg-warning"
                 : "text-bg-primary"
             }`}
-            onClick={() => onFilterAssigneeClick(a)}
+            onClick={() => onFilterAssigneeClick(assignee)}
           >
-            {a === SEM_ALOCACAO
-              ? a
-              : `${a.split(" ")[0]} ${a.split(" ")[1][0]}.`}
+            {assignee === SEM_ALOCACAO ? assignee : getFormatedName(assignee)}
           </span>
         ))}
       </div>
@@ -38,5 +41,6 @@ const HeaderFilterBy = ({
   ) : (
     <></>
   );
+};
 
 export default HeaderFilterBy;

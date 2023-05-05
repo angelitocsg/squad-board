@@ -4,26 +4,43 @@ import StoryPoint from "./containers/StoryPoint";
 import useHeader from "./useHeader";
 
 interface IProps {
-  assigneeSelected: string;
   sprintName: string;
   storyPoints: { total: number; ended: number };
   totalTasks: { total: number; ended: number };
+
   assignees?: string[];
-  onGroupByClick: (opt: number) => void;
+  assigneeSelected: string;
   onFilterAssigneeClick: (assignee: string) => void;
+
+  features?: string[];
+  featureSelected: string;
+  onFilterFeatureClick: (feature: string) => void;
+
+  onGroupByClick: (opt: number) => void;
 }
 
 const Header = ({
-  assigneeSelected,
   sprintName,
   storyPoints,
   totalTasks,
   assignees,
-  onGroupByClick,
+  assigneeSelected,
   onFilterAssigneeClick,
+  features,
+  featureSelected,
+  onFilterFeatureClick,
+  onGroupByClick,
 }: IProps) => {
-  const { group_selected, handleGroupByClick, handleFilterAssigneeClick } =
-    useHeader({ onGroupByClick, onFilterAssigneeClick });
+  const {
+    group_selected,
+    handleGroupByClick,
+    handleFilterAssigneeClick,
+    handleFilterFeatureClick,
+  } = useHeader({
+    onGroupByClick,
+    onFilterAssigneeClick,
+    onFilterFeatureClick,
+  });
 
   return (
     <>
@@ -44,12 +61,21 @@ const Header = ({
         </nav>
       </div>
 
-      <div className="bg-body shadow-sm p-1 ps-0 mb-4">
+      <div className="bg-body shadow-sm p-1 ps-0 mb-1">
         <nav className="nav p-1 ps-3 d-flex justify-content-center align-items-center">
           <HeaderFilterBy
             assignees={assignees}
             assigneeSelected={assigneeSelected}
             onFilterAssigneeClick={handleFilterAssigneeClick}
+          />
+        </nav>
+      </div>
+      <div className="bg-body shadow-sm ps-0 mb-4">
+        <nav className="nav p-1 ps-3 d-flex justify-content-center align-items-center">
+          <HeaderFilterBy
+            assignees={features}
+            assigneeSelected={featureSelected}
+            onFilterAssigneeClick={handleFilterFeatureClick}
           />
         </nav>
       </div>
