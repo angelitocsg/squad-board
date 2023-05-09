@@ -9,6 +9,7 @@ import OverviewPage from "./pages/overview";
 import ProjectsPage from "./pages/projects";
 import GmudReport from "./pages/projects/reports/GmudReport";
 import Main from "./shared/Main";
+import SettingsPage from "./pages/settings";
 
 const router = createBrowserRouter(
   [
@@ -49,6 +50,10 @@ const router = createBrowserRouter(
               element: <GmudReport />,
             },
           ],
+        },
+        {
+          path: "/settings",
+          element: <SettingsPage />,
         },
       ],
     },

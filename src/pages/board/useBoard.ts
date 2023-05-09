@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { IStatus } from "../../components/BoardColumnStatus";
-import { BoardIssues } from "../../interfaces/BoardIssues";
-import { ImportService } from "../../services/ImportService";
+import { IStatus } from '../../components/BoardColumnStatus';
+import { BoardIssues } from '../../interfaces/BoardIssues';
+import { ImportService } from '../../services/ImportService';
 
 const useBoard = () => {
   const [assignee_selected, set_assignee_selected] = useState("");

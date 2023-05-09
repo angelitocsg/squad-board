@@ -78,6 +78,12 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
+
+            <li className="nav-item pe-2">
+              <Link to="/settings" className={getActiveCss("/settings")}>
+                Configurações
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
