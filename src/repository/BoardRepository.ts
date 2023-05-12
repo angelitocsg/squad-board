@@ -169,18 +169,39 @@ export class BoardRepository {
   }
 
   getStatusAndItemsCount(): IStatus[] {
-    return this.getData()
+    const issues = this._filter();
+
+    const count_issue = (issue: IBoardIssue, status: string) => {
+      let count = 0;
+      if (issue.status === status) count++;
+      count += issue.issues?.filter((f) => f.status === status)?.length ?? 0;
+      return count;
+    };
+
+    let x = issues
       .map((d) => ({
         id: this._getStatusOrder(d.status),
         status: d.status ?? "",
-        count: this.getData().filter((f) => f.status === d.status)?.length,
+        count: issues
+          .filter(
+            (f) =>
+              f.status === d.status ||
+              f.issues?.find((ff) => ff.status === d.status)
+          )
+          .map((m) => count_issue(m, d.status ?? ""))
+          .reduce((p, c) => p + c, 0),
       }))
       .reduce((p, c) => {
-        if (p.find((f) => f.status === c.status)) return p;
+        const current = p.find((f) => f.status === c.status);
+        if (current) {
+          p = p.filter((f) => f.status !== c.status);
+        }
         p.push(c);
         return p;
       }, this._getDefaultVisibleStatus())
       .sort((a, b) => a.id.localeCompare(b.id));
+
+    return x;
   }
 
   private _getStatusOrder(status?: string) {

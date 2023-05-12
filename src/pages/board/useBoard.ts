@@ -48,7 +48,6 @@ const useBoard = () => {
     set_issues(repository.getAllIssues());
     set_sprint_name(repository.getSprintName());
     set_assignees(repository.getAssignees());
-    set_status(repository.getStatusAndItemsCount());
   };
 
   const handleFilterAssignee = (assignee: string) => {
@@ -89,6 +88,11 @@ const useBoard = () => {
   const handleClear = () => {
     service.clear();
   };
+
+  useEffect(() => {
+    set_status(repository.getStatusAndItemsCount());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [issues]);
 
   useEffect(() => {
     document.title = "Tarefas | Squad";

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { TIssueType } from "../../types/TIssueType";
+import { IssueStatus } from "../../enums/IssueStatus";
 
 interface IProps {
   status?: string;
@@ -31,7 +32,7 @@ const useBoardCard = ({
   type = parent_id?.startsWith("BUG") ? "sub-bug" : type;
 
   const featureColor =
-    status === "ENCERRADO/ATIVADO/CANCELADO"
+    status === IssueStatus.ENCERRADO_ATIVADO
       ? "bg-secondary"
       : status === "EM TESTES"
       ? "bg-success opacity-disabled"
