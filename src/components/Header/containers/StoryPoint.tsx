@@ -1,6 +1,6 @@
 interface IProps {
   label: string;
-  storyPoints: { total: number; ended?: number };
+  storyPoints: { total: number; completed?: number };
 }
 
 const StoryPoint = ({ label, storyPoints }: IProps) => (
@@ -10,9 +10,9 @@ const StoryPoint = ({ label, storyPoints }: IProps) => (
       <span className="rounded-circle ms-1 px-1 text-bg-danger text-light opacity">
         <strong>{storyPoints.total}</strong>
       </span>
-      {storyPoints.ended ? (
+      {storyPoints.completed ? (
         <span className="rounded-circle ms-1 px-1 bg-success text-light opacity">
-          <strong>{storyPoints.ended}</strong>
+          <strong>{storyPoints.completed}</strong>
         </span>
       ) : undefined}
     </small>

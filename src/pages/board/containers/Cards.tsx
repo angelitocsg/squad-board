@@ -1,9 +1,10 @@
-import BoardCard from '../../../components/BoardCard';
-import { IStatus } from '../../../components/BoardColumnStatus';
-import { BoardIssues, PriorityEnum } from '../../../interfaces/BoardIssues';
+import BoardCard from "../../../components/BoardCard";
+import { IStatus } from "../../../components/BoardColumnStatus";
+import { PriorityEnum } from "../../../enums/PriorityEnum";
+import { IBoardIssue } from "../../../models/IBoardIssue";
 
 interface IProps {
-  item: BoardIssues;
+  item: IBoardIssue;
   status: IStatus;
 }
 

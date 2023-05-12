@@ -1,14 +1,18 @@
-import { SEM_ALOCACAO } from "../../../services/ImportService";
+import { SEM_ALOCACAO } from "../../../constants/board.constants";
 
 interface IProps {
+  label: string;
   assignees?: string[];
   assigneeSelected: string;
+  assigneesSelected?: string[];
   onFilterAssigneeClick: (assignee: string) => void;
 }
 
 const HeaderFilterBy = ({
+  label,
   assignees,
   assigneeSelected,
+  assigneesSelected,
   onFilterAssigneeClick,
 }: IProps) => {
   const getFormatedName = (assignee: string) => {
@@ -21,13 +25,14 @@ const HeaderFilterBy = ({
       className="d-inline-flex align-items-center"
       style={{ maxWidth: 1200 }}
     >
-      <small className="me-2">Filtrar por:</small>
+      <small className="me-2">{label}:</small>
       <div>
         {assignees?.map((assignee) => (
           <span
             key={assignee}
             className={`btn badge opacity me-1 ${
-              assigneeSelected === assignee
+              assigneeSelected === assignee ||
+              assigneesSelected?.find((f) => f === assignee)
                 ? "fw-bold text-bg-warning"
                 : "text-bg-primary"
             }`}

@@ -5,32 +5,33 @@ import ClearCacheButton from "../../components/ClearCacheButton";
 import DropFile from "../../components/DropFile";
 import Header from "../../components/Header";
 import ImportBoardModal from "../../components/ImportBoardModal";
-import { PriorityEnum } from "../../interfaces/BoardIssues";
+import { PriorityEnum } from "../../enums/PriorityEnum";
 import NoContentPage from "../noContent";
 import BoardCards from "./containers/Cards";
 import useBoard from "./useBoard";
 
 const BoardPage = () => {
   const {
+    assignees,
     assignee_selected,
+    features,
     feature_selected,
+    issues,
+    issues_hidden,
+    issue_types,
+    sprint_name,
+    status,
     status_selected,
     story_points,
-    bd_sprint_name,
-    bd_status,
-    bd_assignees,
-    show_by,
-    handleGroupBy,
+    total_tasks,
     handleFilterAssignee,
     handleFilterByStatus,
     handleFilterFeature,
+    handleFilterIssueType,
     handleFileUpload,
-    getStatus,
-    getTotalTasks,
-    getFeatures
   } = useBoard();
 
-  return show_by.length === 0 ? (
+  return issues.length === 0 && story_points.total === 0 ? (
     <>
       <DropFile encoding="UTF-8" onLoadFile={handleFileUpload} />
       <NoContentPage title="Painel Tarefas" />
@@ -44,26 +45,28 @@ const BoardPage = () => {
       <ImportBoardModal onUploadClick={handleFileUpload} />
 
       <Header
-        sprintName={bd_sprint_name}
+        sprintName={sprint_name}
         storyPoints={story_points}
-        totalTasks={getTotalTasks()}
-        assignees={bd_assignees.map((it) => it.assignee)}
+        totalTasks={total_tasks}
+        assignees={assignees.map((it) => it.name)}
+        features={features}
         assigneeSelected={assignee_selected}
-        features={getFeatures()}
         featureSelected={feature_selected}
-        onFilterFeatureClick={handleFilterFeature}
-        onGroupByClick={handleGroupBy}
+        issueTypes={issue_types}
+        issueTypesSelected={issues_hidden}
         onFilterAssigneeClick={handleFilterAssignee}
+        onFilterFeatureClick={handleFilterFeature}
+        onFilterIssueType={handleFilterIssueType}
       />
 
       <section className="flex-column d-inline-block w-100">
         <BoardColumnStatus
           statusSelected={status_selected}
-          statusList={getStatus()}
+          statusList={status}
           onStatusClick={handleFilterByStatus}
         />
 
-        {show_by.map((item) => {
+        {issues.map((item) => {
           return (item.issues?.length ?? 0) === 0 ? undefined : (
             <div key={item.id}>
               <BoardColumn>
@@ -83,7 +86,7 @@ const BoardPage = () => {
 
               <div id={`${item.id}`} className="collapse">
                 <div className="d-flex">
-                  {bd_status.map((st) => {
+                  {status.map((st) => {
                     return (
                       <BoardColumn key={item.id + st.status}>
                         <BoardCards item={item} status={st} />
@@ -96,8 +99,8 @@ const BoardPage = () => {
           );
         })}
 
-        {show_by.length > 0 &&
-          show_by.filter((f) => f.issues?.length === 0).length > 0 && (
+        {issues.length > 0 &&
+          issues.filter((f) => f.issues?.length === 0).length > 0 && (
             <div>
               <BoardColumn>
                 <BoardCard
@@ -115,8 +118,8 @@ const BoardPage = () => {
 
               <div id="OTHERS" className="collapse show">
                 <div className="d-flex">
-                  {bd_status.map((st) => {
-                    const issues = show_by
+                  {status.map((st) => {
+                    const _issues = issues
                       .filter((f) => (f.issues?.length ?? 0) === 0)
                       .filter((f) => f.status === st.status);
                     return (
@@ -125,7 +128,7 @@ const BoardPage = () => {
                           item={{
                             id: "OTHERS",
                             assignee: "",
-                            issues: issues,
+                            issues: _issues,
                           }}
                           status={st}
                         />

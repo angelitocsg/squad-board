@@ -1,23 +1,14 @@
-import { useState } from "react";
-
 interface IProps {
-  onGroupByClick: (opt: number) => void;
   onFilterAssigneeClick: (assignee: string) => void;
   onFilterFeatureClick: (feature: string) => void;
+  onFilterIssueType: (issueType: string) => void;
 }
 
 const useHeader = ({
-  onGroupByClick,
   onFilterAssigneeClick,
   onFilterFeatureClick,
+  onFilterIssueType,
 }: IProps) => {
-  const [group_selected, set_group_selected] = useState(2);
-
-  const handleGroupByClick = (group: number) => {
-    set_group_selected(group);
-    if (onGroupByClick) onGroupByClick(group);
-  };
-
   const handleFilterAssigneeClick = (assignee: string) => {
     if (onFilterAssigneeClick) onFilterAssigneeClick(assignee);
   };
@@ -26,11 +17,14 @@ const useHeader = ({
     if (onFilterFeatureClick) onFilterFeatureClick(feature);
   };
 
+  const handleFilterIssueType = (feature: string) => {
+    if (onFilterIssueType) onFilterIssueType(feature);
+  };
+
   return {
-    group_selected,
-    handleGroupByClick,
     handleFilterAssigneeClick,
     handleFilterFeatureClick,
+    handleFilterIssueType,
   };
 };
 

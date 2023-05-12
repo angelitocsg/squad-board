@@ -1,4 +1,4 @@
-import { TPriority } from "../../../interfaces/BoardIssues";
+import { TPriority } from "../../../types/TPriority";
 import TaskPriority from "../../TaskPriority";
 
 interface IProps {

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { TFeatureType } from "../../interfaces/BoardIssues";
+
+import { TIssueType } from "../../types/TIssueType";
 
 interface IProps {
   status?: string;
@@ -26,7 +27,7 @@ const useBoardCard = ({
     if (onClick) onClick(expand);
   };
 
-  type = type?.toLocaleLowerCase() as TFeatureType;
+  type = type?.toLocaleLowerCase() as TIssueType;
   type = parent_id?.startsWith("BUG") ? "sub-bug" : type;
 
   const featureColor =

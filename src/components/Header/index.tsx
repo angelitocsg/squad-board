@@ -1,12 +1,11 @@
 import HeaderFilterBy from "./containers/FilterBy";
-import HeaderGroupBy from "./containers/GroupBy";
 import StoryPoint from "./containers/StoryPoint";
 import useHeader from "./useHeader";
 
 interface IProps {
   sprintName: string;
-  storyPoints: { total: number; ended: number };
-  totalTasks: { total: number; ended: number };
+  storyPoints: { total: number; completed: number };
+  totalTasks: { total: number; completed: number };
 
   assignees?: string[];
   assigneeSelected: string;
@@ -16,7 +15,9 @@ interface IProps {
   featureSelected: string;
   onFilterFeatureClick: (feature: string) => void;
 
-  onGroupByClick: (opt: number) => void;
+  issueTypes: string[];
+  issueTypesSelected: string[];
+  onFilterIssueType: (issueTypes: string) => void;
 }
 
 const Header = ({
@@ -29,17 +30,18 @@ const Header = ({
   features,
   featureSelected,
   onFilterFeatureClick,
-  onGroupByClick,
+  issueTypes,
+  issueTypesSelected,
+  onFilterIssueType,
 }: IProps) => {
   const {
-    group_selected,
-    handleGroupByClick,
     handleFilterAssigneeClick,
     handleFilterFeatureClick,
+    handleFilterIssueType,
   } = useHeader({
-    onGroupByClick,
     onFilterAssigneeClick,
     onFilterFeatureClick,
+    onFilterIssueType,
   });
 
   return (
@@ -54,9 +56,12 @@ const Header = ({
           <span className="ps-5"></span>
           <StoryPoint storyPoints={totalTasks} label="Tarefas" />
           <span className="ps-5"></span>
-          <HeaderGroupBy
-            onGroupByClick={handleGroupByClick}
-            groupSelected={group_selected}
+          <HeaderFilterBy
+            label="Ocultar"
+            assignees={issueTypes}
+            assigneeSelected=""
+            assigneesSelected={issueTypesSelected}
+            onFilterAssigneeClick={handleFilterIssueType}
           />
         </nav>
       </div>
@@ -64,6 +69,7 @@ const Header = ({
       <div className="bg-body shadow-sm p-1 ps-0 mb-1">
         <nav className="nav p-1 ps-3 d-flex justify-content-center align-items-center">
           <HeaderFilterBy
+            label="Responsável"
             assignees={assignees}
             assigneeSelected={assigneeSelected}
             onFilterAssigneeClick={handleFilterAssigneeClick}
@@ -73,6 +79,7 @@ const Header = ({
       <div className="bg-body shadow-sm ps-0 mb-4">
         <nav className="nav p-1 ps-3 d-flex justify-content-center align-items-center">
           <HeaderFilterBy
+            label="Feature"
             assignees={features}
             assigneeSelected={featureSelected}
             onFilterAssigneeClick={handleFilterFeatureClick}

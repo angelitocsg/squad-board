@@ -1,0 +1,1 @@
+export const SEM_ALOCACAO = "[SEM ALOCAÇÃO]";

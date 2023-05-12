@@ -1,4 +1,5 @@
-import { TFeatureType, TPriority } from "../../interfaces/BoardIssues";
+import { TIssueType } from "../../types/TIssueType";
+import { TPriority } from "../../types/TPriority";
 import BoardCardBody from "./containers/Body";
 import BoardCardDetails from "./containers/Details";
 import BoardCardGroupExpander from "./containers/GroupExpander";
@@ -11,7 +12,7 @@ interface IProps {
   id?: string;
   parent_id?: string;
   parent_description?: string;
-  type?: TFeatureType;
+  type?: TIssueType;
   priority?: TPriority;
   story_points?: number;
   status?: string;
