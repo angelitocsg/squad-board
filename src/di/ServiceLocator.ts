@@ -1,24 +1,8 @@
-import { BoardRepository } from "../repository/BoardRepository";
-import { BoardService } from "../services/BoardService";
-import { FaqService } from "../services/FaqService";
-import { OverviewService } from "../services/OverviewService";
-import { ProjectService } from "../services/ProjectService";
-import { SettingsService } from "../services/SettingsService";
-
-const dependencyStore: any = {
-  BoardService,
-  BoardRepository,
-  FaqService,
-  OverviewService,
-  ProjectService,
-  SettingsService,
-};
-
 export class ServiceLocator {
-  serviceMap: Map<string, string> = new Map<string, string>();
+  serviceMap: Map<string, any> = new Map<string, any>();
   serviceInstances: Map<string, any> = new Map<string, any>();
 
-  register(abstraction: string, implementation: string) {
+  register(abstraction: string, implementation: any) {
     this.serviceMap.set(abstraction, implementation);
   }
 
@@ -26,16 +10,13 @@ export class ServiceLocator {
     if (!this.serviceMap.has(abstraction))
       throw Error("No service of this abstraction has been registered.");
 
-    let type = this.serviceMap.get(abstraction) || "";
-
-    if (!dependencyStore[type])
-      throw Error(`Dependency store has no dependency called ${type}`);
+    let implementation = this.serviceMap.get(abstraction) || "";
 
     let instance: T;
 
     if (!this.serviceInstances.has(abstraction)) {
       console.log(">> nova instancia", abstraction);
-      this.serviceInstances.set(abstraction, new dependencyStore[type]());
+      this.serviceInstances.set(abstraction, new implementation());
     }
 
     instance = this.serviceInstances.get(abstraction);

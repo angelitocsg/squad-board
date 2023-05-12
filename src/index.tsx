@@ -4,24 +4,24 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
-import reportWebVitals from "./reportWebVitals";
-import router from "./router";
 import { DecouplerContext } from "./di/DecouplerContext";
 import { ServiceLocator } from "./di/ServiceLocator";
-import { BoardService } from "./services/BoardService";
+import reportWebVitals from "./reportWebVitals";
 import { BoardRepository } from "./repository/BoardRepository";
-import { ProjectService } from "./services/ProjectService";
+import router from "./router";
+import { BoardService } from "./services/BoardService";
 import { FaqService } from "./services/FaqService";
 import { OverviewService } from "./services/OverviewService";
+import { ProjectService } from "./services/ProjectService";
 import { SettingsService } from "./services/SettingsService";
 
 let locator = new ServiceLocator();
-locator.register("BoardService", BoardService.name);
-locator.register("BoardRepository", BoardRepository.name);
-locator.register("FaqService", FaqService.name);
-locator.register("ProjectService", ProjectService.name);
-locator.register("OverviewService", OverviewService.name);
-locator.register("SettingsService", SettingsService.name);
+locator.register("BoardService", BoardService);
+locator.register("BoardRepository", BoardRepository);
+locator.register("FaqService", FaqService);
+locator.register("ProjectService", ProjectService);
+locator.register("OverviewService", OverviewService);
+locator.register("SettingsService", SettingsService);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
