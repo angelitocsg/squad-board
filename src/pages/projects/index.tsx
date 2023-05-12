@@ -32,20 +32,21 @@ const ProjectsPage = () => {
     handleDownloadFile,
     handleGmudValueChange,
     handleRepositoryValueChange,
+    handleClear,
   } = useProject();
 
   return getProjects().length === 0 ? (
     <>
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
       <NoContentPage title="Aplicações" />
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal onUploadClick={handleLoadFile} />
     </>
   ) : (
     <div className="container-fluid pt-3 pb-2">
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
 
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal
         onUploadClick={handleLoadFile}
         onDownloadClick={handleDownloadFile}
@@ -57,8 +58,8 @@ const ProjectsPage = () => {
 
       <PentestSummary repositories={getAppRepositories()} />
 
-      {getProjects().map((project) => (
-        <section key={project.id} className="mb-5">
+      {getProjects().map((project, i) => (
+        <section key={i} className="mb-5">
           <h1 className="h4 pb-3">{project.name}</h1>
           <TabGroup>
             <Tab

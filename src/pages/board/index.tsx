@@ -29,19 +29,20 @@ const BoardPage = () => {
     handleFilterFeature,
     handleFilterIssueType,
     handleFileUpload,
+    handleClear,
   } = useBoard();
 
   return issues.length === 0 && story_points.total === 0 ? (
     <>
       <DropFile encoding="UTF-8" onLoadFile={handleFileUpload} />
       <NoContentPage title="Painel Tarefas" />
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal onUploadClick={handleFileUpload} />
     </>
   ) : (
     <main id="main" className="container-fluid p-0">
       <DropFile encoding="iso-8859-1" onLoadFile={handleFileUpload} />
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal onUploadClick={handleFileUpload} />
 
       <Header

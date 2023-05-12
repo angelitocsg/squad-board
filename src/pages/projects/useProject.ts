@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import showdown from "showdown";
 
+import { useService } from "../../di/DecouplerContext";
+import { GmudStatus } from "../../enums/GmudStatus";
 import ExportHelper from "../../helpers/export.helper";
 import { IProjectGmud } from "../../models/IProjectGmud";
 import { IProjectMonitoring } from "../../models/IProjectMonitoring";
@@ -13,10 +15,12 @@ import {
   ISummaryIndicators,
   ISummaryIndicatorsGmuds,
 } from "../../models/ISummaryIndicators";
-import { ImportService } from "../../services/ImportService";
-import { GmudStatus, GmudStatusOrder } from "../../types/TGmudStatus";
+import { ProjectService } from "../../services/ProjectService";
+import { GmudStatusOrder } from "../../types/TGmudStatus";
 
 const useProject = () => {
+  const service = useService<ProjectService>("ProjectService");
+
   const [projects, set_projects_data] = useState<IProject[]>([]);
   const [projects_config, set_projects_config] = useState<IProject>({});
   const [repositories, set_repositories_data] = useState<IProjectRepository[]>(
@@ -30,7 +34,7 @@ const useProject = () => {
     useState<ISummaryIndicators>({});
 
   const handleLoadFile = (data: string) => {
-    ImportService.ImportProjectsJson(data);
+    service.import(data);
     setTimeout(() => {
       window.location.reload();
     }, 500);
@@ -169,6 +173,10 @@ const useProject = () => {
     set_projects_gmuds(gmudsUpdated);
   };
 
+  const handleClear = () => {
+    service.clear();
+  };
+
   useEffect(() => {
     if (gmuds.length === 0) {
       return;
@@ -221,6 +229,7 @@ const useProject = () => {
     handleDownloadFile,
     handleGmudValueChange,
     handleRepositoryValueChange,
+    handleClear,
   };
 };
 

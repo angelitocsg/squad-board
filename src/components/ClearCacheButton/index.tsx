@@ -1,9 +1,17 @@
-const ClearCacheButton = () => {
-  const clear = () => {
-    localStorage.clear();
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+interface IProps {
+  clear?: () => void;
+}
+
+const ClearCacheButton = ({ clear }: IProps) => {
+  const handleClick = () => {
+    if (clear) {
+      clear();
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+      return;
+    }
+    console.error("Clear function is undefined!", clear);
   };
 
   return (
@@ -18,7 +26,7 @@ const ClearCacheButton = () => {
         zIndex: 999,
       }}
       title="Limpar cache"
-      onClick={clear}
+      onClick={handleClick}
     >
       <i className="bi bi-radioactive" style={{ fontSize: "1.3em" }}></i>
     </button>

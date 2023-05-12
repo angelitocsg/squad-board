@@ -86,6 +86,10 @@ const useBoard = () => {
     }, 500);
   };
 
+  const handleClear = () => {
+    service.clear();
+  };
+
   useEffect(() => {
     document.title = "Tarefas | Squad";
     loadData();
@@ -111,6 +115,7 @@ const useBoard = () => {
     handleFilterIssueType,
     handleFileUpload,
     handleFilterFeature,
+    handleClear,
   };
 };
 

@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 
 import ExportHelper from "../../helpers/export.helper";
 import { IFaqCategory, IFaqContent } from "../../models/IFaqCategory";
-import { ImportService } from "../../services/ImportService";
+import { FaqService } from "../../services/FaqService";
+import { useService } from "../../di/DecouplerContext";
 
 const useFaqEditor = () => {
+  const service = useService<FaqService>("FaqService");
+
   const [faq_data, set_faq_data] = useState<IFaqCategory[]>([]);
   const [mfe_assets, set_mfe_assets] = useState("");
   const [current_category, set_current_category] = useState<IFaqCategory>();
   const [current_content, set_current_content] = useState<IFaqContent>();
 
   const handleLoadFile = (data: string) => {
-    ImportService.ImportFaqJson(data);
+    service.import(data);
     setTimeout(() => {
       window.location.reload();
     }, 200);
@@ -95,8 +98,12 @@ const useFaqEditor = () => {
     if (ls) set_faq_data(JSON.parse(ls) as IFaqCategory[]);
   };
 
+  const handleClear = () => {
+    service.clear();
+  };
+
   useEffect(() => {
-    document.title = "FAQ | Squad"
+    document.title = "FAQ | Squad";
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -121,6 +128,7 @@ const useFaqEditor = () => {
     handleLoadFile,
     handleDownloadFile,
     updateContentValue,
+    handleClear,
   };
 };
 

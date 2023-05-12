@@ -1,4 +1,5 @@
-import { GmudStatus, TGmudStatus } from "../types/TGmudStatus";
+import { GmudStatus } from "../enums/GmudStatus";
+import { TGmudStatus } from "../types/TGmudStatus";
 import { PentestStatus, TPentestStatus } from "../types/TPentestStatus";
 
 const getBadgeClass = (status?: TGmudStatus) => {

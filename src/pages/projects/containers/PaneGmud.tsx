@@ -73,8 +73,8 @@ const PaneGmud = ({ gmuds, segmentBy, onChangeValue }: IProps) => {
 
     if (!segments.length) return;
 
-    return segments.map((segment) => (
-      <div key={segment.id} className="table-responsive">
+    return segments.map((segment, i) => (
+      <div key={i} className="table-responsive">
         {segmentBy === "repositoryId" ? (
           <div className="mb-1">
             <span className="h6">Repositório: </span>
@@ -106,8 +106,8 @@ const PaneGmud = ({ gmuds, segmentBy, onChangeValue }: IProps) => {
             </tr>
           </thead>
           <tbody>
-            {segment.gmuds.map((gmud) => (
-              <tr key={gmud.number}>
+            {segment.gmuds.map((gmud, i) => (
+              <tr key={i}>
                 <td>
                   <a href={gmud.link} target="_blank" rel="noopener noreferrer">
                     {gmud.number}

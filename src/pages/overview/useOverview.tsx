@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import showdown from "showdown";
 import { v4 as uuidv4 } from "uuid";
-import ExportHelper from "../../helpers/export.helper";
 
-import { PriorityEnum, TPriority } from "../../interfaces/BoardIssues";
+import { SEM_ALOCACAO } from "../../constants/board.constants";
+import { useService } from "../../di/DecouplerContext";
+import { PriorityEnum } from "../../enums/PriorityEnum";
+import ExportHelper from "../../helpers/export.helper";
 import {
   IMember,
   IOverview,
   IOverviewFeatures,
   IOverviewTask,
 } from "../../models/IOverview";
-import { ImportService, SEM_ALOCACAO } from "../../services/ImportService";
+import { OverviewService } from "../../services/OverviewService";
+import { TPriority } from "../../types/TPriority";
 
 const useOverview = () => {
+  const service = useService<OverviewService>("OverviewService");
+
   const [overview_features, set_overview_features] = useState<
     IOverviewFeatures[]
   >([]);
@@ -20,7 +25,7 @@ const useOverview = () => {
   const [overview_members, set_overview_members] = useState<IMember[]>([]);
 
   const handleLoadFile = (data: string) => {
-    ImportService.ImportOverviewJson(data);
+    service.import(data);
     setTimeout(() => {
       window.location.reload();
     }, 200);
@@ -123,13 +128,17 @@ const useOverview = () => {
     return [...members, ...overview_members];
   };
 
+  const handleClear = () => {
+    service.clear();
+  };
+
   useEffect(() => {
     if (overview_tasks && overview_tasks.length > 0)
       localStorage.setItem("overview_tasks", JSON.stringify(overview_tasks));
   }, [overview_tasks]);
 
   useEffect(() => {
-    document.title = "Visão Geral | Squad"
+    document.title = "Visão Geral | Squad";
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -144,6 +153,7 @@ const useOverview = () => {
     handleLoadFile,
     handleDownloadFile,
     handleTaskValueChange,
+    handleClear,
   };
 };
 

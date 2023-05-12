@@ -23,20 +23,21 @@ const FaqEditorPage = () => {
     updateContentValue,
     handleLoadFile,
     handleDownloadFile,
+    handleClear,
   } = useFaqEditor();
 
   return getFaqData().length === 0 ? (
     <>
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
       <NoContentPage title="Editor FAQ" />
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal onUploadClick={handleLoadFile} />
     </>
   ) : (
     <div className="container-fluid pt-3 pb-2">
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
 
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal
         onUploadClick={handleLoadFile}
         onDownloadClick={handleDownloadFile}

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { ISettings } from "../../models/ISettings";
 import { SettingsService } from "../../services/SettingsService";
+import { useService } from "../../di/DecouplerContext";
 
 const useSettings = () => {
-  const [settings, set_settings] = useState<ISettings>(
-    SettingsService.getSettings()
-  );
+  const service = useService<SettingsService>("SettingsService");
+
+  const [settings, set_settings] = useState<ISettings>(service.getSettings());
 
   const updateValue = (field: string, value: any) => {
     const tmp = {

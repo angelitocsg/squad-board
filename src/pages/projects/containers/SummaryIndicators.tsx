@@ -1,5 +1,5 @@
+import { GmudStatus } from "../../../enums/GmudStatus";
 import { ISummaryIndicators } from "../../../models/ISummaryIndicators";
-import { GmudStatus } from "../../../types/TGmudStatus";
 
 interface IProps {
   indicators?: ISummaryIndicators;

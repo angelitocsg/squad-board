@@ -15,20 +15,21 @@ const OverviewPage = () => {
     handleTaskValueChange,
     handleLoadFile,
     handleDownloadFile,
+    handleClear,
   } = useOverview();
 
   return getUsers()?.length === 0 ? (
     <>
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
       <NoContentPage title="Visão Geral" />
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal onUploadClick={handleLoadFile} />
     </>
   ) : (
     <div className="container-fluid pt-3 pb-2">
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
 
-      <ClearCacheButton />
+      <ClearCacheButton clear={handleClear} />
       <ImportBoardModal
         onUploadClick={handleLoadFile}
         onDownloadClick={handleDownloadFile}
@@ -41,7 +42,9 @@ const OverviewPage = () => {
           {getUsers().map((m) => (
             <div key={m.user} className="col">
               <div className="card mb-4 shadow-sm">
-                <div className="card-header text-bg-dark small p-1">{m.name}&nbsp;</div>
+                <div className="card-header text-bg-dark small p-1">
+                  {m.name}&nbsp;
+                </div>
                 <div
                   className={`card-body bg-opacity-75 ${
                     getUserTasks(m.user)?.length ? "bg-success" : "bg-warning"

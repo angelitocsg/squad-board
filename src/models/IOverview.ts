@@ -1,4 +1,4 @@
-import { TPriority } from "../interfaces/BoardIssues";
+import { TPriority } from "../types/TPriority";
 
 export interface IOverview {
   features?: IOverviewFeatures[];

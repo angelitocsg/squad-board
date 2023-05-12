@@ -1,17 +1,4 @@
-export enum GmudStatus {
-  INDEFINIDA = "-",
-  IGNORADA = "IGNORADA",
-  CANCELADA = "CANCELADA",
-  BUG = "BUG",
-  FALHA = "FALHA",
-  PENDENTE = "PENDENTE",
-  PREENCHIDA = "PREENCHIDA",
-  EM_APROVACAO = "EM APROVAÇÃO",
-  APROVADA = "APROVADA",
-  AGENDADA = "AGENDADA",
-  EM_REVISAO = "EM REVISÃO",
-  PUBLICADA = "PUBLICADA",
-}
+import { GmudStatus } from "../enums/GmudStatus";
 
 export type TGmudStatus =
   | GmudStatus.INDEFINIDA
