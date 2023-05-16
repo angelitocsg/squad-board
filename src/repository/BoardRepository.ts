@@ -116,8 +116,6 @@ export class BoardRepository {
   }
 
   private _getIssueByAssignee(issues: IBoardIssue[]): IBoardIssue[] {
-    console.log("_getIssueByAssignee", this.current_assignee);
-
     return issues.filter((f) => {
       const subs = f.issues?.filter(
         (s) => s.assignee === this.current_assignee
@@ -132,14 +130,12 @@ export class BoardRepository {
     });
   }
   private _getIssueByFeature(issues: IBoardIssue[]): IBoardIssue[] {
-    console.log("_getIssueByFeature", this.current_feature);
     return issues.filter((f) => {
       if (f.parent_id !== this.current_feature) return false;
       return true;
     });
   }
   private _getIssueByStatus(issues: IBoardIssue[]): IBoardIssue[] {
-    console.log("_getIssueByStatus", this.current_status);
     return issues.filter((f) => {
       const subs = f.issues?.filter((s) => s.status === this.current_status);
 
@@ -152,8 +148,6 @@ export class BoardRepository {
     });
   }
   private _getIssueByHidden(issues: IBoardIssue[]): IBoardIssue[] {
-    console.log("_getIssueByHidden", this.current_hidden);
-
     return issues.filter((f) => {
       const subs = this.current_hidden.find((fd) => fd === IssueType.subs)
         ? []
