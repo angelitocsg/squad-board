@@ -1,4 +1,6 @@
 import { SEM_ALOCACAO } from "../../../constants/board.constants";
+import { useService } from "../../../di/DecouplerContext";
+import { SettingsService } from "../../../services/SettingsService";
 
 interface IProps {
   label: string;
@@ -15,9 +17,15 @@ const HeaderFilterBy = ({
   assigneesSelected,
   onFilterAssigneeClick,
 }: IProps) => {
+  const settingsService = useService<SettingsService>("SettingsService");
+
   const getFormatedName = (assignee: string) => {
     const parts = assignee.split(" ");
     return parts.length > 1 ? `${parts[0]} ${parts[1][0]}.` : assignee;
+  };
+
+  const getLabel = (assignee: string) => {
+    return settingsService.getFeatureLabel(assignee);
   };
 
   return (assignees?.length ?? 0) > 0 ? (
@@ -38,7 +46,9 @@ const HeaderFilterBy = ({
             }`}
             onClick={() => onFilterAssigneeClick(assignee)}
           >
-            {assignee === SEM_ALOCACAO ? assignee : getFormatedName(assignee)}
+            {assignee === SEM_ALOCACAO
+              ? assignee
+              : getLabel(getFormatedName(assignee))}
           </span>
         ))}
       </div>

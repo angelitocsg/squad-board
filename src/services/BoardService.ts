@@ -21,6 +21,7 @@ export class BoardService implements IImportService {
 
   clear() {
     localStorage.removeItem(StorageKey.BOARD_DATA_ISSUES);
+    localStorage.removeItem(StorageKey.BOARD_DATA_FEATURES);
   }
 
   import(data: string) {
@@ -35,9 +36,25 @@ export class BoardService implements IImportService {
       )
     );
 
+    const features_id = dataIssues
+      .filter((f) => f.parent_id?.startsWith("FETR"))
+      .reduce((p, c) => {
+        if (c.parent_id && !p.find((f) => f === c.parent_id)) {
+          p.push(c.parent_id);
+        }
+        return p;
+      }, [] as string[])
+      .sort((a, b) => a.localeCompare(b))
+      .map((f) => ({ id: f, label: f }));
+
     localStorage.setItem(
       StorageKey.BOARD_DATA_ISSUES,
       JSON.stringify(dataIssues)
+    );
+
+    localStorage.setItem(
+      StorageKey.BOARD_DATA_FEATURES,
+      JSON.stringify(features_id)
     );
   }
 

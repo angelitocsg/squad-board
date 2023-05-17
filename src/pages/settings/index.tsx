@@ -1,7 +1,7 @@
 import useSettings from "./useSettings";
 
 const SettingsPage = () => {
-  const { settings, updateValue } = useSettings();
+  const { invalid_json, settings, updateValue } = useSettings();
 
   return (
     <section className="container mt-4">
@@ -20,6 +20,41 @@ const SettingsPage = () => {
               value={settings.board_source}
               onChange={(e) => updateValue(e.target.name, e.target.value)}
             />
+          </div>
+        </div>
+        <div className="col">
+          <div className="mb-3">
+            <label htmlFor="v" className="form-label">
+              Link pesquisa de tarefas externas
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="board_external_search"
+              name="board_external_search"
+              value={settings.board_external_search}
+              onChange={(e) => updateValue(e.target.name, e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <div className="mb-3">
+            <label htmlFor="features" className="form-label">
+              Features (JSON)
+            </label>
+            <textarea
+              style={{ fontFamily: "courier", fontSize: 12 }}
+              className={`form-control ${invalid_json ? "is-invalid" : ""}`}
+              id="features"
+              name="features"
+              rows={8}
+              value={settings.features}
+              placeholder="[{id:'FETR-0001', label: 'COMUNICAÇÃO'}]"
+              onChange={(e) => updateValue(e.target.name, e.target.value)}
+            ></textarea>
+            <span className="text-danger">{invalid_json}</span>
           </div>
         </div>
       </div>
