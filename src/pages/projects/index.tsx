@@ -23,6 +23,7 @@ const ProjectsPage = () => {
   const {
     getGmudsSummary,
     getAppRepositories,
+    getAppRepositoriesByProjectId,
     getProjects,
     getRepositories,
     getGmuds,
@@ -72,6 +73,13 @@ const ProjectsPage = () => {
               </a>
             </span>
           ))}
+        <span
+          className="badge p-2 bg-primary nav-link"
+          role="button"
+          onClick={() => alert("função indisponível")}
+        >
+          + aplicação
+        </span>
       </div>
 
       <div
@@ -101,6 +109,11 @@ const ProjectsPage = () => {
               />
               <Tab
                 active={false}
+                tabId={`${project.id}-pentests`}
+                tabLabel="Pentests"
+              />
+              <Tab
+                active={false}
                 tabId={`${project.id}-features`}
                 tabLabel="Funcionalidades"
               />
@@ -126,6 +139,11 @@ const ProjectsPage = () => {
                   onChangeValue={() => {}}
                 />
               </TabContent>
+
+              <TabContent tabId={`${project.id}-pentests`}>
+                <PentestSummary repositories={getAppRepositoriesByProjectId(project.id)} />
+              </TabContent>
+
               <TabContent tabId={`${project.id}-features`}>
                 {parse(getAsMarkdown(project.description))}
               </TabContent>

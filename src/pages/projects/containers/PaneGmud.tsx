@@ -147,6 +147,21 @@ const PaneGmud = ({ gmuds, segmentBy, onChangeValue }: IProps) => {
               </tr>
             ))}
           </tbody>
+          {segmentBy === "projectName" ? undefined : (
+            <tfoot>
+              <tr>
+                <td colSpan={9}>
+                  <span
+                    className="badge p-2 bg-primary nav-link"
+                    role="button"
+                    onClick={() => alert("função indisponível")}
+                  >
+                    + gmud
+                  </span>
+                </td>
+              </tr>
+            </tfoot>
+          )}
         </table>
       </div>
     ));
@@ -155,9 +170,18 @@ const PaneGmud = ({ gmuds, segmentBy, onChangeValue }: IProps) => {
   return gmuds && gmuds.length > 0 ? (
     <>{getGmudsSegmented()}</>
   ) : (
-    <div className="alert alert-secondary" role="alert">
-      Sem GMUDs registradas
-    </div>
+    <>
+      <div className="alert alert-secondary" role="alert">
+        Sem GMUDs registradas
+      </div>
+      <span
+        className="badge p-2 bg-primary nav-link"
+        role="button"
+        onClick={() => alert("função indisponível")}
+      >
+        + gmud
+      </span>
+    </>
   );
 };
 

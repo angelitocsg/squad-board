@@ -26,6 +26,8 @@ const useProject = () => {
     repository.getRepositoriesByProjectId(projectId ?? "");
 
   const getAppRepositories = () => repository.getRepositoriesApp();
+  const getAppRepositoriesByProjectId = (projectId?: string) =>
+    repository.getRepositoriesAppByProjectId(projectId ?? "");
 
   const getGmuds = (projectId?: string) =>
     repository.getGmudsByProjectId(projectId ?? "");
@@ -57,6 +59,7 @@ const useProject = () => {
   return {
     getGmudsSummary,
     getAppRepositories,
+    getAppRepositoriesByProjectId,
     getAllGmuds,
     getProjects,
     getRepositories,

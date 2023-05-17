@@ -120,4 +120,8 @@ export class ProjectRepository {
       return p;
     }, [] as IProjectRepository[]);
   }
+
+  getRepositoriesAppByProjectId(projectId: string): IProjectRepository[] {
+    return this.getRepositoriesApp().filter((f) => f.projectId === projectId);
+  }
 }

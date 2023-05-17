@@ -39,6 +39,19 @@ const PaneRepositories = ({ repositories, onChangeValue }: IProps) => {
             />
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={8}>
+              <span
+                className="badge p-2 bg-primary nav-link me-2"
+                role="button"
+                onClick={() => alert("função indisponível")}
+              >
+                + repositório
+              </span>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
