@@ -17,6 +17,7 @@ export interface IProjectRepository {
   pentests?: IProjectRepositoryPentest[];
 
   projectId?: string;
+  projectName?: string;
 }
 
 export enum EnvironmentEnum {

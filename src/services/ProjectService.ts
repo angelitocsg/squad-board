@@ -1,16 +1,18 @@
+import { StorageKey } from "../enums/StorageKey";
+import ExportHelper from "../helpers/export.helper";
+import { IExportService } from "../interfaces/IExportService";
 import { IImportService } from "../interfaces/IImportService";
 import { IProjectGmud } from "../models/IProjectGmud";
 import { IProjectMonitoring } from "../models/IProjectMonitoring";
 import { IProjectRepository } from "../models/IProjectRepository";
 import { IProject } from "../models/IProjects";
+import { ProjectRepository } from "../repository/ProjectRepository";
 
-export class ProjectService implements IImportService {
+export class ProjectService implements IImportService, IExportService {
+  projectRepository = new ProjectRepository();
+
   clear() {
-    localStorage.removeItem("projects_config");
-    localStorage.removeItem("projects_data");
-    localStorage.removeItem("projects_repositories");
-    localStorage.removeItem("projects_monitoring");
-    localStorage.removeItem("projects_gmuds");
+    localStorage.removeItem(StorageKey.PROJECTS_DATA);
   }
 
   import(data: string) {
@@ -20,7 +22,6 @@ export class ProjectService implements IImportService {
     const repositoriesData: IProjectRepository[] = [];
     const gmudsData: IProjectGmud[] = [];
     const monitoringData: IProjectMonitoring[] = [];
-    const config: IProject = projectsData.find((f) => f.id === "config") ?? {};
 
     projectsData = projectsData.filter((f) => f.id !== "config");
 
@@ -55,13 +56,13 @@ export class ProjectService implements IImportService {
       });
     });
 
-    localStorage.setItem("projects_config", JSON.stringify(config));
-    localStorage.setItem("projects_data", JSON.stringify(projectsData));
     localStorage.setItem(
-      "projects_repositories",
-      JSON.stringify(repositoriesData)
+      StorageKey.PROJECTS_DATA,
+      JSON.stringify(projectsData)
     );
-    localStorage.setItem("projects_monitoring", JSON.stringify(monitoringData));
-    localStorage.setItem("projects_gmuds", JSON.stringify(gmudsData));
+  }
+
+  export() {
+    ExportHelper.jsonFile(this.projectRepository.getData(), "projects");
   }
 }

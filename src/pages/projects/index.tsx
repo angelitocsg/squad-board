@@ -21,7 +21,7 @@ import useProject from "./useProject";
 
 const ProjectsPage = () => {
   const {
-    summary_indicators,
+    getGmudsSummary,
     getAppRepositories,
     getProjects,
     getRepositories,
@@ -31,8 +31,6 @@ const ProjectsPage = () => {
     getAsMarkdown,
     handleLoadFile,
     handleDownloadFile,
-    handleGmudValueChange,
-    handleRepositoryValueChange,
     handleClear,
   } = useProject();
 
@@ -54,7 +52,7 @@ const ProjectsPage = () => {
         onDownloadClick={handleDownloadFile}
       />
 
-      <SummaryIndicators indicators={summary_indicators} />
+      <SummaryIndicators indicators={getGmudsSummary()} />
 
       <div id="section-list" className="mb-3">
         <a className="badge p-2 bg-secondary nav-link" href="#active-gmuds">
@@ -117,7 +115,7 @@ const ProjectsPage = () => {
               <TabContent active={true} tabId={`${project.id}-repositories`}>
                 <PaneRepositories
                   repositories={getRepositories(project.id)}
-                  onChangeValue={handleRepositoryValueChange}
+                  onChangeValue={() => {}}
                 />
               </TabContent>
 
@@ -125,7 +123,7 @@ const ProjectsPage = () => {
                 <PaneGmud
                   gmuds={getGmuds(project.id)}
                   segmentBy="repositoryId"
-                  onChangeValue={handleGmudValueChange}
+                  onChangeValue={() => {}}
                 />
               </TabContent>
               <TabContent tabId={`${project.id}-features`}>

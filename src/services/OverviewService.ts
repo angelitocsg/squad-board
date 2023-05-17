@@ -6,7 +6,6 @@ export class OverviewService implements IImportService {
   updateOverviewMembers = (assigness: string[]) => {
     const current = localStorage.getItem("overview_members");
     if (current) return;
-    console.log({ current });
 
     const members: IMember[] = assigness.map((a) => ({
       name:
