@@ -25,7 +25,7 @@ const SummaryIndicators = ({ indicators, titleHidden }: IProps) => {
   return (
     <div>
       {titleHidden ? "" : <h1 className="h4">GMUDs</h1>}
-      <div className="row mb-3 text-center">
+      <div className="row text-center">
         {indicators?.gmuds
           ?.filter((f) => f.status !== GmudStatus.IGNORADA)
           ?.map((g) => (

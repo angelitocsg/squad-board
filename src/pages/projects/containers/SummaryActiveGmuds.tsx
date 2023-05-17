@@ -7,7 +7,7 @@ interface IProps {
 
 const SummaryActiveGmuds = ({ gmuds }: IProps) => {
   return gmuds && gmuds.length > 0 ? (
-    <>
+    <div id="active-gmuds">
       <h1 className="h4 pb-2">GMUDs ativas / previsão de publicação</h1>
       <h2 className="h6">Todo:</h2>
       <ul>
@@ -22,7 +22,7 @@ const SummaryActiveGmuds = ({ gmuds }: IProps) => {
           segmentBy="projectName"
         />
       </div>
-    </>
+    </div>
   ) : (
     <></>
   );
