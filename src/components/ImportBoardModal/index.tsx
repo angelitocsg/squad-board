@@ -3,15 +3,17 @@ import ExportButton from "./ExportButton";
 import ImportButton from "./ImportButton";
 
 interface IProps {
+  placeholder?: string;
   onUploadClick: (data: string) => void;
   onDownloadClick?: (data: string) => void;
 }
 
 const ImportBoardModal = ({
+  placeholder,
   onUploadClick,
   onDownloadClick,
 }: IProps) => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState(placeholder ?? "");
 
   const handleLoadData = () => {
     onUploadClick && onUploadClick(data);
@@ -25,7 +27,7 @@ const ImportBoardModal = ({
   return (
     <>
       <ImportButton />
-      {onDownloadClick && <ExportButton onClick={handleExportData}/>}
+      {onDownloadClick && <ExportButton onClick={handleExportData} />}
       <div
         className="modal fade"
         id="importBoard"
@@ -53,7 +55,7 @@ const ImportBoardModal = ({
                 id="content"
                 rows={10}
                 value={data}
-                placeholder="cole o conteúdo aqui"
+                placeholder={placeholder ?? "cole o conteúdo aqui"}
                 onChange={(e) => setData(e.target.value)}
               ></textarea>
             </div>

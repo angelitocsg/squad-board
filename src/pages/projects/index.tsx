@@ -40,7 +40,10 @@ const ProjectsPage = () => {
       <DropFile encoding="UTF-8" onLoadFile={handleLoadFile} />
       <NoContentPage title="Aplicações" />
       <ClearCacheButton clear={handleClear} />
-      <ImportBoardModal onUploadClick={handleLoadFile} />
+      <ImportBoardModal
+        placeholder='[{"id": "app-teste", "name": "teste"}]'
+        onUploadClick={handleLoadFile}
+      />
     </>
   ) : (
     <div className="container-fluid pt-3 pb-2">
@@ -49,6 +52,7 @@ const ProjectsPage = () => {
       <ClearCacheButton clear={handleClear} />
       <TopButton />
       <ImportBoardModal
+        placeholder='[{"id": "app-teste", "name": "teste"}]'
         onUploadClick={handleLoadFile}
         onDownloadClick={handleDownloadFile}
       />
@@ -91,7 +95,7 @@ const ProjectsPage = () => {
       >
         <SummaryActiveGmuds gmuds={getActiveGmuds()} />
 
-        <PentestSummary repositories={getAppRepositories()} />
+        <PentestSummary summary repositories={getAppRepositories()} />
 
         {getProjects().map((project, i) => (
           <section id={project.id} key={i} className="mb-5">
@@ -141,7 +145,9 @@ const ProjectsPage = () => {
               </TabContent>
 
               <TabContent tabId={`${project.id}-pentests`}>
-                <PentestSummary repositories={getAppRepositoriesByProjectId(project.id)} />
+                <PentestSummary
+                  repositories={getAppRepositoriesByProjectId(project.id)}
+                />
               </TabContent>
 
               <TabContent tabId={`${project.id}-features`}>

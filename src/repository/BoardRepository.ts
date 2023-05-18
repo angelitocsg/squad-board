@@ -205,9 +205,17 @@ export class BoardRepository {
       case IssueStatus.EM_REFINAMENTO:
         return "1";
       case IssueStatus.EM_EXECUCAO:
+      case IssueStatus.EM_EXPLORACAO:
         return "2";
       case IssueStatus.EM_TESTES:
+      case IssueStatus.EM_VALIDACAO_DE_HIPOTESES:
         return "3";
+      case IssueStatus.EM_VALIDACAO:
+      case IssueStatus.VALIDADO:
+        return "4";
+      case IssueStatus.EM_IMPLANTACAO:
+      case IssueStatus.IMPLANTADO:
+        return "5";
       case IssueStatus.ENCERRADO_ATIVADO:
         return "7";
       case IssueStatus.CANCELADO:
