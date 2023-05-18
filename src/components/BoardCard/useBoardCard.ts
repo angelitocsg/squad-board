@@ -33,18 +33,20 @@ const useBoardCard = ({
 
   const featureColor =
     status === IssueStatus.ENCERRADO_ATIVADO
-      ? "bg-secondary"
+      ? "bg-secondary text-white"
       : status === "EM TESTES"
-      ? "bg-success opacity-disabled"
+      ? "bg-success text-white opacity-disabled"
       : type === "task" || type === "sub-task"
-      ? "bg-primary"
+      ? "bg-primary text-white"
       : type === "feature"
-      ? "bg-info"
+      ? "bg-info text-white"
       : type === "story"
-      ? "bg-success"
+      ? "bg-success text-white"
       : type === "bug" || type === "sub-bug"
-      ? "bg-danger"
-      : "bg-secondary";
+      ? "bg-danger text-white"
+      : type === "opportunity"
+      ? "bg-warning text-black"
+      : "bg-secondary text-white";
 
   const parentDescriptionAlternative =
     type === "story"
@@ -53,6 +55,8 @@ const useBoardCard = ({
       ? "TAREFA"
       : type === "bug"
       ? "BUG"
+      : type === "opportunity"
+      ? "OPORTUNIDADE"
       : "";
 
   const parentDescription = parent_description

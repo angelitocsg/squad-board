@@ -71,6 +71,7 @@ export class BoardRepository {
         (f) =>
           f.type?.toLowerCase() === "bug" ||
           f.type?.toLowerCase() === "task" ||
+          f.type?.toLowerCase() === "opportunity" ||
           f.type?.toLowerCase() === "story"
       )
       .map((it) => {

@@ -14,7 +14,7 @@ const BoardCardTitle = ({
   handleClick,
 }: IProps) => (
   <div
-    className={`card-header p-1 ps-2 small opacity ${featureColor} text-white`}
+    className={`card-header p-1 ps-2 small opacity ${featureColor}`}
     data-bs-toggle="collapse"
     data-bs-target={`#${id}`}
     aria-expanded="false"

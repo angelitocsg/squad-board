@@ -103,6 +103,10 @@ export class BoardService implements IImportService {
               itValue === IssueStatus.ENCERRADO ||
               itValue === IssueStatus.ATIVADO
                 ? IssueStatus.ENCERRADO_ATIVADO
+                : IssueStatus.EM_EXPLORACAO
+                ? IssueStatus.EM_EXECUCAO
+                : itValue === IssueStatus.EM_VALIDACAO_DE_HIPOTESES
+                ? IssueStatus.EM_TESTES
                 : itValue;
             break;
           case "id":
