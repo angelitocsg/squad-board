@@ -98,15 +98,18 @@ export class BoardService implements IImportService {
             it[columnNames[i]] = values[i]?.toUpperCase();
             break;
           case "status":
+            // Aqui agrupa os status no board
             const itValue = values[i]?.toUpperCase();
             it[columnNames[i]] =
               itValue === IssueStatus.ENCERRADO ||
               itValue === IssueStatus.ATIVADO
                 ? IssueStatus.ENCERRADO_ATIVADO
-                : IssueStatus.EM_EXPLORACAO
+                : itValue === IssueStatus.EM_EXPLORACAO
                 ? IssueStatus.EM_EXECUCAO
                 : itValue === IssueStatus.EM_VALIDACAO_DE_HIPOTESES
                 ? IssueStatus.EM_TESTES
+                : itValue === IssueStatus.EM_IMPLANTACAO
+                ? IssueStatus.IMPLANTADO
                 : itValue;
             break;
           case "id":
