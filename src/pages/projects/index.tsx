@@ -17,6 +17,7 @@ import PaneRepositories from "./containers/PaneRepositories";
 import PentestSummary from "./containers/PentestSummary";
 import SummaryActiveGmuds from "./containers/SummaryActiveGmuds";
 import SummaryIndicators from "./containers/SummaryIndicators";
+import ProjectForm from "./forms/ProjectForm";
 import useProject from "./useProject";
 
 const ProjectsPage = () => {
@@ -33,6 +34,8 @@ const ProjectsPage = () => {
     handleLoadFile,
     handleDownloadFile,
     handleClear,
+    getProject,
+    setProject,
   } = useProject();
 
   return getProjects().length === 0 ? (
@@ -80,7 +83,9 @@ const ProjectsPage = () => {
         <span
           className="badge p-2 bg-primary nav-link"
           role="button"
-          onClick={() => alert("função indisponível")}
+          onClick={() => setProject(undefined)}
+          data-bs-toggle="modal"
+          data-bs-target="#projectForm"
         >
           + aplicação
         </span>
@@ -99,7 +104,20 @@ const ProjectsPage = () => {
 
         {getProjects().map((project, i) => (
           <section id={project.id} key={i} className="mb-5">
-            <h1 className="h4 pb-3">{project.name}</h1>
+            <h1 className="h4 pb-3">
+              {project.name}
+              <span
+                role="button"
+                onClick={() => {
+                  setProject(project);
+                }}
+                className="me-2 p-1"
+                data-bs-toggle="modal"
+                data-bs-target="#projectForm"
+              >
+                <i className="bi bi-pencil pe-1" />
+              </span>
+            </h1>
             <TabGroup>
               <Tab
                 active={true}
@@ -161,6 +179,8 @@ const ProjectsPage = () => {
           </section>
         ))}
       </div>
+
+      <ProjectForm currentProject={getProject()} />
     </div>
   );
 };

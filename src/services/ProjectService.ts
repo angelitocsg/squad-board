@@ -16,10 +16,7 @@ export class ProjectService implements IImportService, IExportService {
     let projectsData = JSON.parse(data) as IProject[];
     if (projectsData.length === 0) return;
 
-    localStorage.setItem(
-      StorageKey.PROJECTS_DATA,
-      JSON.stringify(projectsData)
-    );
+    this.projectRepository.save(projectsData);
   }
 
   export() {

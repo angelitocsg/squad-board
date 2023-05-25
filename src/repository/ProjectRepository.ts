@@ -23,6 +23,10 @@ export class ProjectRepository {
     return [];
   }
 
+  save(data: IProject[]) {
+    localStorage.setItem(StorageKey.PROJECTS_DATA, JSON.stringify(data));
+  }
+
   getData() {
     return this.data.filter((f) => f.id) ?? [];
   }
@@ -59,22 +63,22 @@ export class ProjectRepository {
   getGmudsSummary(): ISummaryIndicators {
     const gmuds = this.getGmudsAll()
       .reduce((p, gmud) => {
-      if (p.find((f) => f.status === gmud.status)) {
-        p = p.map((indicator) =>
-          indicator.status === gmud.status
-            ? { ...indicator, count: indicator.count + 1 }
-            : indicator
-        );
-      } else {
-        p.push({
-          status: gmud.status,
-          order: GmudStatusOrder.indexOf(
-            gmud.status ?? GmudStatus.PENDENTE
-          ).toString(),
-          count: 1,
-        });
-      }
-      return p;
+        if (p.find((f) => f.status === gmud.status)) {
+          p = p.map((indicator) =>
+            indicator.status === gmud.status
+              ? { ...indicator, count: indicator.count + 1 }
+              : indicator
+          );
+        } else {
+          p.push({
+            status: gmud.status,
+            order: GmudStatusOrder.indexOf(
+              gmud.status ?? GmudStatus.PENDENTE
+            ).toString(),
+            count: 1,
+          });
+        }
+        return p;
       }, [] as ISummaryIndicatorsGmuds[])
       .reduce((p, gmud) => {
         if (
@@ -92,7 +96,7 @@ export class ProjectRepository {
           p.push(gmud);
         }
         return p;
-    }, [] as ISummaryIndicatorsGmuds[]);
+      }, [] as ISummaryIndicatorsGmuds[]);
 
     return { gmuds: gmuds.sort((a, b) => a.order.localeCompare(b.order)) };
   }
@@ -142,5 +146,26 @@ export class ProjectRepository {
 
   getRepositoriesAppByProjectId(projectId: string): IProjectRepository[] {
     return this.getRepositoriesApp().filter((f) => f.projectId === projectId);
+  }
+
+  getProject(projectId?: string): IProject | undefined {
+    return this.getData().find((f) => f.id === projectId);
+  }
+
+  updateProject(project: IProject): void {
+    console.log({ project });
+
+    if (!project.id) return;
+
+    let data = this.getData();
+    const exists = this.getProject(project.id) ? true : false;
+
+    if (exists) {
+      data = data.map((p) => (p.id === project.id ? project : p));
+    } else {
+      data.push(project);
+    }
+
+    this.save(data);
   }
 }

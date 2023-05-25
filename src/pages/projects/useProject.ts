@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import showdown from "showdown";
 
 import { useService } from "../../di/DecouplerContext";
+import { IProject } from "../../models/IProjects";
 import { ProjectRepository } from "../../repository/ProjectRepository";
 import { ProjectService } from "../../services/ProjectService";
 
@@ -56,6 +57,10 @@ const useProject = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [project_selected, set_project_selected] = useState<IProject>();
+  const getProject = () => project_selected;
+  const setProject = (project?: IProject) => set_project_selected(project);
+
   return {
     getGmudsSummary,
     getAppRepositories,
@@ -70,6 +75,8 @@ const useProject = () => {
     handleLoadFile,
     handleDownloadFile,
     handleClear,
+    getProject,
+    setProject,
   };
 };
 
