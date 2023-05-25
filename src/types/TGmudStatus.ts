@@ -4,6 +4,8 @@ export type TGmudStatus =
   | GmudStatus.INDEFINIDA
   | GmudStatus.IGNORADA
   | GmudStatus.CANCELADA
+  | GmudStatus.ROLLBACK
+  | GmudStatus.ROLLBACK_FALHA
   | GmudStatus.BUG
   | GmudStatus.FALHA
   | GmudStatus.PENDENTE
@@ -17,6 +19,8 @@ export type TGmudStatus =
 export const GmudStatusOrder = [
   GmudStatus.IGNORADA,
   GmudStatus.CANCELADA,
+  GmudStatus.ROLLBACK,
+  GmudStatus.ROLLBACK_FALHA,
   GmudStatus.FALHA,
   GmudStatus.PENDENTE,
   GmudStatus.PREENCHIDA,

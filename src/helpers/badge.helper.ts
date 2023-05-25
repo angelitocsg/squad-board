@@ -15,7 +15,8 @@ const getBadgeClass = (status?: TGmudStatus) => {
       ? "text-bg-success"
       : status === GmudStatus.FALHA ||
         status === GmudStatus.EM_APROVACAO ||
-        status === GmudStatus.BUG
+        status === GmudStatus.BUG ||
+        status === GmudStatus.ROLLBACK
       ? "text-bg-danger"
       : status === GmudStatus.EM_REVISAO
       ? "text-bg-info"

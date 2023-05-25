@@ -11,7 +11,10 @@ const SummaryIndicators = ({ indicators, titleHidden }: IProps) => {
     const defClass = "card-body bg-opacity-75";
     return status === GmudStatus.PENDENTE || status === GmudStatus.APROVADA
       ? `${defClass} bg-warning`
-      : status === GmudStatus.EM_APROVACAO || status === GmudStatus.FALHA
+      : status === GmudStatus.EM_APROVACAO ||
+        status === GmudStatus.FALHA ||
+        status === GmudStatus.ROLLBACK ||
+        status === GmudStatus.ROLLBACK_FALHA
       ? `${defClass} bg-danger`
       : status === GmudStatus.EM_REVISAO
       ? `${defClass} bg-info`

@@ -51,12 +51,14 @@ export class ProjectRepository {
       (f) =>
         f.status !== GmudStatus.PUBLICADA &&
         f.status !== GmudStatus.CANCELADA &&
+        f.status !== GmudStatus.ROLLBACK &&
         f.status !== GmudStatus.FALHA
     );
   }
 
   getGmudsSummary(): ISummaryIndicators {
-    const gmuds = this.getGmudsAll().reduce((p, gmud) => {
+    const gmuds = this.getGmudsAll()
+      .reduce((p, gmud) => {
       if (p.find((f) => f.status === gmud.status)) {
         p = p.map((indicator) =>
           indicator.status === gmud.status
@@ -73,6 +75,23 @@ export class ProjectRepository {
         });
       }
       return p;
+      }, [] as ISummaryIndicatorsGmuds[])
+      .reduce((p, gmud) => {
+        if (
+          gmud.status === GmudStatus.FALHA ||
+          gmud.status === GmudStatus.ROLLBACK
+        ) {
+          if (p.find((f) => f.status === GmudStatus.ROLLBACK_FALHA))
+            p = p.map((upt) =>
+              upt.status === GmudStatus.ROLLBACK_FALHA
+                ? { ...upt, count: upt.count + gmud.count }
+                : upt
+            );
+          else p.push({ ...gmud, status: GmudStatus.ROLLBACK_FALHA });
+        } else {
+          p.push(gmud);
+        }
+        return p;
     }, [] as ISummaryIndicatorsGmuds[]);
 
     return { gmuds: gmuds.sort((a, b) => a.order.localeCompare(b.order)) };
