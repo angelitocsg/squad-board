@@ -2,6 +2,10 @@ div .opacity {
   --bs-bg-opacity: 0.85;
 }
 
+div .opacity-80 {
+  --bs-bg-opacity: 0.80;
+}
+
 div .opacity-disabled {
   --bs-bg-opacity: 0.6;
 }

@@ -19,6 +19,7 @@ const BoardCards = ({ item, status }: IProps) => (
             description={subitem.description}
             assignee={subitem.assignee}
             id={subitem.id}
+            status={subitem.status}
             parent_id={subitem.parent_id}
             story_points={subitem.story_points}
             parent_description={subitem.parent_description}

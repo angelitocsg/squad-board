@@ -31,12 +31,8 @@ const useBoardCard = ({
   type = type?.toLocaleLowerCase() as TIssueType;
   type = parent_id?.startsWith("BUG") ? "sub-bug" : type;
 
-  const featureColor =
-    status === IssueStatus.ENCERRADO_ATIVADO
-      ? "bg-secondary text-white"
-      : status === "EM TESTES"
-      ? "bg-success text-white opacity-disabled"
-      : type === "task" || type === "sub-task"
+  const featureColorByType =
+    type === "task" || type === "sub-task"
       ? "bg-primary text-white"
       : type === "feature"
       ? "bg-info text-white"
@@ -47,6 +43,19 @@ const useBoardCard = ({
       : type === "opportunity"
       ? "bg-warning text-black"
       : "bg-secondary text-white";
+
+  const featureColorByStatus =
+    status === IssueStatus.ENCERRADO_ATIVADO
+      ? "bg-secondary text-white opacity-disabled"
+      : status === IssueStatus.EM_TESTES
+      ? "opacity-80"
+      : status === IssueStatus.EM_VALIDACAO ||
+        status === IssueStatus.EM_IMPLANTACAO ||
+        status === IssueStatus.IMPLANTADO
+      ? "opacity-disabled"
+      : "";
+
+  const featureColor = `${featureColorByType} ${featureColorByStatus}`;
 
   const parentDescriptionAlternative =
     type === "story"
