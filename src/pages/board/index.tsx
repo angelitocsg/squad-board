@@ -60,7 +60,7 @@ const BoardPage = () => {
         onFilterIssueType={handleFilterIssueType}
       />
 
-      <section className="flex-column d-inline-block w-100">
+      <section className="flex-column d-block w-100">
         <BoardColumnStatus
           statusSelected={status_selected}
           statusList={status}

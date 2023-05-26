@@ -48,7 +48,7 @@ const useBoardCard = ({
     status === IssueStatus.ENCERRADO_ATIVADO
       ? "bg-secondary text-white opacity-disabled"
       : status === IssueStatus.EM_TESTES
-      ? "opacity-80"
+      ? "opacity-70"
       : status === IssueStatus.EM_VALIDACAO ||
         status === IssueStatus.EM_IMPLANTACAO ||
         status === IssueStatus.IMPLANTADO
