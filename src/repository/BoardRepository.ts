@@ -55,7 +55,10 @@ export class BoardRepository {
 
   getFeatures() {
     return this.getData()
-      .filter((f) => f.parent_id?.startsWith("FETR"))
+      .filter(
+        (f) =>
+          f.parent_id?.startsWith("FETR") || f.parent_id?.startsWith("SPNT")
+      )
       .reduce((p, c) => {
         if (c.parent_id && !p.find((f) => f === c.parent_id)) {
           p.push(c.parent_id);

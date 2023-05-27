@@ -8,7 +8,7 @@ import {
   ISummaryIndicators,
   ISummaryIndicatorsGmuds,
 } from "../models/ISummaryIndicators";
-import { GmudStatusOrder } from "../types/TGmudStatus";
+import { GmudStatusOrder, TGmudStatus } from "../types/TGmudStatus";
 
 export class ProjectRepository {
   private data: IProject[];
@@ -60,21 +60,26 @@ export class ProjectRepository {
     );
   }
 
+  private _getGmudOrder = (status?: TGmudStatus): number => {
+    return GmudStatusOrder.indexOf(status ?? GmudStatus.PENDENTE);
+  };
+
   getGmudsSummary(): ISummaryIndicators {
     const gmuds = this.getGmudsAll()
       .reduce((p, gmud) => {
         if (p.find((f) => f.status === gmud.status)) {
           p = p.map((indicator) =>
             indicator.status === gmud.status
-              ? { ...indicator, count: indicator.count + 1 }
+              ? {
+                  ...indicator,
+                  count: indicator.count + 1,
+                }
               : indicator
           );
         } else {
           p.push({
             status: gmud.status,
-            order: GmudStatusOrder.indexOf(
-              gmud.status ?? GmudStatus.PENDENTE
-            ).toString(),
+            order: this._getGmudOrder(gmud.status),
             count: 1,
           });
         }
@@ -88,7 +93,11 @@ export class ProjectRepository {
           if (p.find((f) => f.status === GmudStatus.ROLLBACK_FALHA))
             p = p.map((upt) =>
               upt.status === GmudStatus.ROLLBACK_FALHA
-                ? { ...upt, count: upt.count + gmud.count }
+                ? {
+                    ...upt,
+                    count: upt.count + gmud.count,
+                    order: this._getGmudOrder(gmud.status),
+                  }
                 : upt
             );
           else p.push({ ...gmud, status: GmudStatus.ROLLBACK_FALHA });
@@ -98,7 +107,11 @@ export class ProjectRepository {
         return p;
       }, [] as ISummaryIndicatorsGmuds[]);
 
-    return { gmuds: gmuds.sort((a, b) => a.order.localeCompare(b.order)) };
+    return {
+      gmuds: gmuds.sort((a, b) =>
+        a.order < b.order ? -1 : a.order > b.order ? 1 : 0
+      ),
+    };
   }
 
   getMonitoring(projectId: string): IProjectMonitoring[] {

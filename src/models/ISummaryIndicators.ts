@@ -6,6 +6,6 @@ export interface ISummaryIndicators {
 
 export interface ISummaryIndicatorsGmuds {
   status?: TGmudStatus;
-  order: string;
+  order: number;
   count: number;
 }
