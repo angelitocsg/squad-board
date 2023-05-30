@@ -7,9 +7,11 @@ import { IBoardAssignee } from "../../models/IBoardAssignee";
 import { IBoardIssue } from "../../models/IBoardIssue";
 import { BoardRepository } from "../../repository/BoardRepository";
 import { BoardService } from "../../services/BoardService";
+import { OverviewService } from "../../services/OverviewService";
 
 const useBoard = () => {
   const service = useService<BoardService>("BoardService");
+  const overviewService = useService<OverviewService>("OverviewService");
   const repository = useService<BoardRepository>("BoardRepository");
 
   const [sprint_name, set_sprint_name] = useState("Sprint");
@@ -80,6 +82,9 @@ const useBoard = () => {
 
   const handleFileUpload = (data: string) => {
     service.import(data);
+    overviewService.updateOverviewMembers(
+      repository.getAssignees().map((m) => m.name)
+    );
     setTimeout(() => {
       window.location.reload();
     }, 500);
