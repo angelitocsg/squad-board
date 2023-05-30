@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SEM_ALOCACAO } from "../../constants/board.constants";
 import { useService } from "../../di/DecouplerContext";
 import { PriorityEnum } from "../../enums/PriorityEnum";
+import { StorageKey } from "../../enums/StorageKey";
 import ExportHelper from "../../helpers/export.helper";
 import {
   IMember,
@@ -62,7 +63,7 @@ const useOverview = () => {
   };
 
   const loadData = () => {
-    let ls = localStorage.getItem("overview_tasks") ?? "[]";
+    let ls = localStorage.getItem(StorageKey.OVERVIEW_TASKS) ?? "[]";
 
     if (ls)
       set_overview_tasks(
@@ -71,7 +72,7 @@ const useOverview = () => {
         )
       );
 
-    ls = localStorage.getItem("overview_members") ?? "[]";
+    ls = localStorage.getItem(StorageKey.OVERVIEW_MEMBERS) ?? "[]";
     if (ls)
       set_overview_members(
         (JSON.parse(ls) as IMember[]).sort((a, b) =>
@@ -79,7 +80,7 @@ const useOverview = () => {
         )
       );
 
-    ls = localStorage.getItem("overview_features") ?? "[]";
+    ls = localStorage.getItem(StorageKey.OVERVIEW_FEATURES) ?? "[]";
     if (ls)
       set_overview_features(
         (JSON.parse(ls) as IOverviewFeatures[]).sort((a, b) =>
@@ -134,7 +135,10 @@ const useOverview = () => {
 
   useEffect(() => {
     if (overview_tasks && overview_tasks.length > 0)
-      localStorage.setItem("overview_tasks", JSON.stringify(overview_tasks));
+      localStorage.setItem(
+        StorageKey.OVERVIEW_TASKS,
+        JSON.stringify(overview_tasks)
+      );
   }, [overview_tasks]);
 
   useEffect(() => {

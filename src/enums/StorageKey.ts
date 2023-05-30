@@ -3,4 +3,7 @@ export enum StorageKey {
   BOARD_DATA_FEATURES = "board_data_features",
   PROJECTS_DATA = "projects_data",
   SETTINGS_ALL = "settings_all",
+  OVERVIEW_MEMBERS = "overview_members",
+  OVERVIEW_TASKS = "overview_tasks",
+  OVERVIEW_FEATURES = "overview_features",
 }

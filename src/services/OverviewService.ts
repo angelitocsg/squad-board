@@ -1,10 +1,11 @@
 import { SEM_ALOCACAO } from "../constants/board.constants";
-import { IMember, IOverview } from "../models/IOverview";
+import { StorageKey } from "../enums/StorageKey";
 import { IImportService } from "../interfaces/IImportService";
+import { IMember, IOverview } from "../models/IOverview";
 
 export class OverviewService implements IImportService {
   updateOverviewMembers = (assigness: string[]) => {
-    const current = localStorage.getItem("overview_members");
+    const current = localStorage.getItem(StorageKey.OVERVIEW_MEMBERS);
     if (current) return;
 
     const members: IMember[] = assigness.map((a) => ({
@@ -12,12 +13,12 @@ export class OverviewService implements IImportService {
         a === SEM_ALOCACAO ? a : `${a.split(" ")[0]} ${a.split(" ")[1][0]}.`,
       user: a === SEM_ALOCACAO ? a : `${a.split(" ")[0]}`,
     }));
-    localStorage.setItem("overview_members", JSON.stringify(members));
+    localStorage.setItem(StorageKey.OVERVIEW_MEMBERS, JSON.stringify(members));
   };
 
   clear() {
-    localStorage.removeItem("overview_features");
-    localStorage.removeItem("overview_members");
+    localStorage.removeItem(StorageKey.OVERVIEW_FEATURES);
+    localStorage.removeItem(StorageKey.OVERVIEW_TASKS);
   }
 
   import(data: string) {
@@ -25,13 +26,16 @@ export class OverviewService implements IImportService {
 
     // localStorage.setItem("overview_data", JSON.stringify(overviewData));
     localStorage.setItem(
-      "overview_features",
+      StorageKey.OVERVIEW_FEATURES,
       JSON.stringify(overviewData.features)
     );
     localStorage.setItem(
-      "overview_members",
+      StorageKey.OVERVIEW_MEMBERS,
       JSON.stringify(overviewData.members)
     );
-    localStorage.setItem("overview_tasks", JSON.stringify(overviewData.tasks));
+    localStorage.setItem(
+      StorageKey.OVERVIEW_TASKS,
+      JSON.stringify(overviewData.tasks)
+    );
   }
 }
