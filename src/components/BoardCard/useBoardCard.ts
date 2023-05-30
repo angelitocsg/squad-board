@@ -55,7 +55,10 @@ const useBoardCard = ({
       ? "opacity-disabled"
       : "";
 
-  const featureColor = `${featureColorByType} ${featureColorByStatus}`;
+  const featureColor =
+    status === IssueStatus.ENCERRADO_ATIVADO
+      ? featureColorByStatus
+      : `${featureColorByType} ${featureColorByStatus}`;
 
   const parentDescriptionAlternative =
     type === "story"
