@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import { useService } from "../../di/DecouplerContext";
 import { StorageKey } from "../../enums/StorageKey";
 import { ISettings } from "../../models/ISettings";
+import { BoardRepository } from "../../repository/BoardRepository";
 import { SettingsService } from "../../services/SettingsService";
 
 const useSettings = () => {
   const service = useService<SettingsService>("SettingsService");
+  const boardRepository = useService<BoardRepository>("BoardRepository");
   const [features, set_features] = useState<string>("");
   const [invalid_json, set_invalid_json] = useState<string | undefined>();
   const [settings, set_settings] = useState<ISettings>(service.getSettings());
+  const features_text = boardRepository.getFeaturesFromLocalStorage() ?? "";
 
   const updateValue = (field: string, value: any) => {
     const tmp = {
@@ -44,7 +47,7 @@ const useSettings = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { invalid_json, settings, updateValue };
+  return { features_text, invalid_json, settings, updateValue };
 };
 
 export default useSettings;

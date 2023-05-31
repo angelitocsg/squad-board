@@ -68,6 +68,10 @@ export class BoardRepository {
       .sort((a, b) => a.localeCompare(b));
   }
 
+  getFeaturesFromLocalStorage() {
+    return localStorage.getItem(StorageKey.BOARD_DATA_FEATURES);
+  }
+
   getAllIssues() {
     return this.getData()
       .filter(
