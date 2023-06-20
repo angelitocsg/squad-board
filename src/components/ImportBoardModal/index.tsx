@@ -13,7 +13,7 @@ const ImportBoardModal = ({
   onUploadClick,
   onDownloadClick,
 }: IProps) => {
-  const [data, setData] = useState(placeholder ?? "");
+  const [data, setData] = useState("");
 
   const handleLoadData = () => {
     onUploadClick && onUploadClick(data);
