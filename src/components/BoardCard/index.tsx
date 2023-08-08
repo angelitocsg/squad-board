@@ -15,6 +15,7 @@ interface IProps {
   type?: TIssueType;
   priority?: TPriority;
   story_points?: number;
+  impediment: boolean;
   status?: string;
   group?: boolean;
   hidden?: boolean;
@@ -30,6 +31,7 @@ const BoardCard = ({
   type,
   priority,
   story_points,
+  impediment,
   status,
   group,
   hidden,
@@ -69,6 +71,7 @@ const BoardCard = ({
           assignee={assignee}
           priority={priority}
           parent_id={parent_id}
+          impediment={impediment}
         />
         <BoardCardGroupExpander
           id={id}

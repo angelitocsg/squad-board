@@ -25,6 +25,7 @@ const BoardCards = ({ item, status }: IProps) => (
             parent_description={subitem.parent_description}
             type={subitem.type}
             priority={subitem.priority ?? PriorityEnum.MEDIUM}
+            impediment={subitem.impediment ?? false}
           />
         );
       })}

@@ -78,6 +78,8 @@ export class BoardService implements IImportService {
         ? "squad_name"
         : c.trim() === "u_effort"
         ? "story_points"
+        : c.trim() === "u_impediment"
+        ? "impediment"
         : ""
     );
   }
@@ -115,6 +117,10 @@ export class BoardService implements IImportService {
           case "id":
           case "description":
             it[columnNames[i]] = values[i]?.toUpperCase();
+            break;
+          case "impediment":
+            it[columnNames[i]] =
+              values[i]?.toUpperCase() === "FALSO" ? false : true;
             break;
           case "type":
             const col_value = values[i]?.toLowerCase();

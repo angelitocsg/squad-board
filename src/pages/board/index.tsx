@@ -82,6 +82,7 @@ const BoardPage = () => {
                   story_points={item.story_points}
                   group={(item.issues?.length ?? 0) > 0 ?? false}
                   hidden={(item.issues?.length ?? 0) === 0}
+                  impediment={item.impediment ?? false}
                 />
               </BoardColumn>
 
@@ -114,6 +115,7 @@ const BoardPage = () => {
                   data-bs-target={"#OTHERS"}
                   aria-expanded="true"
                   aria-controls={"OTHERS"}
+                  impediment={false}
                 />
               </BoardColumn>
 

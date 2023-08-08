@@ -9,6 +9,7 @@ interface IProps {
   assignee?: string;
   priority?: TPriority;
   parent_id?: string;
+  impediment: boolean;
 }
 
 const BoardCardDetails = ({
@@ -19,8 +20,12 @@ const BoardCardDetails = ({
   assignee,
   priority,
   parent_id,
+  impediment,
 }: IProps) => (
   <div className="flex-grow-1">
+    {impediment ? (
+      <i className={`bi bi-exclamation-octagon-fill text-danger pe-1`}></i>
+    ) : undefined}
     <strong>{description}</strong>
     {((group && expanded) || !group) && id && (
       <>

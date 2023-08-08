@@ -14,4 +14,6 @@ export interface IBoardIssue {
   squad_name?: string;
   issues?: IBoardIssue[];
   story_points?: number;
+  impediment?: boolean;
+  impediment_description?: string;
 }
