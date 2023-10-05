@@ -10,6 +10,7 @@ import ProjectsPage from "./pages/projects";
 import GmudReport from "./pages/projects/reports/GmudReport";
 import Main from "./shared/Main";
 import SettingsPage from "./pages/settings";
+import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
 
 const router = createBrowserRouter(
   [
@@ -54,6 +55,10 @@ const router = createBrowserRouter(
         {
           path: "/settings",
           element: <SettingsPage />,
+        },
+        {
+          path: "/gmuds",
+          element: <GestaoMudancaHome />,
         },
       ],
     },

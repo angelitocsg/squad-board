@@ -84,6 +84,11 @@ const Navbar = () => {
                 Configurações
               </Link>
             </li>
+            <li className="nav-item pe-2">
+              <Link to="/gmuds" className={getActiveCss("/gmuds")}>
+                Gestão de mudança
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
