@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import FormInput from "../components/FormInput";
+import FormInput from "../../../core/components/FormInput";
 import GmudModel from "../viewModel/GmudModel";
 
 type IProps = {
@@ -7,13 +7,16 @@ type IProps = {
   onChange: (data: GmudModel) => void;
 };
 
-const GmudCreatePage = ({ data, onChange }: IProps) => {
+const GmudForm = ({ data, onChange }: IProps) => {
   const [state, setState] = useState<GmudModel>(data);
+
   const handleChange = (e: any) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
+
   const handleOpenLink = () =>
     state.link.startsWith("http") && window.open(state.link, "_blank");
+
   useEffect(() => {
     onChange && onChange(state);
   }, [onChange, state]);
@@ -21,17 +24,25 @@ const GmudCreatePage = ({ data, onChange }: IProps) => {
   return (
     <div>
       <div className="row">
-        <div className="col-10">
+        <div className="col-7">
           <FormInput
             type="text"
             label="Repositório"
             field="repositoryId"
-            defaultValue={state.repositoryId}
-            disabled
-            readOnly
+            value={state.repositoryId}
+            onChange={handleChange}
           />
         </div>
         <div className="col">
+          <FormInput
+            type="text"
+            label="História"
+            field="story"
+            value={state.story}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-2">
           <FormInput
             type="text"
             label="Versão"
@@ -43,15 +54,6 @@ const GmudCreatePage = ({ data, onChange }: IProps) => {
         </div>
       </div>
       <div className="row">
-        <div className="col-4">
-          <FormInput
-            type="text"
-            label="História"
-            field="story"
-            value={state.story}
-            onChange={handleChange}
-          />
-        </div>
         <div className="col-3">
           <FormInput
             type="text"
@@ -78,6 +80,15 @@ const GmudCreatePage = ({ data, onChange }: IProps) => {
             field="time"
             value={state.time}
             placeholder="00h00"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="Responsável"
+            field="owner"
+            value={state.owner}
             onChange={handleChange}
           />
         </div>
@@ -108,8 +119,19 @@ const GmudCreatePage = ({ data, onChange }: IProps) => {
           />
         </div>
       </div>
+      <div className="row">
+        <div className="col">
+          <FormInput
+            type="textarea"
+            label="Descrição"
+            field="description"
+            value={state.description}
+            onTextAreaChange={handleChange}
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
-export default GmudCreatePage;
+export default GmudForm;
