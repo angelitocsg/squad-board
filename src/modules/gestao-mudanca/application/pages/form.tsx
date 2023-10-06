@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import FormInput from "../../../core/components/FormInput";
-import GmudModel from "../viewModel/GmudModel";
+import GmudModel from "../data/GmudModel";
 
 type IProps = {
   data: GmudModel;

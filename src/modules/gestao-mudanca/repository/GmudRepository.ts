@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import Gmud from '../../domain/entity/Gmud';
+import { Observable } from "rxjs";
+import Gmud from "../domain/Gmud";
 
 export type TFilter = {
   repositoryId?: string;
@@ -7,7 +7,7 @@ export type TFilter = {
   dateTo?: string;
 };
 
-export default interface GmudDAO {
+export default interface GmudRepository {
   data$: Observable<Gmud[]>;
   getAll: (filter?: TFilter) => Gmud[];
   getById: (id: string) => Gmud | undefined;

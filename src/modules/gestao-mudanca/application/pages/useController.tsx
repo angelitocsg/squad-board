@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
+
 import { useService } from "../../../../di/DecouplerContext";
-import AppModalService from "../../../core/components/AppModal/AppModalService";
-import Gmud from "../../domain/entity/Gmud";
-import GmudDAO from "../repository/GmudDAO";
-import GmudStore from "../store/GmudStore";
-import GmudModel from "../viewModel/GmudModel";
-import GmudForm from "./form";
-import { IActions, IColumns } from "../../../core/components/DisplayTable";
-import { nodeModuleNameResolver } from "typescript";
-import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
-import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import { GmudStatus } from "../../../../enums/GmudStatus";
+import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
+import AppModalService from "../../../core/components/AppModal/AppModalService";
+import { IActions, IColumns } from "../../../core/components/DisplayTable";
+import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
+import Gmud from "../../domain/Gmud";
+import GmudRepository from "../../repository/GmudRepository";
+import GmudStore from "../data/GmudStore";
+import GmudModel from "../data/GmudModel";
+import GmudForm from "./form";
 
 const useController = () => {
   const modalService = useService<AppModalService>("AppModalService");
   const alertService = useService<AlertModalService>("AlertModalService");
   const gmudStore = useService<GmudStore>("GmudStore");
-  const gmudDAO = useService<GmudDAO>("GmudDAOLocalStorage");
+  const gmudDAO = useService<GmudRepository>("GmudRepository");
   const [lines, setLines] = useState<GmudModel[]>([]);
   const tColumns: IColumns[] = [
     { field: "number", title: "Número" },

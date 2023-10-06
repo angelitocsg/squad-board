@@ -73,9 +73,7 @@ const Navbar = () => {
                     Gmuds
                   </Link>
                 </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
+               
               </ul>
             </li>
 
@@ -84,10 +82,34 @@ const Navbar = () => {
                 Configurações
               </Link>
             </li>
-            <li className="nav-item pe-2">
-              <Link to="/gmuds" className={getActiveCss("/gmuds")}>
-                Gestão de mudança
-              </Link>
+
+            <li className="nav-item dropdown">
+              <span
+                className="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Cadastros
+              </span>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link
+                    to="/cadastros/produto-digital"
+                    className="dropdown-item"
+                  >
+                    Produtos digitais
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li className="nav-item pe-2">
+                  <Link to="/cadastros/gestao-mudancao" className="dropdown-item">
+                    Gestão de mudanças
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>

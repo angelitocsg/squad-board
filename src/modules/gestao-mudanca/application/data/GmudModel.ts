@@ -1,4 +1,4 @@
-import Gmud from "../../domain/entity/Gmud";
+import Gmud from "../../domain/Gmud";
 
 export default class GmudModel {
   id: string = "";

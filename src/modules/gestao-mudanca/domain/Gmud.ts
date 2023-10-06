@@ -1,6 +1,5 @@
-import { CANCELLED } from "dns";
-import { GmudStatus } from "../../../../enums/GmudStatus";
-import { TGmudStatus } from "../../../../types/TGmudStatus";
+import { GmudStatus } from "../../../enums/GmudStatus";
+import { TGmudStatus } from "../../../types/TGmudStatus";
 import { v4 as uuidv4 } from "uuid";
 
 export default class Gmud {
@@ -73,9 +72,9 @@ export default class Gmud {
     owner?: string,
     description?: string
   ) {
-    const id = uuidv4();
     if (!repositoryId) throw Error("O repositório deve ser informado");
     if (!story) throw Error("A história deve ser informada");
+    const id = uuidv4();
     return new Gmud(id, story, repositoryId, version, owner, description);
   }
 

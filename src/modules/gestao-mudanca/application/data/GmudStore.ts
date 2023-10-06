@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import GmudModel from "../viewModel/GmudModel";
+import GmudModel from "./GmudModel";
 
 const initialState = new GmudModel();
 

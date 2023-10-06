@@ -1,4 +1,4 @@
-import Gmud from "../../domain/entity/Gmud";
+import Gmud from "../domain/Gmud";
 
 export default class GmudDTO {
   id!: string;
@@ -13,8 +13,8 @@ export default class GmudDTO {
   owner!: string;
   description!: string;
 
-  constructor(id: string, gmud: Gmud) {
-    this.id = id;
+  constructor(gmud: Gmud) {
+    this.id = gmud.id;
     this.story = gmud.story;
     this.repositoryId = gmud.repositoryId;
     this.number = gmud.number;

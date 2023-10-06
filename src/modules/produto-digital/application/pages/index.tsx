@@ -2,12 +2,12 @@ import PageLayout from "../../../../shared/PageLayout";
 import DisplayTable from "../../../core/components/DisplayTable";
 import useController from "./useController";
 
-const GestaoMudancaHome = () => {
+const ProdutoDigitalHome = () => {
   const { tActions, tColumns, tHeaderButtons, lines, handleEdit } =
     useController();
 
   return (
-    <PageLayout title="Gestão de mudanças">
+    <PageLayout title="Produtos digitais">
       <DisplayTable
         actions={tActions}
         columns={tColumns}
@@ -19,4 +19,4 @@ const GestaoMudancaHome = () => {
   );
 };
 
-export default GestaoMudancaHome;
+export default ProdutoDigitalHome;

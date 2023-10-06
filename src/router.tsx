@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
+import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
+import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
 import BoardPage from "./pages/board";
 import ErrorPage from "./pages/error";
 import FaqEditorPage from "./pages/faq-editor";
@@ -8,9 +10,8 @@ import NotificationsPage from "./pages/notifications";
 import OverviewPage from "./pages/overview";
 import ProjectsPage from "./pages/projects";
 import GmudReport from "./pages/projects/reports/GmudReport";
-import Main from "./shared/Main";
 import SettingsPage from "./pages/settings";
-import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
+import Main from "./shared/Main";
 
 const router = createBrowserRouter(
   [
@@ -57,8 +58,17 @@ const router = createBrowserRouter(
           element: <SettingsPage />,
         },
         {
-          path: "/gmuds",
-          element: <GestaoMudancaHome />,
+          path: "/cadastros",
+          children: [
+            {
+              path: "/cadastros/gestao-mudancao",
+              element: <GestaoMudancaHome />,
+            },
+            {
+              path: "/cadastros/produto-digital",
+              element: <ProdutoDigitalHome />,
+            },
+          ],
         },
       ],
     },
