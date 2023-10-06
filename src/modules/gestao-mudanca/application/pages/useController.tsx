@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { useService } from "../../../../di/DecouplerContext";
-import { GmudStatus } from "../../../../enums/GmudStatus";
-import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
-import AppModalService from "../../../core/components/AppModal/AppModalService";
-import { IActions, IColumns } from "../../../core/components/DisplayTable";
-import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
-import Gmud from "../../domain/Gmud";
-import GmudRepository from "../../repository/GmudRepository";
-import GmudStore from "../data/GmudStore";
-import GmudModel from "../data/GmudModel";
-import GmudForm from "./form";
+import { useService } from '../../../../di/DecouplerContext';
+import { GmudStatus } from '../../../../enums/GmudStatus';
+import AlertModalService from '../../../core/components/AlertModal/AlertModalService';
+import AppModalService from '../../../core/components/AppModal/AppModalService';
+import { IActions, IColumns } from '../../../core/components/DisplayTable';
+import { IHeaderActions } from '../../../core/components/DisplayTable/headerActions';
+import Gmud from '../../domain/Gmud';
+import GmudRepository from '../../repository/GmudRepository';
+import GmudModel from '../data/GmudModel';
+import GmudStore from '../data/GmudStore';
+import GmudForm from './form';
 
 const useController = () => {
   const modalService = useService<AppModalService>("AppModalService");

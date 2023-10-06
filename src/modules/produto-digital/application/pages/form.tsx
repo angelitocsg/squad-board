@@ -13,8 +13,6 @@ const ProductForm = ({ data, onChange }: IProps) => {
   const handleChange = (e: any) => {
     setState({
       ...state,
-      fromDomain: state.fromDomain,
-      toDomain: state.toDomain,
       [e.target.name]: e.target.value,
     });
   };

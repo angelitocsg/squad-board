@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
 import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
+import RepoHome from "./modules/repositorios/application/pages";
 import BoardPage from "./pages/board";
 import ErrorPage from "./pages/error";
 import FaqEditorPage from "./pages/faq-editor";
@@ -61,12 +62,16 @@ const router = createBrowserRouter(
           path: "/cadastros",
           children: [
             {
-              path: "/cadastros/gestao-mudancao",
-              element: <GestaoMudancaHome />,
-            },
-            {
               path: "/cadastros/produto-digital",
               element: <ProdutoDigitalHome />,
+            },
+            {
+              path: "/cadastros/repositorios",
+              element: <RepoHome />,
+            },
+            {
+              path: "/cadastros/gestao-mudancao",
+              element: <GestaoMudancaHome />,
             },
           ],
         },

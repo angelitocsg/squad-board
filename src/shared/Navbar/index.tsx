@@ -73,7 +73,6 @@ const Navbar = () => {
                     Gmuds
                   </Link>
                 </li>
-               
               </ul>
             </li>
 
@@ -102,10 +101,18 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/cadastros/repositorios" className="dropdown-item">
+                    Repositórios
+                  </Link>
+                </li>
+                <li>
                   <hr className="dropdown-divider" />
                 </li>
                 <li className="nav-item pe-2">
-                  <Link to="/cadastros/gestao-mudancao" className="dropdown-item">
+                  <Link
+                    to="/cadastros/gestao-mudancao"
+                    className="dropdown-item"
+                  >
                     Gestão de mudanças
                   </Link>
                 </li>

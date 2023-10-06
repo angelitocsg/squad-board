@@ -23,12 +23,12 @@ export default class GmudRepositoryLocalStorage implements GmudRepository {
 
   private load() {
     this._data.next(
-      JSON.parse(localStorage.getItem(StorageKey.DATA_GMUD) ?? "[]")
+      JSON.parse(localStorage.getItem(StorageKey.DATA_GESTAO_MUDANCA) ?? "[]")
     );
   }
 
   private save() {
-    localStorage.setItem(StorageKey.DATA_GMUD, JSON.stringify(this.data ?? []));
+    localStorage.setItem(StorageKey.DATA_GESTAO_MUDANCA, JSON.stringify(this.data ?? []));
   }
 
   getAll(filter?: TFilter) {

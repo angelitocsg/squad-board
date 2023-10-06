@@ -1,6 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
 
-type TRepository =
+export enum RepositoryType {
+  MFE_APP = "mfe-app",
+  MFE_INFRA = "mfe-infra",
+  BFF_APP = "bff-app",
+  BFF_INFRA = "bff-infra",
+  API_APP = "api-app",
+  DEP = "dep",
+}
+
+export type TRepository =
   | "mfe-app"
   | "mfe-infra"
   | "bff-app"
@@ -8,14 +17,14 @@ type TRepository =
   | "api-app"
   | "dep";
 
-export default class Repository {
-  private _repositoryId: string;
-  get repositoryId() {
-    return this._repositoryId;
+export default class Repo {
+  private _id: string;
+  get id() {
+    return this._id;
   }
-  private _projectId: string;
-  get projectId() {
-    return this._projectId;
+  private _productId: string;
+  get productId() {
+    return this._productId;
   }
   private _repository: string;
   get repository() {
@@ -36,56 +45,48 @@ export default class Repository {
 
   private constructor(
     id: string,
-    projectId: string,
+    productId: string,
     repository: string,
     type: TRepository,
     deploySequence: number = 1.0,
     siglaApp?: string
   ) {
-    this._repositoryId = id;
-    this._projectId = projectId;
+    this._id = id;
+    this._productId = productId;
     this._repository = repository;
     this._type = type;
     this._deploySequence = deploySequence;
     this._siglaApp = siglaApp;
   }
 
+  updateId(id: string): Repo {
+    if (!id) throw Error("Id is empty");
+    this._id = id;
+    return this;
+  }
+
   static create(
+    productId: string,
     repository: string,
-    projectId: string,
     type: TRepository,
     deploySequence: number = 1.0,
     siglaApp?: string
   ) {
     if (!repository) throw Error("O repositório deve ser informado");
-    if (!projectId) throw Error("O projeto deve ser informado");
+    if (!productId) throw Error("O produto deve ser informado");
     if (!type) throw Error("O tipo deve ser informado");
     const id = uuidv4();
-    return new Repository(
-      id,
-      repository,
-      projectId,
-      type,
-      deploySequence,
-      siglaApp
-    );
+    return new Repo(id, repository, productId, type, deploySequence, siglaApp);
   }
 
   static restore(
     id: string,
-    projectId: string,
+    productId: string,
     repository: string,
     type: TRepository,
     deploySequence: number = 1.0,
     siglaApp?: string
   ) {
-    return new Repository(
-      id,
-      repository,
-      projectId,
-      type,
-      deploySequence,
-      siglaApp
-    );
+    return new Repo(id, repository, productId, type, deploySequence, siglaApp);
   }
 }

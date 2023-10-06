@@ -10,6 +10,10 @@ import AlertModalService from "./modules/core/components/AlertModal/AlertModalSe
 import AppModalService from "./modules/core/components/AppModal/AppModalService";
 import GmudStore from "./modules/gestao-mudanca/application/data/GmudStore";
 import GmudRepositoryLocalStorage from "./modules/gestao-mudanca/repository/GmudRepositoryLocalStorage";
+import ProductStore from "./modules/produto-digital/application/data/ProductStore";
+import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
+import RepoStore from "./modules/repositorios/application/data/RepoStore";
+import RepoRepositoryLocalStorage from "./modules/repositorios/repository/RepoRepositoryLocalStorage";
 import reportWebVitals from "./reportWebVitals";
 import { BoardRepository } from "./repository/BoardRepository";
 import { ProjectRepository } from "./repository/ProjectRepository";
@@ -19,8 +23,6 @@ import { FaqService } from "./services/FaqService";
 import { OverviewService } from "./services/OverviewService";
 import { ProjectService } from "./services/ProjectService";
 import { SettingsService } from "./services/SettingsService";
-import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
-import ProductStore from "./modules/produto-digital/application/data/ProductStore";
 
 let locator = new ServiceLocator();
 locator.register("AlertModalService", AlertModalService);
@@ -32,6 +34,8 @@ locator.register("GmudRepository", GmudRepositoryLocalStorage);
 locator.register("GmudStore", GmudStore);
 locator.register("ProductStore", ProductStore);
 locator.register("ProductRepository", ProductRepositoryLocalStorage);
+locator.register("RepoRepository", RepoRepositoryLocalStorage);
+locator.register("RepoStore", RepoStore);
 locator.register("OverviewService", OverviewService);
 locator.register("ProjectService", ProjectService);
 locator.register("ProjectRepository", ProjectRepository);

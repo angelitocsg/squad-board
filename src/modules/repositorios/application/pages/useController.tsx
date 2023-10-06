@@ -5,28 +5,30 @@ import AlertModalService from "../../../core/components/AlertModal/AlertModalSer
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
-import Product from "../../domain/Product";
-import ProductRepository from "../../repository/ProductRepository";
-import ProductModel from "../data/ProductModel";
-import ProductStore from "../data/ProductStore";
-import ProductForm from "./form";
+import Repo from "../../domain/Repo";
+import RepoRepository from "../../repository/RepoRepository";
+import RepoModel from "../data/RepoModel";
+import RepoStore from "../data/RepoStore";
+import RepoForm from "./form";
 
 const useController = () => {
   const modalService = useService<AppModalService>("AppModalService");
   const alertService = useService<AlertModalService>("AlertModalService");
-  const productStore = useService<ProductStore>("ProductStore");
-  const productRepository = useService<ProductRepository>("ProductRepository");
-  const [lines, setLines] = useState<ProductModel[]>([]);
+  const repoStore = useService<RepoStore>("RepoStore");
+  const productRepository = useService<RepoRepository>("RepoRepository");
+  const [lines, setLines] = useState<RepoModel[]>([]);
   const tColumns: IColumns[] = [
-    { field: "sigla", title: "Sigla" },
-    { field: "squad", title: "Squad" },
-    { field: "name", title: "Produto" },
+    { field: "productId", title: "Projeto" },
+    { field: "repository", title: "Repositório" },
+    { field: "type", title: "Tipo" },
+    { field: "deploySequence", title: "Sequência" },
+    { field: "siglaApp", title: "Sigla App" },
   ];
 
   useEffect(() => {
     productRepository.getAll();
     var subscriber = productRepository.data$.subscribe((products) => {
-      setLines(products.map((product) => ProductModel.fromDomain(product)));
+      setLines(products.map((product) => RepoModel.fromDomain(product)));
     });
     return () => {
       subscriber.unsubscribe();
@@ -35,10 +37,16 @@ const useController = () => {
 
   const handleSave = () => {
     try {
-      const model = productStore.current;
-      const product = Product.create(model.sigla, model.squad, model.name);
-      if (!model.id) productRepository.create(product);
-      else productRepository.update(model.id, product.updateId(model.id));
+      const model = repoStore.current;
+      const repo = Repo.create(
+        model.productId,
+        model.repository,
+        model.type,
+        model.deploySequence,
+        model.siglaApp
+      );
+      if (!model.id) productRepository.create(repo);
+      else productRepository.update(model.id, repo.updateId(model.id));
       modalService.close();
     } catch (e: any) {
       showMessage("error", e.message);
@@ -58,19 +66,19 @@ const useController = () => {
   };
 
   const handleNew = () => {
-    const model = new ProductModel();
-    productStore.updateCurrent(model);
+    const model = new RepoModel();
+    repoStore.updateCurrent(model);
     modalService
       .config({
-        title: "novo produto digital",
+        title: "novo repositório",
         size: "large",
         buttonOkLabel: "Criar",
         buttonOkAction: handleSave,
         children: () => (
-          <ProductForm
+          <RepoForm
             data={model}
             onChange={(state) => {
-              productStore.updateCurrent(state);
+              repoStore.updateCurrent(state);
             }}
           />
         ),
@@ -78,20 +86,20 @@ const useController = () => {
       .open();
   };
 
-  const handleEdit = (line: ProductModel) => {
+  const handleEdit = (line: RepoModel) => {
     const model = lines.find((x) => x.id === line.id);
     if (!model) return;
     modalService
       .config({
-        title: `editar produto digital (${line.id.split("-")[0]})`,
+        title: `editar repositório (${line.id.split("-")[0]})`,
         size: "large",
         buttonOkLabel: "Salvar",
         buttonOkAction: handleSave,
         children: () => (
-          <ProductForm
+          <RepoForm
             data={model}
             onChange={(state) => {
-              productStore.updateCurrent(state);
+              repoStore.updateCurrent(state);
             }}
           />
         ),
@@ -99,7 +107,7 @@ const useController = () => {
       .open();
   };
 
-  const handleDelete = (line: ProductModel) => {
+  const handleDelete = (line: RepoModel) => {
     if (window.confirm("Excluir produto digital?"))
       productRepository.delete(line.id);
   };
