@@ -1,9 +1,9 @@
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map } from "rxjs";
 
-import { StorageKey } from '../../../enums/StorageKey';
-import Product from '../domain/Product';
-import ProductDTO from './ProductDTO';
-import ProductRepository, { TFilter } from './ProductRepository';
+import { StorageKey } from "../../../enums/StorageKey";
+import Product from "../domain/Product";
+import ProductDTO from "./ProductDTO";
+import ProductRepository, { TFilter } from "./ProductRepository";
 
 export default class ProductRepositoryLocalStorage
   implements ProductRepository
@@ -13,7 +13,9 @@ export default class ProductRepositoryLocalStorage
   >([]);
 
   private get data() {
-    return this._data.value;
+    return this._data.value.sort(
+      (a, b) => a.sigla.localeCompare(b.sigla) || a.name.localeCompare(b.name)
+    );
   }
 
   get data$() {

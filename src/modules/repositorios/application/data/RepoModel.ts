@@ -3,6 +3,7 @@ import Repo, { TRepository } from "../../domain/Repo";
 export default class RepoModel {
   id: string = "";
   productId: string = "";
+  product?: string = "";
   repository: string = "";
   type: TRepository = "dep";
   deploySequence: number = 1.0;

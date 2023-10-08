@@ -5,6 +5,8 @@ import AlertModalService from "../../../core/components/AlertModal/AlertModalSer
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
+import ProductModel from "../../../produto-digital/application/data/ProductModel";
+import ProductRepository from "../../../produto-digital/repository/ProductRepository";
 import Repo from "../../domain/Repo";
 import RepoRepository from "../../repository/RepoRepository";
 import RepoModel from "../data/RepoModel";
@@ -15,10 +17,13 @@ const useController = () => {
   const modalService = useService<AppModalService>("AppModalService");
   const alertService = useService<AlertModalService>("AlertModalService");
   const repoStore = useService<RepoStore>("RepoStore");
-  const productRepository = useService<RepoRepository>("RepoRepository");
+  const repoRepository = useService<RepoRepository>("RepoRepository");
+  const productRepository = useService<ProductRepository>("ProductRepository");
   const [lines, setLines] = useState<RepoModel[]>([]);
+  const [products, setProducts] = useState<ProductModel[]>([]);
+
   const tColumns: IColumns[] = [
-    { field: "productId", title: "Projeto" },
+    { field: "product", title: "Produto" },
     { field: "repository", title: "Repositório" },
     { field: "type", title: "Tipo" },
     { field: "deploySequence", title: "Sequência" },
@@ -27,13 +32,30 @@ const useController = () => {
 
   useEffect(() => {
     productRepository.getAll();
-    var subscriber = productRepository.data$.subscribe((products) => {
-      setLines(products.map((product) => RepoModel.fromDomain(product)));
+    var subscriber = productRepository.data$.subscribe((items) => {
+      setProducts(items.map((item) => ProductModel.fromDomain(item)));
     });
     return () => {
       subscriber.unsubscribe();
     };
   }, [productRepository]);
+
+  useEffect(() => {
+    repoRepository.getAll();
+    var subscriber = repoRepository.data$.subscribe((items) => {
+      setLines(
+        items.map((item) => {
+          return {
+            ...RepoModel.fromDomain(item),
+            product: products.find((x) => x.id === item.productId)?.name,
+          };
+        })
+      );
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [products, repoRepository]);
 
   const handleSave = () => {
     try {
@@ -45,8 +67,8 @@ const useController = () => {
         model.deploySequence,
         model.siglaApp
       );
-      if (!model.id) productRepository.create(repo);
-      else productRepository.update(model.id, repo.updateId(model.id));
+      if (!model.id) repoRepository.create(repo);
+      else repoRepository.update(model.id, repo.updateId(model.id));
       modalService.close();
     } catch (e: any) {
       showMessage("error", e.message);
@@ -109,7 +131,7 @@ const useController = () => {
 
   const handleDelete = (line: RepoModel) => {
     if (window.confirm("Excluir produto digital?"))
-      productRepository.delete(line.id);
+      repoRepository.delete(line.id);
   };
 
   const tActions: IActions[] = [

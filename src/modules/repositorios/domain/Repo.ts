@@ -1,21 +1,29 @@
 import { v4 as uuidv4 } from "uuid";
 
 export enum RepositoryType {
-  MFE_APP = "mfe-app",
-  MFE_INFRA = "mfe-infra",
+  API_APP = "api-app",
+  API_INFRA = "api-infra",
   BFF_APP = "bff-app",
   BFF_INFRA = "bff-infra",
-  API_APP = "api-app",
+  CLOUDFRONT = "cloudfront",
   DEP = "dep",
+  GATEWAY = "gateway",
+  MFE_APP = "mfe-app",
+  MFE_INFRA = "mfe-infra",
+  SHARED_INFRA = "shared-infra",
 }
 
 export type TRepository =
-  | "mfe-app"
-  | "mfe-infra"
-  | "bff-app"
-  | "bff-infra"
-  | "api-app"
-  | "dep";
+  | RepositoryType.API_APP
+  | RepositoryType.API_INFRA
+  | RepositoryType.BFF_APP
+  | RepositoryType.BFF_INFRA
+  | RepositoryType.CLOUDFRONT
+  | RepositoryType.DEP
+  | RepositoryType.GATEWAY
+  | RepositoryType.MFE_APP
+  | RepositoryType.MFE_INFRA
+  | RepositoryType.SHARED_INFRA;
 
 export default class Repo {
   private _id: string;
