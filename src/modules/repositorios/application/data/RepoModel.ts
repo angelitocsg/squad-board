@@ -1,11 +1,11 @@
-import Repo, { TRepository } from "../../domain/Repo";
+import Repo, { RepositoryType, TRepository } from "../../domain/Repo";
 
 export default class RepoModel {
   id: string = "";
   productId: string = "";
   product?: string = "";
   repository: string = "";
-  type: TRepository = "dep";
+  type: TRepository = RepositoryType.DEP;
   deploySequence: number = 1.0;
   siglaApp?: string = "";
 
