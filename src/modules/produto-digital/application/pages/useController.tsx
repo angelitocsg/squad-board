@@ -21,12 +21,21 @@ const useController = () => {
     { field: "sigla", title: "Sigla" },
     { field: "squad", title: "Squad" },
     { field: "name", title: "Produto" },
+    { field: "descriptionTruncated", title: "Descrição" },
   ];
 
   useEffect(() => {
     productRepository.getAll();
-    var subscriber = productRepository.data$.subscribe((products) => {
-      setLines(products.map((product) => ProductModel.fromDomain(product)));
+    var subscriber = productRepository.data$.subscribe(products => {
+      const _max = 20;
+      const _description = (d?: string) =>
+        (d ?? "").length > _max ? `${d?.substring(0, _max)}...` : d ? d : "-";
+      setLines(
+        products.map(product => ({
+          ...ProductModel.fromDomain(product),
+          descriptionTruncated: _description(ProductModel.fromDomain(product).description),
+        })),
+      );
     });
     return () => {
       subscriber.unsubscribe();
@@ -36,7 +45,7 @@ const useController = () => {
   const handleSave = () => {
     try {
       const model = productStore.current;
-      const product = Product.create(model.sigla, model.squad, model.name);
+      const product = Product.create(model.sigla, model.squad, model.name, model.description);
       if (!model.id) productRepository.create(product);
       else productRepository.update(model.id, product.updateId(model.id));
       modalService.close();
@@ -69,7 +78,7 @@ const useController = () => {
         children: () => (
           <ProductForm
             data={model}
-            onChange={(state) => {
+            onChange={state => {
               productStore.updateCurrent(state);
             }}
           />
@@ -79,7 +88,7 @@ const useController = () => {
   };
 
   const handleEdit = (line: ProductModel) => {
-    const model = lines.find((x) => x.id === line.id);
+    const model = lines.find(x => x.id === line.id);
     if (!model) return;
     modalService
       .config({
@@ -90,7 +99,7 @@ const useController = () => {
         children: () => (
           <ProductForm
             data={model}
-            onChange={(state) => {
+            onChange={state => {
               productStore.updateCurrent(state);
             }}
           />
@@ -100,8 +109,7 @@ const useController = () => {
   };
 
   const handleDelete = (line: ProductModel) => {
-    if (window.confirm("Excluir produto digital?"))
-      productRepository.delete(line.id);
+    if (window.confirm("Excluir produto digital?")) productRepository.delete(line.id);
   };
 
   const tActions: IActions[] = [

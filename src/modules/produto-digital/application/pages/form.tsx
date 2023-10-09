@@ -51,6 +51,14 @@ const ProductForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
+        <FormInput
+          type="textarea"
+          label="Descrição"
+          field="description"
+          value={state.description}
+          rows={4}
+          onTextAreaChange={handleChange}
+        />
       </div>
     </div>
   );

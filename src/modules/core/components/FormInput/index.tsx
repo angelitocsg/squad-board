@@ -17,6 +17,7 @@ interface IFormInput extends IFormInputRightButton {
   disabled?: boolean;
   readOnly?: boolean;
   placeholder?: string;
+  rows?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
 }
@@ -30,6 +31,7 @@ const FormInput = ({
   readOnly,
   placeholder,
   rightButton,
+  rows,
   onChange,
   onTextAreaChange,
 }: IFormInput) => (
@@ -47,8 +49,8 @@ const FormInput = ({
         disabled={disabled}
         readOnly={readOnly}
         placeholder={placeholder}
-        onChange={onTextAreaChange}
-      ></textarea>
+        rows={rows}
+        onChange={onTextAreaChange}></textarea>
     ) : (
       <div className="input-group">
         <input
@@ -68,8 +70,7 @@ const FormInput = ({
             className="btn btn-outline-secondary"
             type="button"
             id={rightButton.id}
-            onClick={rightButton.onClick}
-          >
+            onClick={rightButton.onClick}>
             {rightButton.label}
           </button>
         )}

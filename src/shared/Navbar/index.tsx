@@ -7,8 +7,7 @@ const NavCadastros = () => {
         className="nav-link dropdown-toggle"
         role="button"
         data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
+        aria-expanded="false">
         Cadastros
       </span>
       <ul className="dropdown-menu">
@@ -25,7 +24,7 @@ const NavCadastros = () => {
         <li>
           <hr className="dropdown-divider" />
         </li>
-        <li className="nav-item pe-2">
+        <li className="nav-item">
           <Link to="/cadastros/gestao-mudancao" className="dropdown-item">
             Gestão de mudanças
           </Link>
@@ -54,8 +53,7 @@ const Navbar = () => {
           data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+          aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -66,8 +64,6 @@ const Navbar = () => {
               </Link>
             </li>
 
-            <NavCadastros />
-
             <li className="nav-item pe-2">
               <Link to="/projects" className={getActiveCss("/projects")}>
                 Aplicações
@@ -75,10 +71,7 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item pe-2">
-              <Link
-                to="/notifications"
-                className={getActiveCss("/notifications")}
-              >
+              <Link to="/notifications" className={getActiveCss("/notifications")}>
                 Notificações
               </Link>
             </li>
@@ -94,8 +87,7 @@ const Navbar = () => {
                 className="nav-link dropdown-toggle"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
+                aria-expanded="false">
                 Relatórios
               </span>
               <ul className="dropdown-menu">
@@ -106,6 +98,8 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
+
+            <NavCadastros />
 
             <li className="nav-item pe-2">
               <Link to="/settings" className={getActiveCss("/settings")}>

@@ -5,6 +5,7 @@ export default class ProductModel {
   sigla: string = "";
   squad: string = "";
   name: string = "";
+  description?: string = "";
 
   static fromDomain(entity: Product): ProductModel {
     return {
@@ -12,6 +13,7 @@ export default class ProductModel {
       sigla: entity.sigla,
       squad: entity.squad,
       name: entity.name,
+      description: entity.description,
     };
   }
 }
