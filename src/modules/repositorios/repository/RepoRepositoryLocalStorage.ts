@@ -7,45 +7,44 @@ import RepoRepository, { TFilter } from "./RepoRepository";
 
 export default class RepoRepositoryLocalStorage implements RepoRepository {
   private _data: BehaviorSubject<RepoDTO[]> = new BehaviorSubject<RepoDTO[]>(
-    []
+    [],
   );
 
   private get data() {
     return this._data.value.sort((a, b) =>
-      a.repository.localeCompare(b.repository) ||
-      a.deploySequence > b.deploySequence
-        ? 1
-        : 0
+      `${a.productId}-${a.repository}`.localeCompare(
+        `${b.productId}-${b.repository}`,
+      ),
     );
   }
 
   get data$() {
     return this._data
       .asObservable()
-      .pipe(map((items) => items.map((item) => RepoDTO.toDomain(item))));
+      .pipe(map(items => items.map(item => RepoDTO.toDomain(item))));
   }
 
   private load() {
     this._data.next(
-      JSON.parse(localStorage.getItem(StorageKey.DATA_REPOSITORIOS) ?? "[]")
+      JSON.parse(localStorage.getItem(StorageKey.DATA_REPOSITORIOS) ?? "[]"),
     );
   }
 
   private save() {
     localStorage.setItem(
       StorageKey.DATA_REPOSITORIOS,
-      JSON.stringify(this.data ?? [])
+      JSON.stringify(this.data ?? []),
     );
   }
 
   getAll(filter?: TFilter) {
     this.load();
-    return this.data.map((itemDTO) => RepoDTO.toDomain(itemDTO));
+    return this.data.map(itemDTO => RepoDTO.toDomain(itemDTO));
   }
 
   getById(id: string) {
     this.load();
-    const itemDTO = this.data.find((item) => item.id === id);
+    const itemDTO = this.data.find(item => item.id === id);
     return itemDTO ? RepoDTO.toDomain(itemDTO) : undefined;
   }
 
@@ -60,7 +59,7 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
 
   update(id: string, entity: Repo) {
     this.load();
-    const updated = this.data.filter((item) => item.id !== id);
+    const updated = this.data.filter(item => item.id !== id);
     updated.push(new RepoDTO(entity));
     this._data.next(updated);
     this.save();
@@ -69,7 +68,7 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
 
   delete(id: string) {
     this.load();
-    this._data.next(this.data.filter((g) => g.id !== id));
+    this._data.next(this.data.filter(item => item.id !== id));
     this.save();
   }
 }

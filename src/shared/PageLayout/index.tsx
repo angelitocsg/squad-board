@@ -6,6 +6,7 @@ import { BackupService } from "../../services/BackupService";
 
 type IProps = {
   title?: string;
+  full?: boolean;
   children: any;
 };
 
@@ -24,10 +25,11 @@ const floatingButtons = [
   },
 ];
 
-const PageLayout = ({ title, children }: IProps) => {
+const PageLayout = ({ title, full, children }: IProps) => {
+  const fullClass = `${full ? "container-fluid" : "container"} mt-4`;
   return (
     <>
-      <section className="container mt-4">
+      <section className={fullClass}>
         <h1 className="h4 mb-3">{title}</h1>
         {children}
       </section>

@@ -24,7 +24,7 @@ const useController = () => {
 
   const tColumns: IColumns[] = [
     { field: "product", title: "Produto" },
-    { field: "repository", title: "Repositório" },
+    { field: "repoName", title: "Repositório" },
     { field: "type", title: "Tipo" },
     { field: "deploySequence", title: "Sequência" },
     { field: "siglaApp", title: "Sigla App" },
@@ -52,6 +52,7 @@ const useController = () => {
           return {
             ...RepoModel.fromDomain(item),
             product: products.find(x => x.id === item.productId)?.name,
+            repoName: item.repository.split("/")[1]
           };
         }),
       );

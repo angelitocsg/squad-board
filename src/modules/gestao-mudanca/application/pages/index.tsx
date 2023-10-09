@@ -7,7 +7,7 @@ const GestaoMudancaHome = () => {
     useController();
 
   return (
-    <PageLayout title="Gestão de mudanças">
+    <PageLayout title="Gestão de mudanças" full>
       <DisplayTable
         actions={tActions}
         columns={tColumns}

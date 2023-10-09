@@ -32,7 +32,7 @@ export class BackupService {
     const backupKeys = [];
     let data = {};
     for (let key in localStorage) {
-      if (!key.startsWith("data_")) break;
+      if (!key.startsWith("data_")) continue;
       backupKeys.push(key);
       data = { ...data, [key]: JSON.parse(localStorage.getItem(key) ?? "{}") };
     }
