@@ -25,6 +25,10 @@ const useController = () => {
   ];
 
   useEffect(() => {
+    document.title = "Produtos digitais | Squad";
+  }, []);
+
+  useEffect(() => {
     productRepository.getAll();
     var subscriber = productRepository.data$.subscribe(products => {
       const _max = 20;
@@ -33,7 +37,9 @@ const useController = () => {
       setLines(
         products.map(product => ({
           ...ProductModel.fromDomain(product),
-          descriptionTruncated: _description(ProductModel.fromDomain(product).description),
+          descriptionTruncated: _description(
+            ProductModel.fromDomain(product).description,
+          ),
         })),
       );
     });
@@ -45,7 +51,12 @@ const useController = () => {
   const handleSave = () => {
     try {
       const model = productStore.current;
-      const product = Product.create(model.sigla, model.squad, model.name, model.description);
+      const product = Product.create(
+        model.sigla,
+        model.squad,
+        model.name,
+        model.description,
+      );
       if (!model.id) productRepository.create(product);
       else productRepository.update(model.id, product.updateId(model.id));
       modalService.close();
@@ -109,7 +120,8 @@ const useController = () => {
   };
 
   const handleDelete = (line: ProductModel) => {
-    if (window.confirm("Excluir produto digital?")) productRepository.delete(line.id);
+    if (window.confirm("Excluir produto digital?"))
+      productRepository.delete(line.id);
   };
 
   const tActions: IActions[] = [

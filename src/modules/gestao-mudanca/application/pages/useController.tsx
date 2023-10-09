@@ -36,6 +36,10 @@ const useController = () => {
   ];
 
   useEffect(() => {
+    document.title = "Gestão de Mudanças | Squad";
+  }, []);
+
+  useEffect(() => {
     repoRepository.getAll();
     var subscriber = repoRepository.data$.subscribe(items => {
       setRepositories(items.map(item => RepoModel.fromDomain(item)));
@@ -52,7 +56,8 @@ const useController = () => {
         items.map(item => {
           return {
             ...GmudModel.fromDomain(item),
-            repository: repositories.find(x => x.id === item.repositoryId)?.repository,
+            repository: repositories.find(x => x.id === item.repositoryId)
+              ?.repository,
           };
         }),
       );
@@ -73,9 +78,21 @@ const useController = () => {
         model.description,
       );
       if (model.number)
-        gmud.register(model.number, model.link, model.version, model.owner, model.description);
+        gmud.register(
+          model.number,
+          model.link,
+          model.version,
+          model.owner,
+          model.description,
+        );
       if (model.date && model.time)
-        gmud.schedule(model.date, model.time, model.version, model.owner, model.description);
+        gmud.schedule(
+          model.date,
+          model.time,
+          model.version,
+          model.owner,
+          model.description,
+        );
       if (!model.id) gmudDAO.create(gmud);
       else gmudDAO.update(model.id, gmud.updateId(model.id));
       modalService.close();

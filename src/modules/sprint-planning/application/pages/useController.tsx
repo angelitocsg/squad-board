@@ -27,6 +27,10 @@ const useController = () => {
   ];
 
   useEffect(() => {
+    document.title = "Planejamento de sprint | Squad";
+  }, []);
+
+  useEffect(() => {
     taskRepository.getAll();
     var subscriber = taskRepository.data$.subscribe(items => {
       const _max = 20;

@@ -31,6 +31,10 @@ const useController = () => {
   ];
 
   useEffect(() => {
+    document.title = "Repositórios | Squad";
+  }, []);
+
+  useEffect(() => {
     productRepository.getAll();
     var subscriber = productRepository.data$.subscribe(items => {
       setProducts(items.map(item => ProductModel.fromDomain(item)));
@@ -139,7 +143,8 @@ const useController = () => {
   };
 
   const handleDelete = (line: RepoModel) => {
-    if (window.confirm("Excluir produto digital?")) repoRepository.delete(line.id);
+    if (window.confirm("Excluir produto digital?"))
+      repoRepository.delete(line.id);
   };
 
   const tActions: IActions[] = [
