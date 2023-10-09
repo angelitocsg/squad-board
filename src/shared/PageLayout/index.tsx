@@ -16,9 +16,7 @@ const floatingButtons = [
     icon: "bi-upload",
     position: { fontSize: "1.3em" },
     onClick: () => {
-      const fileInput = document.getElementById(
-        "fileInput"
-      ) as HTMLInputElement;
+      const fileInput = document.getElementById("fileInput") as HTMLInputElement;
       fileInput?.click();
       fileInput?.addEventListener("change", handleFiles, false);
       function handleFiles() {
@@ -26,17 +24,13 @@ const floatingButtons = [
         const file = fileInput.files[0];
         const reader = new FileReader();
         const encodingFromSettings =
-          localStorage.getItem("encoding") ??
-          "UTF-8" ??
-          "iso-8859-1" ??
-          "windows-1252";
+          localStorage.getItem("encoding") ?? "UTF-8" ?? "iso-8859-1" ?? "windows-1252";
         reader.onabort = () => console.error("file reading was aborted");
         reader.onerror = () => console.error("file reading has failed");
         reader.onload = () => {
-          const data = JSON.parse((reader.result as string) ?? "{}");
-          console.log(JSON.stringify(data, null, 2));
+          const data = JSON.parse((reader.result as string) ?? "[]");
           const keys = Object.keys(data);
-          keys.forEach((key) => localStorage.setItem(key, JSON.stringify(data[key])));
+          keys.forEach(key => localStorage.setItem(key, JSON.stringify(data[key])));
         };
         console.info("Reader encoding:", encodingFromSettings);
         reader.readAsText(file, encodingFromSettings);
@@ -50,13 +44,13 @@ const floatingButtons = [
     onClick: () => {
       let data = {
         [StorageKey.DATA_GESTAO_MUDANCA]: JSON.parse(
-          localStorage.getItem(StorageKey.DATA_GESTAO_MUDANCA) ?? "{}"
+          localStorage.getItem(StorageKey.DATA_GESTAO_MUDANCA) ?? "{}",
         ),
         [StorageKey.DATA_PROD_DIGITAL]: JSON.parse(
-          localStorage.getItem(StorageKey.DATA_PROD_DIGITAL) ?? "{}"
+          localStorage.getItem(StorageKey.DATA_PROD_DIGITAL) ?? "{}",
         ),
         [StorageKey.DATA_REPOSITORIOS]: JSON.parse(
-          localStorage.getItem(StorageKey.DATA_REPOSITORIOS) ?? "{}"
+          localStorage.getItem(StorageKey.DATA_REPOSITORIOS) ?? "{}",
         ),
       };
       let dt = new Date().toISOString();

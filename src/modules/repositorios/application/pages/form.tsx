@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import FormInput from "../../../core/components/FormInput";
-import RepoModel from "../data/RepoModel";
-import SelectInput, {
-  ISelectOptions,
-} from "../../../core/components/SelectInput";
+
 import { useService } from "../../../../di/DecouplerContext";
+import FormInput from "../../../core/components/FormInput";
+import FormInputFilter from "../../../core/components/FormInputFilter";
+import SelectInput, { ISelectOptions } from "../../../core/components/SelectInput";
 import ProductRepository from "../../../produto-digital/repository/ProductRepository";
 import { RepositoryType } from "../../domain/Repo";
+import RepoModel from "../data/RepoModel";
 
 type IProps = {
   data: RepoModel;
@@ -32,10 +32,10 @@ const RepoForm = ({ data, onChange }: IProps) => {
 
   useEffect(() => {
     productRepository.getAll();
-    var subscriber = productRepository.data$.subscribe((products) => {
+    var subscriber = productRepository.data$.subscribe(products => {
       setProducts([
         { label: "", value: "" },
-        ...products.map((p) => ({ label: p.name, value: p.id })),
+        ...products.map(p => ({ label: p.name, value: p.id })),
       ]);
     });
     return () => {
@@ -54,14 +54,22 @@ const RepoForm = ({ data, onChange }: IProps) => {
     onChange && onChange(state);
   }, [onChange, state]);
 
+  const getProductValue = () => {
+    const _default = { label: "", value: "" };
+    if (products.length === 0) return _default;
+    const product = products.find(p => p.value === state.productId);
+    return product ?? _default;
+  };
+
   return (
     <div>
       <div className="row">
         <div className="col-4">
-          <SelectInput
+          <FormInputFilter
             label="Produto"
             field="productId"
-            value={state.productId}
+            placeholder="Digite o nome do produto"
+            value={getProductValue()}
             options={products}
             onChange={handleChange}
           />

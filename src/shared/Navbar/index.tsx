@@ -1,5 +1,40 @@
 import { Link, useLocation } from "react-router-dom";
 
+const NavCadastros = () => {
+  return (
+    <li className="nav-item dropdown">
+      <span
+        className="nav-link dropdown-toggle"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Cadastros
+      </span>
+      <ul className="dropdown-menu">
+        <li>
+          <Link to="/cadastros/produto-digital" className="dropdown-item">
+            Produtos digitais
+          </Link>
+        </li>
+        <li>
+          <Link to="/cadastros/repositorios" className="dropdown-item">
+            Repositórios
+          </Link>
+        </li>
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
+        <li className="nav-item pe-2">
+          <Link to="/cadastros/gestao-mudancao" className="dropdown-item">
+            Gestão de mudanças
+          </Link>
+        </li>
+      </ul>
+    </li>
+  );
+};
+
 const Navbar = () => {
   const location = useLocation();
 
@@ -31,6 +66,8 @@ const Navbar = () => {
               </Link>
             </li>
 
+            <NavCadastros />
+
             <li className="nav-item pe-2">
               <Link to="/projects" className={getActiveCss("/projects")}>
                 Aplicações
@@ -49,12 +86,6 @@ const Navbar = () => {
             <li className="nav-item pe-2">
               <Link to="/faq-editor" className={getActiveCss("/faq-editor")}>
                 Editor FAQ
-              </Link>
-            </li>
-
-            <li className="nav-item pe-2">
-              <Link to="/overview" className={getActiveCss("/overview")}>
-                Visão Geral
               </Link>
             </li>
 
@@ -80,43 +111,6 @@ const Navbar = () => {
               <Link to="/settings" className={getActiveCss("/settings")}>
                 Configurações
               </Link>
-            </li>
-
-            <li className="nav-item dropdown">
-              <span
-                className="nav-link dropdown-toggle"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Cadastros
-              </span>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link
-                    to="/cadastros/produto-digital"
-                    className="dropdown-item"
-                  >
-                    Produtos digitais
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/cadastros/repositorios" className="dropdown-item">
-                    Repositórios
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="nav-item pe-2">
-                  <Link
-                    to="/cadastros/gestao-mudancao"
-                    className="dropdown-item"
-                  >
-                    Gestão de mudanças
-                  </Link>
-                </li>
-              </ul>
             </li>
           </ul>
         </div>
