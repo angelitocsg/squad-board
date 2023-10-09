@@ -22,6 +22,7 @@ const useController = () => {
     { field: "squad", title: "Squad" },
     { field: "name", title: "Produto" },
     { field: "descriptionTruncated", title: "Descrição" },
+    { field: "disabledSimNao", title: "Ativo" },
   ];
 
   useEffect(() => {
@@ -37,9 +38,8 @@ const useController = () => {
       setLines(
         products.map(product => ({
           ...ProductModel.fromDomain(product),
-          descriptionTruncated: _description(
-            ProductModel.fromDomain(product).description,
-          ),
+          descriptionTruncated: _description(ProductModel.fromDomain(product).description),
+          disabledSimNao: ProductModel.fromDomain(product).disabled ? "Inativo" : "Ativo",
         })),
       );
     });
@@ -56,6 +56,7 @@ const useController = () => {
         model.squad,
         model.name,
         model.description,
+        model.disabled,
       );
       if (!model.id) productRepository.create(product);
       else productRepository.update(model.id, product.updateId(model.id));
@@ -120,8 +121,7 @@ const useController = () => {
   };
 
   const handleDelete = (line: ProductModel) => {
-    if (window.confirm("Excluir produto digital?"))
-      productRepository.delete(line.id);
+    if (window.confirm("Excluir produto digital?")) productRepository.delete(line.id);
   };
 
   const tActions: IActions[] = [

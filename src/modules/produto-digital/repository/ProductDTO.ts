@@ -6,6 +6,7 @@ export default class ProductDTO {
   squad!: string;
   name!: string;
   description?: string;
+  disabled!: boolean;
 
   constructor(product: Product) {
     this.id = product.id;
@@ -13,10 +14,11 @@ export default class ProductDTO {
     this.squad = product.squad;
     this.name = product.name;
     this.description = product.description;
+    this.disabled = product.disabled;
   }
 
   static toDomain(dto: ProductDTO) {
-    return Product.restore(dto.id, dto.sigla, dto.squad, dto.name, dto.description);
+    return Product.restore(dto.id, dto.sigla, dto.squad, dto.name, dto.description, dto.disabled);
   }
 
   static fromDomain(entity: Product) {

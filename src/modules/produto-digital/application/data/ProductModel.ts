@@ -6,6 +6,7 @@ export default class ProductModel {
   squad: string = "";
   name: string = "";
   description?: string = "";
+  disabled: boolean = false;
 
   static fromDomain(entity: Product): ProductModel {
     return {
@@ -14,6 +15,7 @@ export default class ProductModel {
       squad: entity.squad,
       name: entity.name,
       description: entity.description,
+      disabled: entity.disabled,
     };
   }
 }

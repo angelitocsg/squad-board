@@ -21,6 +21,10 @@ export default class Product {
   get description() {
     return this._description;
   }
+  private _disabled: boolean;
+  get disabled() {
+    return this._disabled;
+  }
 
   private constructor(
     id: string,
@@ -28,12 +32,14 @@ export default class Product {
     squad: string,
     name: string,
     description?: string,
+    disabled?: boolean,
   ) {
     this._id = id;
     this._sigla = sigla;
     this._squad = squad;
     this._name = name;
     this._description = description;
+    this._disabled = disabled ?? false;
   }
 
   updateId(id: string): Product {
@@ -42,15 +48,28 @@ export default class Product {
     return this;
   }
 
-  static create(sigla: string, squad: string, name: string, description?: string) {
+  static create(
+    sigla: string,
+    squad: string,
+    name: string,
+    description?: string,
+    disabled?: boolean,
+  ) {
     if (!sigla) throw Error("A sigla deve ser informada");
     if (!squad) throw Error("A squad deve ser informada");
     if (!name) throw Error("O nome do produto deve ser informado");
     const id = uuidv4();
-    return new Product(id, sigla, squad, name, description);
+    return new Product(id, sigla, squad, name, description, disabled);
   }
 
-  static restore(id: string, sigla: string, squad: string, name: string, description?: string) {
-    return new Product(id, sigla, squad, name, description);
+  static restore(
+    id: string,
+    sigla: string,
+    squad: string,
+    name: string,
+    description?: string,
+    disabled?: boolean,
+  ) {
+    return new Product(id, sigla, squad, name, description, disabled);
   }
 }

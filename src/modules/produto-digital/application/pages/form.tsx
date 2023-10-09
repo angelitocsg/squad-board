@@ -59,6 +59,25 @@ const ProductForm = ({ data, onChange }: IProps) => {
           rows={4}
           onTextAreaChange={handleChange}
         />
+        <div className="row">
+          <div className="col">
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="disabled"
+                name="disabled"
+                checked={state.disabled ?? false}
+                onChange={() =>
+                  handleChange({ target: { name: "disabled", value: !(state.disabled ?? false) } })
+                }
+              />
+              <label className="form-check-label" htmlFor="disabled">
+                Desativado
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

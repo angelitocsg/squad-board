@@ -4,14 +4,15 @@ import { StorageKey } from "../../../enums/StorageKey";
 import Product from "../domain/Product";
 import ProductDTO from "./ProductDTO";
 import ProductRepository, { TFilter } from "./ProductRepository";
-import { log } from "console";
 
 export default class ProductRepositoryLocalStorage implements ProductRepository {
   private _data: BehaviorSubject<ProductDTO[]> = new BehaviorSubject<ProductDTO[]>([]);
 
   private get data() {
-    return this._data.value.sort(
-      (a, b) => a.sigla.localeCompare(b.sigla) || a.name.localeCompare(b.name),
+    return this._data.value.sort((a, b) =>
+      `${a.sigla}-${a.disabled ? 1 : -1}-${a.name}`.localeCompare(
+        `${b.sigla}-${b.disabled ? 1 : -1}-${b.name}`,
+      ),
     );
   }
 

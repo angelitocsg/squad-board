@@ -3,6 +3,7 @@ import Product from "../domain/Product";
 
 export type TFilter = {
   sigla?: string;
+  disabled?: boolean;
 };
 
 export default interface ProductRepository {
