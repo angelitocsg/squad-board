@@ -34,6 +34,32 @@ const NavCadastros = () => {
   );
 };
 
+const NavUtils = () => {
+  return (
+    <li className="nav-item dropdown">
+      <span
+        className="nav-link dropdown-toggle"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Utilitários
+      </span>
+      <ul className="dropdown-menu">
+        <li>
+          <Link to="/notifications" className="dropdown-item">
+            Notificações
+          </Link>
+        </li>
+        <li>
+          <Link to="/faq-editor" className="dropdown-item">
+            Editor FAQ
+          </Link>
+        </li>
+      </ul>
+    </li>
+  );
+};
+
 const Navbar = () => {
   const location = useLocation();
 
@@ -65,30 +91,21 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item pe-2">
+              <Link
+                to="/sprint-planning"
+                className={getActiveCss("/sprint-planning")}>
+                Planejamento
+              </Link>
+            </li>
+
+            <li className="nav-item pe-2">
               <Link to="/projects" className={getActiveCss("/projects")}>
                 Aplicações
               </Link>
             </li>
 
-            <li className="nav-item pe-2">
-              <Link
-                to="/notifications"
-                className={getActiveCss("/notifications")}>
-                Notificações
-              </Link>
-            </li>
-
-            <li className="nav-item pe-2">
-              <Link to="/faq-editor" className={getActiveCss("/faq-editor")}>
-                Editor FAQ
-              </Link>
-            </li>
-
-            <li className="nav-item pe-2">
-              <Link to="/sprint-planning" className={getActiveCss("/sprint-planning")}>
-                Planejamento
-              </Link>
-            </li>
+            <NavCadastros />
+            <NavUtils />
 
             <li className="nav-item dropdown">
               <span
@@ -106,8 +123,6 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
-
-            <NavCadastros />
 
             <li className="nav-item pe-2">
               <Link to="/settings" className={getActiveCss("/settings")}>
