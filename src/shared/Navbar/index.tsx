@@ -71,7 +71,9 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item pe-2">
-              <Link to="/notifications" className={getActiveCss("/notifications")}>
+              <Link
+                to="/notifications"
+                className={getActiveCss("/notifications")}>
                 Notificações
               </Link>
             </li>
@@ -79,6 +81,12 @@ const Navbar = () => {
             <li className="nav-item pe-2">
               <Link to="/faq-editor" className={getActiveCss("/faq-editor")}>
                 Editor FAQ
+              </Link>
+            </li>
+
+            <li className="nav-item pe-2">
+              <Link to="/sprint-planning" className={getActiveCss("/sprint-planning")}>
+                Planejamento
               </Link>
             </li>
 

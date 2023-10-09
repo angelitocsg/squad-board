@@ -14,6 +14,8 @@ import ProductStore from "./modules/produto-digital/application/data/ProductStor
 import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
 import RepoStore from "./modules/repositorios/application/data/RepoStore";
 import RepoRepositoryLocalStorage from "./modules/repositorios/repository/RepoRepositoryLocalStorage";
+import TaskStore from "./modules/sprint-planning/application/data/TaskStore";
+import TaskRepositoryLocalStorage from "./modules/sprint-planning/repository/TaskRepositoryLocalStorage";
 import reportWebVitals from "./reportWebVitals";
 import { BoardRepository } from "./repository/BoardRepository";
 import { ProjectRepository } from "./repository/ProjectRepository";
@@ -40,16 +42,18 @@ locator.register("OverviewService", OverviewService);
 locator.register("ProjectService", ProjectService);
 locator.register("ProjectRepository", ProjectRepository);
 locator.register("SettingsService", SettingsService);
+locator.register("TaskRepository", TaskRepositoryLocalStorage);
+locator.register("TaskStore", TaskStore);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <DecouplerContext.Provider value={locator}>
       <RouterProvider router={router} />
     </DecouplerContext.Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -9,4 +9,5 @@ export enum StorageKey {
   DATA_GESTAO_MUDANCA = "data_gestao_mudanca",
   DATA_PROD_DIGITAL = "data_prod_digital",
   DATA_REPOSITORIOS = "data_repositorios",
+  DATA_TASKS = "data_tasks"
 }

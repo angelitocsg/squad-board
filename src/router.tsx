@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
 import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
 import RepoHome from "./modules/repositorios/application/pages";
+import SprintPlanningHome from "./modules/sprint-planning/application/pages";
 import BoardPage from "./pages/board";
 import ErrorPage from "./pages/error";
 import FaqEditorPage from "./pages/faq-editor";
@@ -59,6 +60,10 @@ const router = createBrowserRouter(
           element: <SettingsPage />,
         },
         {
+          path: "/sprint-planning",
+          element: <SprintPlanningHome />,
+        },
+        {
           path: "/cadastros",
           children: [
             {
@@ -80,7 +85,7 @@ const router = createBrowserRouter(
   ],
   {
     basename: process.env.NODE_ENV === "development" ? "" : "/squad-board/",
-  }
+  },
 );
 
 export default router;
