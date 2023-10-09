@@ -6,6 +6,16 @@ import { RouterProvider } from "react-router-dom";
 
 import { DecouplerContext } from "./di/DecouplerContext";
 import { ServiceLocator } from "./di/ServiceLocator";
+import AlertModalService from "./modules/core/components/AlertModal/AlertModalService";
+import AppModalService from "./modules/core/components/AppModal/AppModalService";
+import GmudStore from "./modules/gestao-mudanca/application/data/GmudStore";
+import GmudRepositoryLocalStorage from "./modules/gestao-mudanca/repository/GmudRepositoryLocalStorage";
+import ProductStore from "./modules/produto-digital/application/data/ProductStore";
+import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
+import RepoStore from "./modules/repositorios/application/data/RepoStore";
+import RepoRepositoryLocalStorage from "./modules/repositorios/repository/RepoRepositoryLocalStorage";
+import TaskStore from "./modules/sprint-planning/application/data/TaskStore";
+import TaskRepositoryLocalStorage from "./modules/sprint-planning/repository/TaskRepositoryLocalStorage";
 import reportWebVitals from "./reportWebVitals";
 import { BoardRepository } from "./repository/BoardRepository";
 import { ProjectRepository } from "./repository/ProjectRepository";
@@ -17,23 +27,33 @@ import { ProjectService } from "./services/ProjectService";
 import { SettingsService } from "./services/SettingsService";
 
 let locator = new ServiceLocator();
+locator.register("AlertModalService", AlertModalService);
+locator.register("AppModalService", AppModalService);
 locator.register("BoardService", BoardService);
 locator.register("BoardRepository", BoardRepository);
 locator.register("FaqService", FaqService);
+locator.register("GmudRepository", GmudRepositoryLocalStorage);
+locator.register("GmudStore", GmudStore);
+locator.register("ProductStore", ProductStore);
+locator.register("ProductRepository", ProductRepositoryLocalStorage);
+locator.register("RepoRepository", RepoRepositoryLocalStorage);
+locator.register("RepoStore", RepoStore);
 locator.register("OverviewService", OverviewService);
 locator.register("ProjectService", ProjectService);
 locator.register("ProjectRepository", ProjectRepository);
 locator.register("SettingsService", SettingsService);
+locator.register("TaskRepository", TaskRepositoryLocalStorage);
+locator.register("TaskStore", TaskStore);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <DecouplerContext.Provider value={locator}>
       <RouterProvider router={router} />
     </DecouplerContext.Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

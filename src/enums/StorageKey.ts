@@ -6,4 +6,8 @@ export enum StorageKey {
   OVERVIEW_MEMBERS = "overview_members",
   OVERVIEW_TASKS = "overview_tasks",
   OVERVIEW_FEATURES = "overview_features",
+  DATA_GESTAO_MUDANCA = "data_gestao_mudanca",
+  DATA_PROD_DIGITAL = "data_prod_digital",
+  DATA_REPOSITORIOS = "data_repositorios",
+  DATA_TASKS = "data_tasks"
 }

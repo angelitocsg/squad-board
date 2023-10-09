@@ -10,16 +10,12 @@ export class ServiceLocator {
     if (!this.serviceMap.has(abstraction))
       throw Error("No service of this abstraction has been registered.");
 
-    let implementation = this.serviceMap.get(abstraction) || "";
-
-    let instance: T;
-
     if (!this.serviceInstances.has(abstraction)) {
-      console.log(">> nova instancia", abstraction);
+      console.log(">> new instance", abstraction);
+      let implementation = this.serviceMap.get(abstraction);
       this.serviceInstances.set(abstraction, new implementation());
     }
 
-    instance = this.serviceInstances.get(abstraction);
-    return instance as T;
+    return this.serviceInstances.get(abstraction) as T;
   }
 }

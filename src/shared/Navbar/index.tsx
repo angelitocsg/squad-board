@@ -1,5 +1,65 @@
 import { Link, useLocation } from "react-router-dom";
 
+const NavCadastros = () => {
+  return (
+    <li className="nav-item dropdown">
+      <span
+        className="nav-link dropdown-toggle"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Cadastros
+      </span>
+      <ul className="dropdown-menu">
+        <li>
+          <Link to="/cadastros/produto-digital" className="dropdown-item">
+            Produtos digitais
+          </Link>
+        </li>
+        <li>
+          <Link to="/cadastros/repositorios" className="dropdown-item">
+            Repositórios
+          </Link>
+        </li>
+        <li>
+          <hr className="dropdown-divider" />
+        </li>
+        <li className="nav-item">
+          <Link to="/cadastros/gestao-mudancao" className="dropdown-item">
+            Gestão de mudanças
+          </Link>
+        </li>
+      </ul>
+    </li>
+  );
+};
+
+const NavUtils = () => {
+  return (
+    <li className="nav-item dropdown">
+      <span
+        className="nav-link dropdown-toggle"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Utilitários
+      </span>
+      <ul className="dropdown-menu">
+        <li>
+          <Link to="/notifications" className="dropdown-item">
+            Notificações
+          </Link>
+        </li>
+        <li>
+          <Link to="/faq-editor" className="dropdown-item">
+            Editor FAQ
+          </Link>
+        </li>
+      </ul>
+    </li>
+  );
+};
+
 const Navbar = () => {
   const location = useLocation();
 
@@ -19,8 +79,7 @@ const Navbar = () => {
           data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+          aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -32,39 +91,28 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item pe-2">
+              <Link
+                to="/sprint-planning"
+                className={getActiveCss("/sprint-planning")}>
+                Planejamento
+              </Link>
+            </li>
+
+            <li className="nav-item pe-2">
               <Link to="/projects" className={getActiveCss("/projects")}>
                 Aplicações
               </Link>
             </li>
 
-            <li className="nav-item pe-2">
-              <Link
-                to="/notifications"
-                className={getActiveCss("/notifications")}
-              >
-                Notificações
-              </Link>
-            </li>
-
-            <li className="nav-item pe-2">
-              <Link to="/faq-editor" className={getActiveCss("/faq-editor")}>
-                Editor FAQ
-              </Link>
-            </li>
-
-            <li className="nav-item pe-2">
-              <Link to="/overview" className={getActiveCss("/overview")}>
-                Visão Geral
-              </Link>
-            </li>
+            <NavCadastros />
+            <NavUtils />
 
             <li className="nav-item dropdown">
               <span
                 className="nav-link dropdown-toggle"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
+                aria-expanded="false">
                 Relatórios
               </span>
               <ul className="dropdown-menu">
@@ -72,9 +120,6 @@ const Navbar = () => {
                   <Link to="/reports/gmuds" className="dropdown-item">
                     Gmuds
                   </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
                 </li>
               </ul>
             </li>
