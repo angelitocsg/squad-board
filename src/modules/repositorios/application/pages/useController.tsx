@@ -32,8 +32,8 @@ const useController = () => {
 
   useEffect(() => {
     productRepository.getAll();
-    var subscriber = productRepository.data$.subscribe((items) => {
-      setProducts(items.map((item) => ProductModel.fromDomain(item)));
+    var subscriber = productRepository.data$.subscribe(items => {
+      setProducts(items.map(item => ProductModel.fromDomain(item)));
     });
     return () => {
       subscriber.unsubscribe();
@@ -42,14 +42,14 @@ const useController = () => {
 
   useEffect(() => {
     repoRepository.getAll();
-    var subscriber = repoRepository.data$.subscribe((items) => {
+    var subscriber = repoRepository.data$.subscribe(items => {
       setLines(
-        items.map((item) => {
+        items.map(item => {
           return {
             ...RepoModel.fromDomain(item),
-            product: products.find((x) => x.id === item.productId)?.name,
+            product: products.find(x => x.id === item.productId)?.name,
           };
-        })
+        }),
       );
     });
     return () => {
@@ -65,7 +65,7 @@ const useController = () => {
         model.repository,
         model.type,
         model.deploySequence,
-        model.siglaApp
+        model.siglaApp,
       );
       if (!model.id) repoRepository.create(repo);
       else repoRepository.update(model.id, repo.updateId(model.id));
@@ -99,7 +99,7 @@ const useController = () => {
         children: () => (
           <RepoForm
             data={model}
-            onChange={(state) => {
+            onChange={state => {
               repoStore.updateCurrent(state);
             }}
           />
@@ -109,7 +109,7 @@ const useController = () => {
   };
 
   const handleEdit = (line: RepoModel) => {
-    const model = lines.find((x) => x.id === line.id);
+    const model = lines.find(x => x.id === line.id);
     if (!model) return;
     modalService
       .config({
@@ -120,7 +120,7 @@ const useController = () => {
         children: () => (
           <RepoForm
             data={model}
-            onChange={(state) => {
+            onChange={state => {
               repoStore.updateCurrent(state);
             }}
           />
@@ -129,12 +129,24 @@ const useController = () => {
       .open();
   };
 
+  const handleGithub = (line: RepoModel) => {
+    const dlAnchorElem = document.createElement("a");
+    dlAnchorElem?.setAttribute("href", `http://github.com/${line.repository}`);
+    dlAnchorElem?.setAttribute("target", "_blank");
+    dlAnchorElem?.setAttribute("rel", "noopener noreferrer");
+    dlAnchorElem?.click();
+    dlAnchorElem?.remove();
+  };
+
   const handleDelete = (line: RepoModel) => {
-    if (window.confirm("Excluir produto digital?"))
-      repoRepository.delete(line.id);
+    if (window.confirm("Excluir produto digital?")) repoRepository.delete(line.id);
   };
 
   const tActions: IActions[] = [
+    {
+      label: "github",
+      onClick: handleGithub,
+    },
     {
       label: "excluir",
       onClick: handleDelete,

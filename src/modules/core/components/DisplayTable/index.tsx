@@ -20,13 +20,7 @@ type IProps = {
   onLineClick?: (data: any) => void;
 };
 
-const DisplayTable = ({
-  actions,
-  columns,
-  lines,
-  headerButtons,
-  onLineClick,
-}: IProps) => {
+const DisplayTable = ({ actions, columns, lines, headerButtons, onLineClick }: IProps) => {
   return (
     <div className="card">
       <div className="card-body">
@@ -37,7 +31,7 @@ const DisplayTable = ({
               {columns.map((c, i) => (
                 <th key={i}>{c.title}</th>
               ))}
-              {actions ? <th className="text-center">Ações</th> : undefined}
+              {actions ? <th>Ações</th> : undefined}
             </tr>
           </thead>
           <tbody>
