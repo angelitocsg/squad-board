@@ -143,7 +143,7 @@ const useController = () => {
   };
 
   const handleDelete = (line: RepoModel) => {
-    if (window.confirm("Excluir produto digital?"))
+    if (window.confirm("Excluir repositório?"))
       repoRepository.delete(line.id);
   };
 

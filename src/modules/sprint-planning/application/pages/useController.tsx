@@ -86,7 +86,7 @@ const useController = () => {
     taskStore.updateCurrent(model);
     modalService
       .config({
-        title: "novo produto digital",
+        title: "novo item",
         size: "large",
         buttonOkLabel: "Criar",
         buttonOkAction: handleSave,
@@ -107,7 +107,7 @@ const useController = () => {
     if (!model) return;
     modalService
       .config({
-        title: `editar produto digital (${line.id.split("-")[0]})`,
+        title: `editar item (${line.id.split("-")[0]})`,
         size: "large",
         buttonOkLabel: "Salvar",
         buttonOkAction: handleSave,
@@ -124,7 +124,7 @@ const useController = () => {
   };
 
   const handleDelete = (line: TaskModel) => {
-    if (window.confirm("Excluir produto digital?"))
+    if (window.confirm("Excluir item?"))
       taskRepository.delete(line.id);
   };
 
