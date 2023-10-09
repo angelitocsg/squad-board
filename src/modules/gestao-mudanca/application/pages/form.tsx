@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
+
+import { useService } from "../../../../di/DecouplerContext";
 import FormInput from "../../../core/components/FormInput";
+import FormInputFilter from "../../../core/components/FormInputFilter";
+import { ISelectOptions } from "../../../core/components/SelectInput";
+import RepoModel from "../../../repositorios/application/data/RepoModel";
+import RepoRepository from "../../../repositorios/repository/RepoRepository";
 import GmudModel from "../data/GmudModel";
 
 type IProps = {
@@ -9,27 +15,52 @@ type IProps = {
 
 const GmudForm = ({ data, onChange }: IProps) => {
   const [state, setState] = useState<GmudModel>(data);
+  const repoRepository = useService<RepoRepository>("RepoRepository");
+  const [repositories, setRepositories] = useState<ISelectOptions[]>([]);
 
   const handleChange = (e: any) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const handleOpenLink = () =>
-    state.link.startsWith("http") && window.open(state.link, "_blank");
+  const handleOpenLink = () => state.link.startsWith("http") && window.open(state.link, "_blank");
+
+  useEffect(() => {
+    repoRepository.getAll();
+    var subscriber = repoRepository.data$.subscribe(items => {
+      setRepositories([
+        { label: "", value: "" },
+        ...items.map(item => ({
+          label: RepoModel.fromDomain(item).repository,
+          value: RepoModel.fromDomain(item).id,
+        })),
+      ]);
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [repoRepository]);
 
   useEffect(() => {
     onChange && onChange(state);
   }, [onChange, state]);
 
+  const getRepositoryValue = () => {
+    const _default = { label: "", value: "" };
+    if (repositories.length === 0) return _default;
+    const product = repositories.find(p => p.value === state.repositoryId);
+    return product ?? _default;
+  };
+
   return (
     <div>
       <div className="row">
         <div className="col-7">
-          <FormInput
-            type="text"
+          <FormInputFilter
             label="Repositório"
             field="repositoryId"
-            value={state.repositoryId}
+            placeholder="Digite o nome do repositório"
+            value={getRepositoryValue()}
+            options={repositories}
             onChange={handleChange}
           />
         </div>

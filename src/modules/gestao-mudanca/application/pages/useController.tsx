@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { useService } from '../../../../di/DecouplerContext';
-import { GmudStatus } from '../../../../enums/GmudStatus';
-import AlertModalService from '../../../core/components/AlertModal/AlertModalService';
-import AppModalService from '../../../core/components/AppModal/AppModalService';
-import { IActions, IColumns } from '../../../core/components/DisplayTable';
-import { IHeaderActions } from '../../../core/components/DisplayTable/headerActions';
-import Gmud from '../../domain/Gmud';
-import GmudRepository from '../../repository/GmudRepository';
-import GmudModel from '../data/GmudModel';
-import GmudStore from '../data/GmudStore';
-import GmudForm from './form';
+import { useService } from "../../../../di/DecouplerContext";
+import { GmudStatus } from "../../../../enums/GmudStatus";
+import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
+import AppModalService from "../../../core/components/AppModal/AppModalService";
+import { IActions, IColumns } from "../../../core/components/DisplayTable";
+import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
+import RepoModel from "../../../repositorios/application/data/RepoModel";
+import RepoRepository from "../../../repositorios/repository/RepoRepository";
+import Gmud from "../../domain/Gmud";
+import GmudRepository from "../../repository/GmudRepository";
+import GmudModel from "../data/GmudModel";
+import GmudStore from "../data/GmudStore";
+import GmudForm from "./form";
 
 const useController = () => {
   const modalService = useService<AppModalService>("AppModalService");
@@ -18,6 +20,9 @@ const useController = () => {
   const gmudStore = useService<GmudStore>("GmudStore");
   const gmudDAO = useService<GmudRepository>("GmudRepository");
   const [lines, setLines] = useState<GmudModel[]>([]);
+  const repoRepository = useService<RepoRepository>("RepoRepository");
+  const [repositories, setRepositories] = useState<RepoModel[]>([]);
+
   const tColumns: IColumns[] = [
     { field: "number", title: "Número" },
     { field: "story", title: "Tarefa" },
@@ -25,20 +30,37 @@ const useController = () => {
     { field: "date", title: "Data" },
     { field: "time", title: "Hora" },
     { field: "status", title: "Status" },
-    { field: "repositoryId", title: "Repositório" },
+    { field: "repository", title: "Repositório" },
     { field: "owner", title: "Responsável" },
     { field: "description", title: "Descrição" },
   ];
 
   useEffect(() => {
-    gmudDAO.getAll();
-    var subscriber = gmudDAO.data$.subscribe((gmuds) => {
-      setLines(gmuds.map((gmud) => GmudModel.fromDomain(gmud)));
+    repoRepository.getAll();
+    var subscriber = repoRepository.data$.subscribe(items => {
+      setRepositories(items.map(item => RepoModel.fromDomain(item)));
     });
     return () => {
       subscriber.unsubscribe();
     };
-  }, [gmudDAO]);
+  }, [repoRepository]);
+
+  useEffect(() => {
+    gmudDAO.getAll();
+    var subscriber = gmudDAO.data$.subscribe(items => {
+      setLines(
+        items.map(item => {
+          return {
+            ...GmudModel.fromDomain(item),
+            repository: repositories.find(x => x.id === item.repositoryId)?.repository,
+          };
+        }),
+      );
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [gmudDAO, repositories]);
 
   const handleSave = () => {
     try {
@@ -48,24 +70,12 @@ const useController = () => {
         model.repositoryId,
         model.version,
         model.owner,
-        model.description
+        model.description,
       );
       if (model.number)
-        gmud.register(
-          model.number,
-          model.link,
-          model.version,
-          model.owner,
-          model.description
-        );
+        gmud.register(model.number, model.link, model.version, model.owner, model.description);
       if (model.date && model.time)
-        gmud.schedule(
-          model.date,
-          model.time,
-          model.version,
-          model.owner,
-          model.description
-        );
+        gmud.schedule(model.date, model.time, model.version, model.owner, model.description);
       if (!model.id) gmudDAO.create(gmud);
       else gmudDAO.update(model.id, gmud.updateId(model.id));
       modalService.close();
@@ -98,7 +108,7 @@ const useController = () => {
         children: () => (
           <GmudForm
             data={model}
-            onChange={(state) => {
+            onChange={state => {
               gmudStore.updateCurrent(state);
             }}
           />
@@ -108,7 +118,7 @@ const useController = () => {
   };
 
   const handleEdit = (line: GmudModel) => {
-    const model = lines.find((x) => x.id === line.id);
+    const model = lines.find(x => x.id === line.id);
     if (!model) return;
     if (model.status === GmudStatus.CANCELADA) {
       const message = "GMUD está cancelada e não é permitida edição";
@@ -124,7 +134,7 @@ const useController = () => {
         children: () => (
           <GmudForm
             data={model}
-            onChange={(state) => {
+            onChange={state => {
               gmudStore.updateCurrent(state);
             }}
           />
