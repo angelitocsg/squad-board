@@ -57,7 +57,7 @@ export default class Repo {
     repository: string,
     type: TRepository,
     deploySequence: number = 1.0,
-    siglaApp?: string
+    siglaApp?: string,
   ) {
     this._id = id;
     this._productId = productId;
@@ -78,13 +78,13 @@ export default class Repo {
     repository: string,
     type: TRepository,
     deploySequence: number = 1.0,
-    siglaApp?: string
+    siglaApp?: string,
   ) {
-    if (!repository) throw Error("O repositório deve ser informado");
     if (!productId) throw Error("O produto deve ser informado");
+    if (!repository) throw Error("O repositório deve ser informado");
     if (!type) throw Error("O tipo deve ser informado");
     const id = uuidv4();
-    return new Repo(id, repository, productId, type, deploySequence, siglaApp);
+    return new Repo(id, productId, repository, type, deploySequence, siglaApp);
   }
 
   static restore(
@@ -93,8 +93,8 @@ export default class Repo {
     repository: string,
     type: TRepository,
     deploySequence: number = 1.0,
-    siglaApp?: string
+    siglaApp?: string,
   ) {
-    return new Repo(id, repository, productId, type, deploySequence, siglaApp);
+    return new Repo(id, productId, repository, type, deploySequence, siglaApp);
   }
 }
