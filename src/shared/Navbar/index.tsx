@@ -1,62 +1,43 @@
 import { Link, useLocation } from "react-router-dom";
 
+import NavDropdown from "./NavDropdown";
+import NavDropdownDivider from "./NavDropdownDivider";
+import NavDropdownItem from "./NavDropdownItem";
+
 const NavCadastros = () => {
   return (
-    <li className="nav-item dropdown">
-      <span
-        className="nav-link dropdown-toggle"
-        role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false">
-        Cadastros
-      </span>
-      <ul className="dropdown-menu">
-        <li>
-          <Link to="/cadastros/produto-digital" className="dropdown-item">
-            Produtos digitais
-          </Link>
-        </li>
-        <li>
-          <Link to="/cadastros/repositorios" className="dropdown-item">
-            Repositórios
-          </Link>
-        </li>
-        <li>
-          <hr className="dropdown-divider" />
-        </li>
-        <li className="nav-item">
-          <Link to="/cadastros/gestao-mudancao" className="dropdown-item">
-            Gestão de mudanças
-          </Link>
-        </li>
-      </ul>
-    </li>
+    <NavDropdown label="Cadastros">
+      <NavDropdownItem label="Produtos digitais" link="/cadastros/produto-digital" />
+      <NavDropdownItem label="Repositórios" link="/cadastros/repositorios" />
+      <NavDropdownDivider />
+      <NavDropdownItem label="Gestão de mudanças" link="/cadastros/gestao-mudancao" />
+    </NavDropdown>
   );
 };
 
 const NavUtils = () => {
   return (
-    <li className="nav-item dropdown">
-      <span
-        className="nav-link dropdown-toggle"
-        role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false">
-        Utilitários
-      </span>
-      <ul className="dropdown-menu">
-        <li>
-          <Link to="/notifications" className="dropdown-item">
-            Notificações
-          </Link>
-        </li>
-        <li>
-          <Link to="/faq-editor" className="dropdown-item">
-            Editor FAQ
-          </Link>
-        </li>
-      </ul>
-    </li>
+    <NavDropdown label="Utilitários">
+      <NavDropdownItem label="Notificações" link="/notifications" />
+      <NavDropdownItem label="Editor FAQ" link="/faq-editor" />
+    </NavDropdown>
+  );
+};
+
+const NavPaineis = () => {
+  return (
+    <NavDropdown label="Painéis">
+      <NavDropdownItem label="Tarefas" link="/paineis/tarefas" />
+      <NavDropdownItem label="Produtos" link="/paineis/produtos" />
+    </NavDropdown>
+  );
+};
+
+const NavReports = () => {
+  return (
+    <NavDropdown label="Relatórios">
+      <NavDropdownItem label="Gmuds" link="/reports/gmuds" />
+    </NavDropdown>
   );
 };
 
@@ -85,45 +66,19 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item pe-2">
-              <Link to="/board" className={getActiveCss("/board")}>
-                Painel Tarefas
-              </Link>
-            </li>
-
-            <li className="nav-item pe-2">
-              <Link
-                to="/sprint-planning"
-                className={getActiveCss("/sprint-planning")}>
+              <Link to="/sprint-planning" className={getActiveCss("/sprint-planning")}>
                 Planejamento
               </Link>
             </li>
-
             <li className="nav-item pe-2">
               <Link to="/projects" className={getActiveCss("/projects")}>
                 Aplicações
               </Link>
             </li>
-
+            <NavPaineis />
             <NavCadastros />
             <NavUtils />
-
-            <li className="nav-item dropdown">
-              <span
-                className="nav-link dropdown-toggle"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Relatórios
-              </span>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link to="/reports/gmuds" className="dropdown-item">
-                    Gmuds
-                  </Link>
-                </li>
-              </ul>
-            </li>
-
+            <NavReports />
             <li className="nav-item pe-2">
               <Link to="/settings" className={getActiveCss("/settings")}>
                 Configurações
