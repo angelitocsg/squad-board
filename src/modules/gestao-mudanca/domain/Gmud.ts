@@ -48,13 +48,13 @@ export default class Gmud {
     repositoryId: string,
     version: string,
     owner?: string,
-    description?: string
+    description?: string,
   ) {
     this._id = id;
     this.story = story;
     this.repositoryId = repositoryId;
     this._version = version;
-    this._status = GmudStatus.INDEFINIDA;
+    this._status = GmudStatus.PLANEJADA;
     this._owner = owner ?? "";
     this._description = description ?? "";
   }
@@ -70,7 +70,7 @@ export default class Gmud {
     repositoryId: string,
     version: string,
     owner?: string,
-    description?: string
+    description?: string,
   ) {
     if (!repositoryId) throw Error("O repositório deve ser informado");
     if (!story) throw Error("A história deve ser informada");
@@ -89,7 +89,7 @@ export default class Gmud {
     time: string,
     link: string,
     owner: string,
-    description: string
+    description: string,
   ) {
     const gmud = new Gmud(id, story, repositoryId, version);
     gmud._number = number;
@@ -102,41 +102,26 @@ export default class Gmud {
     return gmud;
   }
 
-  register(
-    number: string,
-    link: string,
-    version?: string,
-    owner?: string,
-    description?: string
-  ) {
+  register(number: string, link: string, version?: string, owner?: string, description?: string) {
     this._number = number;
     this._link = link ?? "";
     this._version = version ?? this._version;
-    this._status = GmudStatus.PENDENTE;
+    this._status = GmudStatus.PLANEJADA;
     this._owner = owner ?? "";
     this._description = description ?? "";
   }
 
-  schedule(
-    date: string,
-    time: string,
-    version?: string,
-    owner?: string,
-    description?: string
-  ) {
+  schedule(date: string, time: string, version?: string, owner?: string, description?: string) {
     this._date = date;
     this._time = time;
-    this._status = GmudStatus.AGENDADA;
+    this._status = this.number ? GmudStatus.AGENDADA : GmudStatus.PLANEJADA;
     this._version = version ?? this._version;
     this._owner = owner ?? this._owner;
     this._description = description ?? this._description;
   }
 
   cancel(): Gmud {
-    if (
-      this._status === GmudStatus.CANCELADA ||
-      this._status === GmudStatus.PUBLICADA
-    )
+    if (this._status === GmudStatus.CANCELADA || this._status === GmudStatus.PUBLICADA)
       throw new Error("A GMUD já está CANCELADA ou PUBLICADA");
     this._status = GmudStatus.CANCELADA;
     return this;
@@ -144,9 +129,7 @@ export default class Gmud {
 
   publish(): Gmud {
     if (this._status !== GmudStatus.AGENDADA)
-      throw new Error(
-        "Para ser publicada a GMUD deve estar no status AGENDADA"
-      );
+      throw new Error("Para ser publicada a GMUD deve estar no status AGENDADA");
     this._status = GmudStatus.PUBLICADA;
     return this;
   }

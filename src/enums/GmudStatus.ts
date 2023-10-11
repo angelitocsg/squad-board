@@ -1,5 +1,6 @@
 export enum GmudStatus {
   INDEFINIDA = "-",
+  PLANEJADA = "PLANEJADA",
   IGNORADA = "IGNORADA",
   CANCELADA = "CANCELADA",
   ROLLBACK = "ROLLBACK",

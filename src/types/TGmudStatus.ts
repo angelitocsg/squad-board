@@ -7,6 +7,7 @@ export type TGmudStatus =
   | GmudStatus.ROLLBACK
   | GmudStatus.ROLLBACK_FALHA
   | GmudStatus.BUG
+  | GmudStatus.PLANEJADA
   | GmudStatus.FALHA
   | GmudStatus.PENDENTE
   | GmudStatus.PREENCHIDA
