@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
+import { PainelProdutos } from "./modules/paineis/application/pages";
 import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
 import RepoHome from "./modules/repositorios/application/pages";
 import SprintPlanningHome from "./modules/sprint-planning/application/pages";
@@ -27,8 +28,17 @@ const router = createBrowserRouter(
           element: <HomePage />,
         },
         {
-          path: "/board",
-          element: <BoardPage />,
+          path: "/paineis",
+          children: [
+            {
+              path: "/paineis/tarefas",
+              element: <BoardPage />,
+            },
+            {
+              path: "/paineis/produtos",
+              element: <PainelProdutos />,
+            },
+          ],
         },
         {
           path: "/projects",

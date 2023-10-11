@@ -12,14 +12,19 @@ import RepoRepository, { TFilterRepo } from "../../repository/RepoRepository";
 import RepoModel from "../data/RepoModel";
 import RepoStore from "../data/RepoStore";
 import RepoForm from "./form";
+import GmudRepository from "../../../gestao-mudanca/repository/GmudRepository";
+import GmudModel from "../../../gestao-mudanca/application/data/GmudModel";
+import { GmudStatus } from "../../../../enums/GmudStatus";
 
 const useTableRepository = () => {
   const modalService = useService<AppModalService>("AppModalService");
   const alertService = useService<AlertModalService>("AlertModalService");
   const repoStore = useService<RepoStore>("RepoStore");
   const productRepository = useService<ProductRepository>("ProductRepository");
-  const [products, setProducts] = useState<ProductModel[]>([]);
   const repoRepository = useService<RepoRepository>("RepoRepository");
+  const gmudRepository = useService<GmudRepository>("GmudRepository");
+  const [products, setProducts] = useState<ProductModel[]>([]);
+  const [gmuds, setGmuds] = useState<GmudModel[]>([]);
   const [lines, setLines] = useState<RepoModel[]>([]);
 
   useEffect(() => {
@@ -33,6 +38,16 @@ const useTableRepository = () => {
   }, [productRepository]);
 
   useEffect(() => {
+    gmudRepository.getAll();
+    var subscriber = gmudRepository.data$.subscribe(items => {
+      setGmuds(items.map(item => GmudModel.fromDomain(item)));
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [gmudRepository]);
+
+  useEffect(() => {
     var subscriber = repoRepository.data$.subscribe(items => {
       setLines(
         items.map(item => {
@@ -40,7 +55,10 @@ const useTableRepository = () => {
             ...RepoModel.fromDomain(item),
             product: products.find(x => x.id === item.productId)?.name,
             repoName: item.repository.split("/")[1],
-            gmuds: "-", // TODO: implementar
+            gmuds:
+              gmuds
+                .filter(x => x.status !== GmudStatus.CANCELADA)
+                .filter(x => x.repositoryId === item.id)?.length ?? 0,
           };
         }),
       );
@@ -48,9 +66,11 @@ const useTableRepository = () => {
     return () => {
       subscriber.unsubscribe();
     };
-  }, [products, repoRepository]);
+  }, [gmuds, products, repoRepository]);
 
-  const loadRepositories = (filter?: TFilterRepo) => repoRepository.getAll(filter);
+  const loadRepositories = (filter?: TFilterRepo) => {
+    repoRepository.getAll(filter);
+  };
 
   const showMessage = (type: "error" | "info", message: string) => {
     alertService
