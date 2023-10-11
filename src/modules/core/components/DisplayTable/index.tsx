@@ -24,7 +24,7 @@ const DisplayTable = ({ actions, columns, lines, headerButtons, onLineClick }: I
   return (
     <div className="card">
       <div className="card-body">
-        <HeaderActions {...headerButtons} />
+        {headerButtons && <HeaderActions {...headerButtons} />}
         <table className="table table-hover">
           <thead className="table-light">
             <tr>
