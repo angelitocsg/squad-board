@@ -10,7 +10,7 @@ const NavCadastros = () => {
       <NavDropdownItem label="Produtos digitais" link="/cadastros/produto-digital" />
       <NavDropdownItem label="Repositórios" link="/cadastros/repositorios" />
       <NavDropdownDivider />
-      <NavDropdownItem label="Gestão de mudanças" link="/cadastros/gestao-mudancao" />
+      <NavDropdownItem label="Gestão de mudanças" link="/cadastros/gestao-mudanca" />
     </NavDropdown>
   );
 };
@@ -52,7 +52,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <span className="navbar-brand">Squad</span>
+        <Link to="/" className="navbar-brand">Squad</Link>
         <button
           className="navbar-toggler"
           type="button"

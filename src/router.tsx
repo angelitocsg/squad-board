@@ -85,7 +85,7 @@ const router = createBrowserRouter(
               element: <RepoHome />,
             },
             {
-              path: "/cadastros/gestao-mudancao",
+              path: "/cadastros/gestao-mudanca",
               element: <GestaoMudancaHome />,
             },
           ],
