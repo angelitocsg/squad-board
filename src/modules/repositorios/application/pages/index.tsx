@@ -7,7 +7,7 @@ const RepoHome = () => {
     useController();
 
   return (
-    <PageLayout title="Repositórios">
+    <PageLayout title="Repositórios" full>
       <DisplayTable
         actions={tActions}
         columns={tColumns}

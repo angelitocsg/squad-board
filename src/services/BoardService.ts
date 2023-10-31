@@ -107,9 +107,9 @@ export class BoardService implements IImportService {
               itValue === IssueStatus.ATIVADO
                 ? IssueStatus.ENCERRADO_ATIVADO
                 : itValue === IssueStatus.EM_EXPLORACAO
-                ? IssueStatus.EM_EXECUCAO
+                ? IssueStatus.EM_REFINAMENTO
                 : itValue === IssueStatus.EM_VALIDACAO_DE_HIPOTESES
-                ? IssueStatus.EM_TESTES
+                ? IssueStatus.EM_EXECUCAO
                 : itValue === IssueStatus.EM_IMPLANTACAO
                 ? IssueStatus.IMPLANTADO
                 : itValue;
