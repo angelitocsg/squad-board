@@ -35,7 +35,9 @@ const PainelProdutos = () => {
         {products.map(product => (
           <div
             key={product.id}
-            className="card"
+            className={`card ${
+              currentProduct?.name === product.name ? "bg-secondary bg-opacity-25" : ""
+            }`}
             role="button"
             onClick={() => handleProductSelect(product)}>
             <div className="card-body p-2">

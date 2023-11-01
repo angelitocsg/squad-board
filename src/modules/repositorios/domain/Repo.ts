@@ -8,6 +8,8 @@ export enum RepositoryType {
   CLOUDFRONT = "cloudfront",
   DEP = "dep",
   GATEWAY = "gateway",
+  QUEUE_CONSUMER = "queue-consumer",
+  LAMBDA_APP = "lambda-app",
   MFE_APP = "mfe-app",
   MFE_INFRA = "mfe-infra",
   SHARED_INFRA = "shared-infra",
@@ -21,6 +23,8 @@ export type TRepository =
   | RepositoryType.CLOUDFRONT
   | RepositoryType.DEP
   | RepositoryType.GATEWAY
+  | RepositoryType.QUEUE_CONSUMER
+  | RepositoryType.LAMBDA_APP
   | RepositoryType.MFE_APP
   | RepositoryType.MFE_INFRA
   | RepositoryType.SHARED_INFRA;
