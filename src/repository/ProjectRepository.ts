@@ -4,10 +4,7 @@ import { IProjectGmud } from "../models/IProjectGmud";
 import { IProjectMonitoring } from "../models/IProjectMonitoring";
 import { IProjectRepository } from "../models/IProjectRepository";
 import { IProject } from "../models/IProjects";
-import {
-  ISummaryIndicators,
-  ISummaryIndicatorsGmuds,
-} from "../models/ISummaryIndicators";
+import { ISummaryIndicators, ISummaryIndicatorsGmuds } from "../models/ISummaryIndicators";
 import { GmudStatusOrder, TGmudStatus } from "../types/TGmudStatus";
 
 export class ProjectRepository {
@@ -28,35 +25,35 @@ export class ProjectRepository {
   }
 
   getData() {
-    return this.data.filter((f) => f.id) ?? [];
+    return this.data.filter(f => f.id) ?? [];
   }
 
   getGmudsAll(): IProjectGmud[] {
     return this.getRepositories().reduce((p, c) => {
       if (c.gmuds)
         p.push(
-          ...c.gmuds.map((gmud) => ({
+          ...c.gmuds.map(gmud => ({
             ...gmud,
             projectId: c.projectId,
             projectName: c.projectName,
             repositoryId: c.id,
-          }))
+          })),
         );
       return p;
     }, [] as IProjectGmud[]);
   }
 
   getGmudsByProjectId(projectId: string): IProjectGmud[] {
-    return this.getGmudsAll().filter((f) => f.projectId === projectId);
+    return this.getGmudsAll().filter(f => f.projectId === projectId);
   }
 
   getGmudsActive() {
     return this.getGmudsAll().filter(
-      (f) =>
+      f =>
         f.status !== GmudStatus.PUBLICADA &&
         f.status !== GmudStatus.CANCELADA &&
         f.status !== GmudStatus.ROLLBACK &&
-        f.status !== GmudStatus.FALHA
+        f.status !== GmudStatus.FALHA,
     );
   }
 
@@ -67,14 +64,14 @@ export class ProjectRepository {
   getGmudsSummary(): ISummaryIndicators {
     const gmuds = this.getGmudsAll()
       .reduce((p, gmud) => {
-        if (p.find((f) => f.status === gmud.status)) {
-          p = p.map((indicator) =>
+        if (p.find(f => f.status === gmud.status)) {
+          p = p.map(indicator =>
             indicator.status === gmud.status
               ? {
                   ...indicator,
                   count: indicator.count + 1,
                 }
-              : indicator
+              : indicator,
           );
         } else {
           p.push({
@@ -86,19 +83,16 @@ export class ProjectRepository {
         return p;
       }, [] as ISummaryIndicatorsGmuds[])
       .reduce((p, gmud) => {
-        if (
-          gmud.status === GmudStatus.FALHA ||
-          gmud.status === GmudStatus.ROLLBACK
-        ) {
-          if (p.find((f) => f.status === GmudStatus.ROLLBACK_FALHA))
-            p = p.map((upt) =>
+        if (gmud.status === GmudStatus.FALHA || gmud.status === GmudStatus.ROLLBACK) {
+          if (p.find(f => f.status === GmudStatus.ROLLBACK_FALHA))
+            p = p.map(upt =>
               upt.status === GmudStatus.ROLLBACK_FALHA
                 ? {
                     ...upt,
                     count: upt.count + gmud.count,
                     order: this._getGmudOrder(gmud.status),
                   }
-                : upt
+                : upt,
             );
           else p.push({ ...gmud, status: GmudStatus.ROLLBACK_FALHA });
         } else {
@@ -108,19 +102,17 @@ export class ProjectRepository {
       }, [] as ISummaryIndicatorsGmuds[]);
 
     return {
-      gmuds: gmuds.sort((a, b) =>
-        a.order < b.order ? -1 : a.order > b.order ? 1 : 0
-      ),
+      gmuds: gmuds.sort((a, b) => (a.order < b.order ? -1 : a.order > b.order ? 1 : 0)),
     };
   }
 
   getMonitoring(projectId: string): IProjectMonitoring[] {
     return this.getData()
-      .filter((f) => f.id === projectId)
-      ?.filter((f) => f.monitoring)
+      .filter(f => f.id === projectId)
+      ?.filter(f => f.monitoring)
       ?.reduce((p, c) => {
         if (c.monitoring) {
-          p.push(...c.monitoring?.map((m) => ({ ...m, projectId: c.id })));
+          p.push(...c.monitoring?.map(m => ({ ...m, projectId: c.id })));
         }
         return p;
       }, [] as IProjectMonitoring[]);
@@ -130,11 +122,11 @@ export class ProjectRepository {
     return this.getData().reduce((p, c) => {
       if (c.repositories) {
         p.push(
-          ...c.repositories.map((r) => ({
+          ...c.repositories.map(r => ({
             ...r,
             projectId: c.id,
             projectName: c.name,
-          }))
+          })),
         );
       }
       return p;
@@ -142,7 +134,7 @@ export class ProjectRepository {
   }
 
   getRepositoriesByProjectId(projectId: string): IProjectRepository[] {
-    return this.getRepositories().filter((f) => f.projectId === projectId);
+    return this.getRepositories().filter(f => f.projectId === projectId);
   }
 
   getRepositoriesApp(): IProjectRepository[] {
@@ -150,31 +142,29 @@ export class ProjectRepository {
       if (c.repositories)
         p.push(
           ...c.repositories
-            .filter((f) => f.sigla_app && f.type.indexOf("-DEP") === -1)
-            .map((r) => ({ ...r, projectId: c.id }))
+            .filter(f => f.sigla_app && f.type.indexOf("-DEP") === -1)
+            .map(r => ({ ...r, projectId: c.id })),
         );
       return p;
     }, [] as IProjectRepository[]);
   }
 
   getRepositoriesAppByProjectId(projectId: string): IProjectRepository[] {
-    return this.getRepositoriesApp().filter((f) => f.projectId === projectId);
+    return this.getRepositoriesApp().filter(f => f.projectId === projectId);
   }
 
   getProject(projectId?: string): IProject | undefined {
-    return this.getData().find((f) => f.id === projectId);
+    return this.getData().find(f => f.id === projectId);
   }
 
   updateProject(project: IProject): void {
-    console.log({ project });
-
     if (!project.id) return;
 
     let data = this.getData();
     const exists = this.getProject(project.id) ? true : false;
 
     if (exists) {
-      data = data.map((p) => (p.id === project.id ? project : p));
+      data = data.map(p => (p.id === project.id ? project : p));
     } else {
       data.push(project);
     }
