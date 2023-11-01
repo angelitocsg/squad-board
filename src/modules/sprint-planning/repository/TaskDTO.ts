@@ -2,32 +2,35 @@ import Task from "../domain/Task";
 
 export default class TaskDTO {
   id: string;
-  title: string;
-  description?: string;
-  externalId?: string;
+  description: string;
+  parentId?: string;
+  taskId?: string;
+  type?: string;
   owner?: string;
   sprint?: string;
-  parentId?: string;
+  status?: string;
 
   constructor(entity: Task) {
     this.id = entity.id;
-    this.title = entity.title;
     this.description = entity.description;
-    this.externalId = entity.externalId;
+    this.parentId = entity.parentId;
+    this.taskId = entity.taskId;
+    this.type = entity.type;
     this.owner = entity.owner;
     this.sprint = entity.sprint;
-    this.parentId = entity.parentId;
+    this.status = entity.status;
   }
 
   static toDomain(dto: TaskDTO) {
     return Task.restore(
       dto.id,
-      dto.title,
       dto.description,
-      dto.externalId,
+      dto.parentId,
+      dto.taskId,
+      dto.type,
       dto.owner,
       dto.sprint,
-      dto.parentId,
+      dto.status,
     );
   }
 }

@@ -7,9 +7,9 @@ export type TFilter = {
 
 export default interface TaskRepository {
   data$: Observable<Task[]>;
+  clear: () => void;
   getAll: (filter?: TFilter) => Task[];
   getById: (id: string) => Task | undefined;
   create: (entity: Task) => Task;
-  update: (id: string, entity: Task) => Task;
   delete: (id: string) => void;
 }

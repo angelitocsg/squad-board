@@ -1,19 +1,18 @@
 import PageLayout from "../../../../shared/PageLayout";
-import DisplayTable from "../../../core/components/DisplayTable";
+import DynamicTable from "../../../core/components/DynamicTable";
 import useController from "./useController";
 
 const SprintPlanningHome = () => {
-  const { tActions, tColumns, tHeaderButtons, lines, handleEdit } =
-    useController();
+  const { tActions, tColumns, tHeaderButtons, lines, handleFieldChange } = useController();
 
   return (
-    <PageLayout title="Planejamento de sprint">
-      <DisplayTable
+    <PageLayout title="Planejamento de sprint" full>
+      <DynamicTable
         actions={tActions}
         columns={tColumns}
         headerButtons={tHeaderButtons}
         lines={lines}
-        onLineClick={handleEdit}
+        onFieldChange={handleFieldChange}
       />
     </PageLayout>
   );

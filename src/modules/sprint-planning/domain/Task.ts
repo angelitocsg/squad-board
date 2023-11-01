@@ -9,15 +9,15 @@ export default class Task {
   get parentId() {
     return this._parentId;
   }
-  private _externalId?: string = "";
-  get externalId() {
-    return this._externalId;
+  private _taskId?: string = "";
+  get taskId() {
+    return this._taskId;
   }
-  private _title: string = "";
-  get title() {
-    return this._title;
+  private _type?: string = "";
+  get type() {
+    return this._type;
   }
-  private _description?: string = "";
+  private _description: string = "";
   get description() {
     return this._description;
   }
@@ -29,23 +29,29 @@ export default class Task {
   get sprint() {
     return this._sprint;
   }
+  private _status?: string = "";
+  get status() {
+    return this._status;
+  }
 
   private constructor(
     id: string,
-    title: string,
-    description?: string,
-    externalId?: string,
+    description: string,
+    parentId?: string,
+    taskId?: string,
+    type?: string,
     owner?: string,
     sprint?: string,
-    parentId?: string,
+    status?: string,
   ) {
     this._id = id;
-    this._title = title;
-    this._externalId = externalId;
     this._description = description;
+    this._parentId = parentId;
+    this._taskId = taskId;
+    this._type = type;
     this._owner = owner;
     this._sprint = sprint;
-    this._parentId = parentId;
+    this._status = status;
   }
 
   updateId(id: string): Task {
@@ -55,43 +61,29 @@ export default class Task {
   }
 
   static create(
-    title: string,
-    description?: string,
-    externalId?: string,
+    description: string,
+    parentId?: string,
+    taskId?: string,
+    type?: string,
     owner?: string,
     sprint?: string,
-    parentId?: string,
+    status?: string,
   ) {
-    if (!title) throw Error("O título deve ser informado");
+    if (!description) throw Error("A descrição deve ser informada");
     const id = uuidv4();
-    return new Task(
-      id,
-      title,
-      description,
-      externalId,
-      owner,
-      sprint,
-      parentId,
-    );
+    return new Task(id, description, parentId, taskId, type, owner, sprint, status);
   }
 
   static restore(
     id: string,
-    title: string,
-    description?: string,
-    externalId?: string,
+    description: string,
+    parentId?: string,
+    taskId?: string,
+    type?: string,
     owner?: string,
     sprint?: string,
-    parentId?: string,
+    status?: string,
   ) {
-    return new Task(
-      id,
-      title,
-      description,
-      externalId,
-      owner,
-      sprint,
-      parentId,
-    );
+    return new Task(id, description, parentId, taskId, type, owner, sprint, status);
   }
 }
