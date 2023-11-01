@@ -1,6 +1,6 @@
 import { BehaviorSubject } from "rxjs";
 
-export type modalType = "error" | "info";
+export type modalType = "error" | "info" | "success";
 export type modalSize = "full" | "large";
 
 export type IModal = {

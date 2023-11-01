@@ -24,6 +24,7 @@ const useModalController = () => {
       hideModal(body);
       removeBackdrop(body);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
   useEffect(() => {

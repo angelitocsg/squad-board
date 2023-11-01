@@ -3,7 +3,14 @@ import useModalController from "./useModalController";
 
 type THeader = { type: modalType; title?: string; modalIdLabel: string };
 const Header = ({ type, title, modalIdLabel }: THeader) => (
-  <div className={`modal-header ${type === "error" ? "bg-danger bg-opacity-25 text-danger" : "bg-warning bg-opacity-25"}`}>
+  <div
+    className={`modal-header ${
+      type === "error"
+        ? "bg-danger bg-opacity-25 text-danger"
+        : type === "info"
+        ? "bg-warning bg-opacity-25"
+        : "bg-success bg-opacity-25"
+    }`}>
     <h1 className="modal-title fs-5" id={modalIdLabel}>
       {title}
     </h1>
@@ -35,8 +42,7 @@ const Footer = ({
         type="button"
         className="btn btn-secondary"
         data-bs-dismiss="modal"
-        onClick={handleCancel}
-      >
+        onClick={handleCancel}>
         {buttonCancelLabel ?? "Cancelar"}
       </button>
     )}
@@ -59,15 +65,10 @@ const AlertModal = () => {
       id={_modalId}
       tabIndex={-1}
       aria-labelledby={_modalIdLabel}
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div className={_modalDialogStyle}>
         <div className="modal-content shadow">
-          <Header
-            type={state.type}
-            title={state.title}
-            modalIdLabel={_modalIdLabel}
-          />
+          <Header type={state.type} title={state.title} modalIdLabel={_modalIdLabel} />
           <Body children={state.children} />
           <Footer
             buttonOkLabel={state.buttonOkLabel}
