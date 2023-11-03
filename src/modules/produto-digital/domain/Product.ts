@@ -1,11 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
+import Sigla from "./Sigla";
 
 export default class Product {
   private _id: string;
   get id() {
     return this._id;
   }
-  private _sigla: string;
+  private _sigla: Sigla;
   get sigla() {
     return this._sigla;
   }
@@ -28,7 +29,7 @@ export default class Product {
 
   private constructor(
     id: string,
-    sigla: string,
+    sigla: Sigla,
     squad: string,
     name: string,
     description?: string,
@@ -49,13 +50,13 @@ export default class Product {
   }
 
   static create(
-    sigla: string,
+    sigla: Sigla,
     squad: string,
     name: string,
     description?: string,
     disabled?: boolean,
   ) {
-    if (!sigla) throw Error("A sigla deve ser informada");
+    if (!sigla || !sigla.id) throw Error("A sigla deve ser informada");
     if (!squad) throw Error("A squad deve ser informada");
     if (!name) throw Error("O nome do produto deve ser informado");
     const id = uuidv4();
@@ -64,7 +65,7 @@ export default class Product {
 
   static restore(
     id: string,
-    sigla: string,
+    sigla: Sigla,
     squad: string,
     name: string,
     description?: string,

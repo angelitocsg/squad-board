@@ -11,7 +11,7 @@ export default class ProductModel {
   static fromDomain(entity: Product): ProductModel {
     return {
       id: entity.id,
-      sigla: entity.sigla,
+      sigla: entity.sigla.id,
       squad: entity.squad,
       name: entity.name,
       description: entity.description,

@@ -6,6 +6,7 @@ import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import Product from "../../domain/Product";
+import Sigla from "../../domain/Sigla";
 import ProductRepository from "../../repository/ProductRepository";
 import ProductModel from "../data/ProductModel";
 import ProductStore from "../data/ProductStore";
@@ -52,7 +53,7 @@ const useController = () => {
     try {
       const model = productStore.current;
       const product = Product.create(
-        model.sigla,
+        Sigla.create(model.sigla),
         model.squad,
         model.name,
         model.description,
