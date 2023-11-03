@@ -104,7 +104,8 @@ export class BoardService implements IImportService {
             const itValue = values[i]?.toUpperCase();
             it[columnNames[i]] =
               itValue === IssueStatus.ENCERRADO ||
-              itValue === IssueStatus.ATIVADO
+              itValue === IssueStatus.ATIVADO ||
+              itValue === IssueStatus.ATIVADO_DISPONIVEL_USO
                 ? IssueStatus.ENCERRADO_ATIVADO
                 : itValue === IssueStatus.EM_EXPLORACAO
                 ? IssueStatus.EM_REFINAMENTO
