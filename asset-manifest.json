@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/squad-board/static/css/main.42884a42.css",
-    "main.js": "/squad-board/static/js/main.ebadfc5a.js",
+    "main.js": "/squad-board/static/js/main.a0223df4.js",
     "static/js/787.4bede519.chunk.js": "/squad-board/static/js/787.4bede519.chunk.js",
     "index.html": "/squad-board/index.html",
     "main.42884a42.css.map": "/squad-board/static/css/main.42884a42.css.map",
-    "main.ebadfc5a.js.map": "/squad-board/static/js/main.ebadfc5a.js.map",
+    "main.a0223df4.js.map": "/squad-board/static/js/main.a0223df4.js.map",
     "787.4bede519.chunk.js.map": "/squad-board/static/js/787.4bede519.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.42884a42.css",
-    "static/js/main.ebadfc5a.js"
+    "static/js/main.a0223df4.js"
   ]
 }
