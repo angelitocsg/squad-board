@@ -28,17 +28,12 @@ const router = createBrowserRouter(
           element: <HomePage />,
         },
         {
-          path: "/paineis",
-          children: [
-            {
-              path: "/paineis/tarefas",
-              element: <BoardPage />,
-            },
-            {
-              path: "/paineis/produtos",
-              element: <PainelProdutos />,
-            },
-          ],
+          path: "/tarefas",
+          element: <BoardPage />,
+        },
+        {
+          path: "/produtos",
+          element: <PainelProdutos />,
         },
         {
           path: "/projects",

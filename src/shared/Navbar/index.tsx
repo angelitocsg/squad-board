@@ -24,15 +24,6 @@ const NavUtils = () => {
   );
 };
 
-const NavPaineis = () => {
-  return (
-    <NavDropdown label="Painéis">
-      <NavDropdownItem label="Tarefas" link="/paineis/tarefas" />
-      <NavDropdownItem label="Produtos" link="/paineis/produtos" />
-    </NavDropdown>
-  );
-};
-
 const NavReports = () => {
   return (
     <NavDropdown label="Relatórios">
@@ -52,7 +43,9 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand">Squad</Link>
+        <Link to="/" className="navbar-brand">
+          Squad
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -71,11 +64,20 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item pe-2">
+              <Link to="/produtos" className={getActiveCss("/produtos")}>
+                Produtos
+              </Link>
+            </li>
+            <li className="nav-item pe-2">
+              <Link to="/tarefas" className={getActiveCss("/tarefas")}>
+                Tarefas
+              </Link>
+            </li>
+            <li className="nav-item pe-2">
               <Link to="/projects" className={getActiveCss("/projects")}>
                 Aplicações
               </Link>
             </li>
-            <NavPaineis />
             <NavCadastros />
             <NavUtils />
             <NavReports />
