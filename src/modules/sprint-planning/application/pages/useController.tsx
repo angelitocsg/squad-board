@@ -10,6 +10,7 @@ import Task from "../../domain/Task";
 import TaskRepository from "../../repository/TaskRepository";
 import TaskModel from "../data/TaskModel";
 import { BackupService } from "../../../../services/BackupService";
+import { StorageKey } from "../../../../enums/StorageKey";
 
 const useController = () => {
   const alertService = useService<AlertModalService>("AlertModalService");
@@ -18,8 +19,8 @@ const useController = () => {
   const [emptyLine, setEmptyLine] = useState(new TaskModel());
 
   const tColumns: IColumns[] = [
-    { field: "parentId", title: "Nº item pai", width: 110 },
-    { field: "taskId", title: "Nº item", width: 110 },
+    { field: "parentId", title: "Nº item pai", width: 140 },
+    { field: "taskId", title: "Nº item", width: 140 },
     { field: "type", title: "Tipo", width: 100, datalist: ["Story", "Task", "Bug", "Subtask"] },
     { field: "description", title: "Descrição", required: true, indent: true },
     { field: "owner", title: "Responsável", width: 150 },
@@ -118,10 +119,12 @@ const useController = () => {
       .open();
   };
 
-  const handleImport = () => {};
+  const handleImport = () => {
+    BackupService.importCsvToData(StorageKey.DATA_TASK_PLANNING);
+  };
 
   const handleExport = () => {
-    BackupService.exportDataAsCsv(lines);
+    BackupService.exportDataAsCsv(lines.filter(x => x.description));
   };
 
   const handleDelete = (line: TaskModel) => {
