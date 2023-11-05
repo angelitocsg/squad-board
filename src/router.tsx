@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
 import { PainelProdutos } from "./modules/paineis/application/pages";
 import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
+import SiglaPage from "./modules/produto-digital/application/pages/siglas";
 import RepoHome from "./modules/repositorios/application/pages";
 import SprintPlanningHome from "./modules/sprint-planning/application/pages";
 import BoardPage from "./pages/board";
@@ -71,6 +72,10 @@ const router = createBrowserRouter(
         {
           path: "/cadastros",
           children: [
+            {
+              path: "/cadastros/siglas",
+              element: <SiglaPage />,
+            },
             {
               path: "/cadastros/produto-digital",
               element: <ProdutoDigitalHome />,

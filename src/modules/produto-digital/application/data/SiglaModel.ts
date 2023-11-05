@@ -8,23 +8,14 @@ export default class SiglaModel {
   awsPrdEnvironmentId?: string = "";
   description?: string = "";
 
-  constructor(entity: Sigla) {
-    this.id = entity.id;
-    this.awsAccount = entity.awsAccount;
-    this.awsDevEnvironmentId = entity.awsDevEnvironmentId;
-    this.awsHomEnvironmentId = entity.awsHomEnvironmentId;
-    this.awsPrdEnvironmentId = entity.awsPrdEnvironmentId;
-    this.description = entity.description;
-  }
-
   static fromDomain(entity: Sigla): SiglaModel {
     return {
       id: entity.id,
       awsAccount: entity.awsAccount,
+      description: entity.description,
       awsDevEnvironmentId: entity.awsDevEnvironmentId,
       awsHomEnvironmentId: entity.awsHomEnvironmentId,
       awsPrdEnvironmentId: entity.awsPrdEnvironmentId,
-      description: entity.description,
     };
   }
 }

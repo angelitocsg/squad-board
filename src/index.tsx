@@ -11,7 +11,9 @@ import AppModalService from "./modules/core/components/AppModal/AppModalService"
 import GmudStore from "./modules/gestao-mudanca/application/data/GmudStore";
 import GmudRepositoryLocalStorage from "./modules/gestao-mudanca/repository/GmudRepositoryLocalStorage";
 import ProductStore from "./modules/produto-digital/application/data/ProductStore";
+import SiglaStore from "./modules/produto-digital/application/data/SiglaStore";
 import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
+import SiglaRepositoryLocalStorage from "./modules/produto-digital/repository/SiglaRepositoryLocalStorage";
 import RepoStore from "./modules/repositorios/application/data/RepoStore";
 import RepoRepositoryLocalStorage from "./modules/repositorios/repository/RepoRepositoryLocalStorage";
 import TaskRepositoryLocalStorage from "./modules/sprint-planning/repository/TaskRepositoryLocalStorage";
@@ -41,9 +43,13 @@ locator.register("OverviewService", OverviewService);
 locator.register("ProjectService", ProjectService);
 locator.register("ProjectRepository", ProjectRepository);
 locator.register("SettingsService", SettingsService);
+locator.register("SiglaRepository", SiglaRepositoryLocalStorage);
+locator.register("SiglaStore", SiglaStore);
 locator.register("TaskRepository", TaskRepositoryLocalStorage);
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement,
+);
 root.render(
   <React.StrictMode>
     <DecouplerContext.Provider value={locator}>

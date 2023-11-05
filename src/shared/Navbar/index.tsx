@@ -7,6 +7,7 @@ import NavDropdownItem from "./NavDropdownItem";
 const NavCadastros = () => {
   return (
     <NavDropdown label="Cadastros">
+      <NavDropdownItem label="Siglas" link="/cadastros/siglas" />
       <NavDropdownItem label="Produtos digitais" link="/cadastros/produto-digital" />
       <NavDropdownItem label="Repositórios" link="/cadastros/repositorios" />
       <NavDropdownDivider />
