@@ -1,6 +1,6 @@
 import Papa from "papaparse";
 
-import { SEM_ALOCACAO } from "../constants/board.constants";
+import { SEM_ALOCACAO, SEM_FEATURE } from "../constants/board.constants";
 import { IssueStatus } from "../enums/IssueStatus";
 import { StorageKey } from "../enums/StorageKey";
 import { IImportService } from "../interfaces/IImportService";
@@ -32,15 +32,18 @@ export class BoardService implements IImportService {
 
     const dataIssues = this._sortIssues(
       this._addParentInfo(
-        this._filterValidIssues(this._convertCsvToJson(columns, lines))
-      )
+        this._filterValidIssues(this._convertCsvToJson(columns, lines)),
+      ),
     );
 
     const features_id = dataIssues
-      .filter((f) => f.parent_id?.startsWith("FETR"))
+      .filter(
+        (f) => f.parent_id?.startsWith("FETR") || f.parent_id === SEM_FEATURE,
+      )
       .reduce((p, c) => {
-        if (c.parent_id && !p.find((f) => f === c.parent_id)) {
-          p.push(c.parent_id);
+        const parentId = c.parent_id ? c.parent_id : SEM_FEATURE;
+        if (parentId && !p.find((f) => f === parentId)) {
+          p.push(parentId);
         }
         return p;
       }, [] as string[])
@@ -49,12 +52,12 @@ export class BoardService implements IImportService {
 
     localStorage.setItem(
       StorageKey.BOARD_DATA_ISSUES,
-      JSON.stringify(dataIssues)
+      JSON.stringify(dataIssues),
     );
 
     localStorage.setItem(
       StorageKey.BOARD_DATA_FEATURES,
-      JSON.stringify(features_id)
+      JSON.stringify(features_id),
     );
   }
 
@@ -80,13 +83,13 @@ export class BoardService implements IImportService {
         ? "story_points"
         : c.trim() === "u_impediment"
         ? "impediment"
-        : ""
+        : "",
     );
   }
 
   private _convertCsvToJson(
     columnNames: string[],
-    lines: any[]
+    lines: any[],
   ): IBoardIssue[] {
     return lines.map((values: string[]) => {
       const it: any = {};
@@ -143,6 +146,10 @@ export class BoardService implements IImportService {
               continue;
             }
             break;
+          case "parent_id":
+            it[columnNames[i]] =
+              values[i] && values[i] !== "0" ? values[i] : SEM_FEATURE;
+            break;
           default:
             it[columnNames[i]] = values[i];
             break;
@@ -159,7 +166,7 @@ export class BoardService implements IImportService {
   private _addParentInfo(issues: IBoardIssue[]) {
     return issues.map((x: IBoardIssue, _, issues: IBoardIssue[]) => {
       x.parent_description = issues.find(
-        (f) => f.id === x.parent_id
+        (f) => f.id === x.parent_id,
       )?.description;
       return x;
     });
@@ -168,7 +175,7 @@ export class BoardService implements IImportService {
   private _sortIssues(issues: IBoardIssue[]) {
     return issues.sort(
       (a: IBoardIssue, b: IBoardIssue) =>
-        a.description?.localeCompare(b.description ?? "") ?? 0
+        a.description?.localeCompare(b.description ?? "") ?? 0,
     );
   }
 }

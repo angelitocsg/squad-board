@@ -1,4 +1,4 @@
-import { SEM_ALOCACAO } from "../../../constants/board.constants";
+import { SEM_ALOCACAO, SEM_FEATURE } from "../../../constants/board.constants";
 import { useService } from "../../../di/DecouplerContext";
 import { SettingsService } from "../../../services/SettingsService";
 
@@ -31,8 +31,7 @@ const HeaderFilterBy = ({
   return (assignees?.length ?? 0) > 0 ? (
     <div
       className="d-inline-flex align-items-center"
-      style={{ maxWidth: 1200 }}
-    >
+      style={{ maxWidth: 1200 }}>
       <small className="me-2">{label}:</small>
       <div>
         {assignees?.map((assignee) => (
@@ -44,9 +43,8 @@ const HeaderFilterBy = ({
                 ? "fw-bold text-bg-warning"
                 : "text-bg-primary"
             }`}
-            onClick={() => onFilterAssigneeClick(assignee)}
-          >
-            {assignee === SEM_ALOCACAO
+            onClick={() => onFilterAssigneeClick(assignee)}>
+            {assignee === SEM_ALOCACAO || assignee === SEM_FEATURE
               ? assignee
               : getLabel(getFormatedName(assignee))}
           </span>

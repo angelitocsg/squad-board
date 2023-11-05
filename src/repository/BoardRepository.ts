@@ -1,4 +1,5 @@
 import { IStatus } from "../components/BoardColumnStatus";
+import { SEM_FEATURE } from "../constants/board.constants";
 import { IssueStatus } from "../enums/IssueStatus";
 import { IssueType } from "../enums/IssueType";
 import { StorageKey } from "../enums/StorageKey";
@@ -57,7 +58,9 @@ export class BoardRepository {
     return this.getData()
       .filter(
         (f) =>
-          f.parent_id?.startsWith("FETR") || f.parent_id?.startsWith("SPNT")
+          f.parent_id?.startsWith("FETR") ||
+          f.parent_id?.startsWith("SPNT") ||
+          f.parent_id === SEM_FEATURE,
       )
       .reduce((p, c) => {
         if (c.parent_id && !p.find((f) => f === c.parent_id)) {
@@ -79,7 +82,7 @@ export class BoardRepository {
           f.type?.toLowerCase() === "bug" ||
           f.type?.toLowerCase() === "task" ||
           f.type?.toLowerCase() === "opportunity" ||
-          f.type?.toLowerCase() === "story"
+          f.type?.toLowerCase() === "story",
       )
       .map((it) => {
         it.issues = this.getData().filter((f) => f.parent_id === it.id);
@@ -126,7 +129,7 @@ export class BoardRepository {
   private _getIssueByAssignee(issues: IBoardIssue[]): IBoardIssue[] {
     return issues.filter((f) => {
       const subs = f.issues?.filter(
-        (s) => s.assignee === this.current_assignee
+        (s) => s.assignee === this.current_assignee,
       );
 
       if (f.assignee !== this.current_assignee && !subs?.length) {
@@ -188,7 +191,7 @@ export class BoardRepository {
           .filter(
             (f) =>
               f.status === d.status ||
-              f.issues?.find((ff) => ff.status === d.status)
+              f.issues?.find((ff) => ff.status === d.status),
           )
           .map((m) => count_issue(m, d.status ?? ""))
           .reduce((p, c) => p + c, 0),
