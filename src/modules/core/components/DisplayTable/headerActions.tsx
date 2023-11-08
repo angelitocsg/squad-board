@@ -20,26 +20,23 @@ const HeaderActions = ({
         <button
           type="button"
           className="btn btn-sm btn-primary"
-          onClick={buttonNew.action}
-        >
+          onClick={buttonNew.action}>
           {buttonNew?.label}
         </button>
       )}
       {buttonImport && (
         <button
           type="button"
-          className="btn btn-sm btn-primary"
-          onClick={buttonImport.action}
-        >
+          className="btn btn-sm btn-secondary"
+          onClick={buttonImport.action}>
           {buttonImport?.label}
         </button>
       )}
       {buttonExport && (
         <button
           type="button"
-          className="btn btn-sm btn-primary"
-          onClick={buttonExport.action}
-        >
+          className="btn btn-sm btn-secondary"
+          onClick={buttonExport.action}>
           {buttonExport?.label}
         </button>
       )}

@@ -148,6 +148,7 @@ const useTableRepository = () => {
     { field: "deploySequence", title: "Sequência" },
     { field: "codeBase", title: "Code base" },
     { field: "siglaApp", title: "Sigla App" },
+    { field: "pipelineVersion", title: "Pipeline" },
   ];
 
   const tActionsView: IActions[] = [
@@ -172,7 +173,15 @@ const useTableRepository = () => {
     },
   };
 
-  return { tActionsView, tActions, tHeaderButtons, tColumns, lines, loadRepositories, handleEdit };
+  return {
+    tActionsView,
+    tActions,
+    tHeaderButtons,
+    tColumns,
+    lines,
+    loadRepositories,
+    handleEdit,
+  };
 };
 
 export default useTableRepository;
