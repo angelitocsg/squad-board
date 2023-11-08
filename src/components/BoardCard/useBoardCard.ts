@@ -3,6 +3,8 @@ import { useState } from "react";
 import { TIssueType } from "../../types/TIssueType";
 import { IssueStatus } from "../../enums/IssueStatus";
 
+const COLUMN_CHARS = 36;
+
 interface IProps {
   status?: string;
   story_points?: number;
@@ -72,8 +74,8 @@ const useBoardCard = ({
       : "";
 
   const parentDescription = parent_description
-    ? parent_description?.substring(0, 43) +
-      ((parent_description?.length ?? 0) > 43 ? "..." : "")
+    ? parent_description?.substring(0, COLUMN_CHARS) +
+      ((parent_description?.length ?? 0) > COLUMN_CHARS ? "..." : "")
     : `${parentDescriptionAlternative} ${
         story_points ? `(${story_points})` : ""
       } ${status ? `[${status}]` : ""}`;

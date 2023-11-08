@@ -54,7 +54,7 @@ const Header = ({
           <span className="ps-5"></span>
           <StoryPoint storyPoints={storyPoints} label="Story Points" />
           <span className="ps-5"></span>
-          <StoryPoint storyPoints={totalTasks} label="Tarefas" />
+          <StoryPoint storyPoints={totalTasks} label="Tarefas e subs" />
           <span className="ps-5"></span>
           <HeaderFilterBy
             label="Ocultar"

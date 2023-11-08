@@ -108,7 +108,8 @@ export class BoardService implements IImportService {
             it[columnNames[i]] =
               itValue === IssueStatus.ENCERRADO ||
               itValue === IssueStatus.ATIVADO ||
-              itValue === IssueStatus.ATIVADO_DISPONIVEL_USO
+              itValue === IssueStatus.ATIVADO_DISPONIVEL_USO||
+              itValue === IssueStatus.VALIDADA
                 ? IssueStatus.ENCERRADO_ATIVADO
                 : itValue === IssueStatus.EM_EXPLORACAO
                 ? IssueStatus.EM_REFINAMENTO

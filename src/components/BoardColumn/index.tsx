@@ -1,4 +1,4 @@
-export const COLUMN_WIDTH = 400;
+export const COLUMN_WIDTH = 360;
 
 const BoardColumn = ({ children }: any) => {
   return (

@@ -34,9 +34,9 @@ const TaskPriority = ({ id, priority, xclass }: IProps) => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(id);
-    
+
     if (!settingsService.board_external_search) return;
-    
+
     setTimeout(() => {
       window.open(`${settingsService.board_external_search}${id}`, "_blank");
     }, 100);
@@ -45,7 +45,7 @@ const TaskPriority = ({ id, priority, xclass }: IProps) => {
   return (
     <span
       className={`d-inline-flex align-items-center ${xclass}`}
-      style={{ minWidth: 170 }}
+      style={{ minWidth: 155 }}
     >
       <i className={`bi ${priorityIcon} ${priorityColor}`}></i>
       <span className="link" role="button" onClick={copyToClipboard}>
