@@ -1,4 +1,5 @@
-import Repo, { TRepository } from "../domain/Repo";
+import Repo from "../domain/Repo";
+import { TRepository } from "../types/RepositoryType";
 
 export default class RepoDTO {
   id!: string;
@@ -24,7 +25,7 @@ export default class RepoDTO {
       dto.repository,
       dto.type,
       dto.deploySequence,
-      dto.siglaApp
+      dto.siglaApp,
     );
   }
 

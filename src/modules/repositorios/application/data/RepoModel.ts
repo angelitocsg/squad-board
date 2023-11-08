@@ -1,4 +1,5 @@
-import Repo, { RepositoryType, TRepository } from "../../domain/Repo";
+import Repo from "../../domain/Repo";
+import { RepositoryType, TRepository } from "../../types/RepositoryType";
 
 export default class RepoModel {
   id: string = "";

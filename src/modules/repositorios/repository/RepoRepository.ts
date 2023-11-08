@@ -1,5 +1,7 @@
 import { Observable } from "rxjs";
-import Repo, { TRepository } from "../domain/Repo";
+
+import Repo from "../domain/Repo";
+import { TRepository } from "../types/RepositoryType";
 
 export type TFilterRepo = {
   type?: TRepository;
