@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useService } from "../../../../../di/DecouplerContext";
+import { StorageKey } from "../../../../../enums/StorageKey";
+import { BackupService } from "../../../../../services/BackupService";
 import AlertModalService from "../../../../core/components/AlertModal/AlertModalService";
 import AppModalService from "../../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../../core/components/DisplayTable";
@@ -127,6 +129,14 @@ const useController = () => {
     if (window.confirm("Excluir sigla?")) siglaRepository.delete(line.id);
   };
 
+  const handleImport = () => {
+    BackupService.importCsvToData(StorageKey.DATA_SIGLA);
+  };
+
+  const handleExport = () => {
+    BackupService.exportDataAsCsv(siglaRepository.export());
+  };
+
   const tActions: IActions[] = [
     {
       label: "excluir",
@@ -138,6 +148,14 @@ const useController = () => {
     buttonNew: {
       label: "Nova",
       action: handleNew,
+    },
+    buttonImport: {
+      label: "Importar",
+      action: handleImport,
+    },
+    buttonExport: {
+      label: "Exportar",
+      action: handleExport,
     },
   };
 

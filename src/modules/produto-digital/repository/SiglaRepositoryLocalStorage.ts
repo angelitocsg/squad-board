@@ -38,6 +38,11 @@ export default class SiglaRepositoryLocalStorage implements SiglaRepository {
     return this.data.map((itemDTO) => SiglaDTO.toDomain(itemDTO));
   }
 
+  export() {
+    this.load();
+    return this.data;
+  }
+
   getById(id: string) {
     this.load();
     const itemDTO = this.data.find((item) => item.id === id);
