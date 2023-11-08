@@ -26,8 +26,6 @@ const PainelProdutos = () => {
         }, [] as string[])
         .sort((a, b) => a.localeCompare(b));
       setSiglasFromProduct(siglas);
-      console.log({ siglas });
-
       setProducts(items.map((item) => ProductModel.fromDomain(item)));
     });
     return () => {
@@ -44,13 +42,13 @@ const PainelProdutos = () => {
     <PageLayout title="Painel de produtos">
       <TabGroup>
         {siglasFromProduct.map((sigla, i) => (
-          <Tab active={i === 0} tabId={`${sigla}-tab`} tabLabel={sigla} />
+          <Tab key={i} active={i === 0} tabId={`${sigla}-tab`} tabLabel={sigla} />
         ))}
       </TabGroup>
 
       <TabContentGroup>
         {siglasFromProduct.map((sigla, i) => (
-          <TabContent active={i === 0} tabId={`${sigla}-tab`}>
+          <TabContent key={i} active={i === 0} tabId={`${sigla}-tab`}>
             <div className="d-flex justify-content-start flex-wrap gap-2">
               {products
                 .filter((p) => p.sigla === sigla)
@@ -72,19 +70,26 @@ const PainelProdutos = () => {
           </TabContent>
         ))}
       </TabContentGroup>
-      <div className="mt-4">
-        <h2 className="h5">{currentProduct?.name} ({currentProduct?.sigla})</h2>
-        <hr className="mt-2 mb-3" />
-      </div>
-      <div>
-        <DisplayTable
-          actions={tActionsView}
-          columns={tColumns}
-          headerButtons={tHeaderButtons}
-          lines={lines}
-          onLineClick={handleEdit}
-        />
-      </div>
+
+      {currentProduct ? (
+        <>
+          <div className="mt-4">
+            <h2 className="h5">
+              {currentProduct?.name} ({currentProduct?.sigla})
+            </h2>
+            <hr className="mt-2 mb-3" />
+          </div>
+          <div>
+            <DisplayTable
+              actions={tActionsView}
+              columns={tColumns}
+              headerButtons={tHeaderButtons}
+              lines={lines}
+              onLineClick={handleEdit}
+            />
+          </div>
+        </>
+      ) : undefined}
     </PageLayout>
   );
 };
