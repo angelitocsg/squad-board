@@ -5,6 +5,7 @@ import FormInput from "../../../core/components/FormInput";
 import FormInputFilter from "../../../core/components/FormInputFilter";
 import SelectInput, { ISelectOptions } from "../../../core/components/SelectInput";
 import ProductRepository from "../../../produto-digital/repository/ProductRepository";
+import { CodeBaseType } from "../../types/CodeBaseType";
 import { RepositoryType } from "../../types/RepositoryType";
 import RepoModel from "../data/RepoModel";
 
@@ -21,6 +22,18 @@ const RepoForm = ({ data, onChange }: IProps) => {
   const repositoryTypes = () => {
     var items = Object.keys(RepositoryType);
     var values = Object.values(RepositoryType);
+    return [
+      { label: "", value: "" },
+      ...items.map((item, i) => ({
+        label: item.replace("_", " "),
+        value: values[i],
+      })),
+    ];
+  };
+
+  const codeBaseTypes = () => {
+    var items = Object.keys(CodeBaseType);
+    var values = Object.values(CodeBaseType);
     return [
       { label: "", value: "" },
       ...items.map((item, i) => ({
@@ -94,7 +107,27 @@ const RepoForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-        <div className="col">
+        <div className="col-8">
+          <FormInput
+            type="text"
+            label="Descrição"
+            field="description"
+            value={state.description}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-4">
+          <SelectInput
+            label="Code base"
+            field="codeBase"
+            value={state.codeBase}
+            options={codeBaseTypes()}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-2">
           <FormInput
             type="text"
             label="Sequência"
@@ -109,6 +142,15 @@ const RepoForm = ({ data, onChange }: IProps) => {
             label="Sigla App"
             field="siglaApp"
             value={state.siglaApp}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="Versão Pipeline"
+            field="pipelineVersion"
+            value={state.pipelineVersion}
             onChange={handleChange}
           />
         </div>

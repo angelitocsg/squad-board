@@ -15,7 +15,9 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
   }
 
   get data$() {
-    return this._data.asObservable().pipe(map(items => items.map(item => RepoDTO.toDomain(item))));
+    return this._data
+      .asObservable()
+      .pipe(map((items) => items.map((item) => RepoDTO.toDomain(item))));
   }
 
   private load() {
@@ -31,16 +33,16 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
     if (filter?.productId) {
       this._data.next(
         this.data
-          .filter(f => f.productId === filter.productId)
-          .map(itemDTO => RepoDTO.toDomain(itemDTO)),
+          .filter((f) => f.productId === filter.productId)
+          .map((itemDTO) => RepoDTO.toDomain(itemDTO)),
       );
     }
-    return this.data.map(itemDTO => RepoDTO.toDomain(itemDTO));
+    return this.data.map((itemDTO) => RepoDTO.toDomain(itemDTO));
   }
 
   getById(id: string) {
     this.load();
-    const itemDTO = this.data.find(item => item.id === id);
+    const itemDTO = this.data.find((item) => item.id === id);
     return itemDTO ? RepoDTO.toDomain(itemDTO) : undefined;
   }
 
@@ -55,7 +57,7 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
 
   update(id: string, entity: Repo) {
     this.load();
-    const updated = this.data.filter(item => item.id !== id);
+    const updated = this.data.filter((item) => item.id !== id);
     updated.push(new RepoDTO(entity));
     this._data.next(updated);
     this.save();
@@ -64,7 +66,7 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
 
   delete(id: string) {
     this.load();
-    this._data.next(this.data.filter(item => item.id !== id));
+    this._data.next(this.data.filter((item) => item.id !== id));
     this.save();
   }
 }

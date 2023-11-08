@@ -12,9 +12,6 @@ import RepoRepository, { TFilterRepo } from "../../repository/RepoRepository";
 import RepoModel from "../data/RepoModel";
 import RepoStore from "../data/RepoStore";
 import RepoForm from "./form";
-import GmudRepository from "../../../gestao-mudanca/repository/GmudRepository";
-import GmudModel from "../../../gestao-mudanca/application/data/GmudModel";
-import { GmudStatus } from "../../../../enums/GmudStatus";
 
 const useTableRepository = () => {
   const modalService = useService<AppModalService>("AppModalService");
@@ -22,15 +19,13 @@ const useTableRepository = () => {
   const repoStore = useService<RepoStore>("RepoStore");
   const productRepository = useService<ProductRepository>("ProductRepository");
   const repoRepository = useService<RepoRepository>("RepoRepository");
-  const gmudRepository = useService<GmudRepository>("GmudRepository");
   const [products, setProducts] = useState<ProductModel[]>([]);
-  const [gmuds, setGmuds] = useState<GmudModel[]>([]);
   const [lines, setLines] = useState<RepoModel[]>([]);
 
   useEffect(() => {
     productRepository.getAll();
-    var subscriber = productRepository.data$.subscribe(items => {
-      setProducts(items.map(item => ProductModel.fromDomain(item)));
+    var subscriber = productRepository.data$.subscribe((items) => {
+      setProducts(items.map((item) => ProductModel.fromDomain(item)));
     });
     return () => {
       subscriber.unsubscribe();
@@ -38,27 +33,13 @@ const useTableRepository = () => {
   }, [productRepository]);
 
   useEffect(() => {
-    gmudRepository.getAll();
-    var subscriber = gmudRepository.data$.subscribe(items => {
-      setGmuds(items.map(item => GmudModel.fromDomain(item)));
-    });
-    return () => {
-      subscriber.unsubscribe();
-    };
-  }, [gmudRepository]);
-
-  useEffect(() => {
-    var subscriber = repoRepository.data$.subscribe(items => {
+    var subscriber = repoRepository.data$.subscribe((items) => {
       setLines(
-        items.map(item => {
+        items.map((item) => {
           return {
             ...RepoModel.fromDomain(item),
-            product: products.find(x => x.id === item.productId)?.name,
+            product: products.find((x) => x.id === item.productId)?.name,
             repoName: item.repository.split("/")[1],
-            gmuds:
-              gmuds
-                .filter(x => x.status !== GmudStatus.CANCELADA)
-                .filter(x => x.repositoryId === item.id)?.length ?? 0,
           };
         }),
       );
@@ -66,7 +47,7 @@ const useTableRepository = () => {
     return () => {
       subscriber.unsubscribe();
     };
-  }, [gmuds, products, repoRepository]);
+  }, [products, repoRepository]);
 
   const loadRepositories = (filter?: TFilterRepo) => {
     repoRepository.getAll(filter);
@@ -106,6 +87,9 @@ const useTableRepository = () => {
         model.type,
         model.deploySequence,
         model.siglaApp,
+        model.description,
+        model.codeBase,
+        model.pipelineVersion,
       );
       if (!model.id) repoRepository.create(repo);
       else repoRepository.update(model.id, repo.updateId(model.id));
@@ -127,7 +111,7 @@ const useTableRepository = () => {
         children: () => (
           <RepoForm
             data={model}
-            onChange={state => {
+            onChange={(state) => {
               repoStore.updateCurrent(state);
             }}
           />
@@ -137,7 +121,7 @@ const useTableRepository = () => {
   };
 
   const handleEdit = (line: RepoModel) => {
-    const model = lines.find(x => x.id === line.id);
+    const model = lines.find((x) => x.id === line.id);
     if (!model) return;
     modalService
       .config({
@@ -148,7 +132,7 @@ const useTableRepository = () => {
         children: () => (
           <RepoForm
             data={model}
-            onChange={state => {
+            onChange={(state) => {
               repoStore.updateCurrent(state);
             }}
           />
@@ -162,8 +146,8 @@ const useTableRepository = () => {
     { field: "repoName", title: "Repositório" },
     { field: "type", title: "Tipo" },
     { field: "deploySequence", title: "Sequência" },
+    { field: "codeBase", title: "Code base" },
     { field: "siglaApp", title: "Sigla App" },
-    { field: "gmuds", title: "Gmuds" },
   ];
 
   const tActionsView: IActions[] = [
