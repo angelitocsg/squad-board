@@ -21,10 +21,6 @@ const useSettings = () => {
       [field]: value,
     };
     set_settings(tmp);
-
-    // if (field === "features") {
-    //   set_features(value);
-    // }
   };
 
   useEffect(() => {

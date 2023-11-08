@@ -10,22 +10,7 @@ const SettingsPage = () => {
         <div className="col">
           <div className="mb-3">
             <label htmlFor="v" className="form-label">
-              Link arquivo tarefas
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="board_source"
-              name="board_source"
-              value={settings.board_source}
-              onChange={(e) => updateValue(e.target.name, e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="col">
-          <div className="mb-3">
-            <label htmlFor="v" className="form-label">
-              Link pesquisa de tarefas externas
+              Link pesquisa de tarefas externas (id da tarefa adicionado ao final do link)
             </label>
             <input
               type="text"
@@ -33,6 +18,7 @@ const SettingsPage = () => {
               id="board_external_search"
               name="board_external_search"
               value={settings.board_external_search}
+              placeholder="https://link-da-pesquisa/"
               onChange={(e) => updateValue(e.target.name, e.target.value)}
             />
           </div>
@@ -42,7 +28,7 @@ const SettingsPage = () => {
         <div className="col">
           <div className="mb-3">
             <label htmlFor="features" className="form-label">
-              Features (JSON)
+              Features com descrição (JSON)
             </label>
             <textarea
               style={{ fontFamily: "courier", fontSize: 12, minHeight: 180 }}
@@ -52,25 +38,23 @@ const SettingsPage = () => {
               rows={8}
               value={settings.features}
               placeholder="[{id:'FETR-0001', label: 'COMUNICAÇÃO'}]"
-              onChange={(e) => updateValue(e.target.name, e.target.value)}
-            ></textarea>
+              onChange={(e) => updateValue(e.target.name, e.target.value)}></textarea>
             <span className="text-danger">{invalid_json}</span>
           </div>
         </div>
         <div className="col">
           <div className="mb-3">
             <label htmlFor="respostaInput" className="form-label">
-              Features (board)
+              Features importadas no [Tarefas]
             </label>
             <div
               dangerouslySetInnerHTML={{
-                __html: features_text ,
+                __html: features_text,
               }}
               className="form-control text-bg-light"
               style={{
                 minHeight: 180,
-              }}
-            ></div>
+              }}></div>
           </div>
         </div>
       </div>
