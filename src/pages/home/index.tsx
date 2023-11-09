@@ -31,6 +31,7 @@ const HomePage = () => {
   return (
     <PageLayout title="Squad">
       <div className="d-flex justify-content-start flex-wrap gap-2">
+        <HomeItem title="Siglas" route="/cadastros/siglas" />
         <HomeItem title="Produtos" route="/produtos" />
         <HomeItem title="Tarefas" route="/tarefas" />
         <HomeItem title="Planejamento" route="/sprint-planning" />

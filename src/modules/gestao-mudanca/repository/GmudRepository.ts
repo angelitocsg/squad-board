@@ -1,5 +1,7 @@
 import { Observable } from "rxjs";
+
 import Gmud from "../domain/Gmud";
+import GmudDTO from "./GmudDTO";
 
 export type TFilter = {
   repositoryId?: string;
@@ -10,6 +12,7 @@ export type TFilter = {
 export default interface GmudRepository {
   data$: Observable<Gmud[]>;
   getAll: (filter?: TFilter) => Gmud[];
+  export: () => GmudDTO[];
   getById: (id: string) => Gmud | undefined;
   getByNumber: (number: string) => Gmud | undefined;
   getByStory: (story: string) => Gmud | undefined;

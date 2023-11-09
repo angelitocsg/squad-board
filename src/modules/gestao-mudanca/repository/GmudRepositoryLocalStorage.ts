@@ -1,14 +1,14 @@
 import { BehaviorSubject, map } from "rxjs";
 
+import { GmudStatus } from "../../../enums/GmudStatus";
 import { StorageKey } from "../../../enums/StorageKey";
-import GmudRepository, { TFilter } from "./GmudRepository";
 import Gmud from "../domain/Gmud";
 import GmudDTO from "./GmudDTO";
-import { GmudStatus } from "../../../enums/GmudStatus";
+import GmudRepository, { TFilter } from "./GmudRepository";
 
 export default class GmudRepositoryLocalStorage implements GmudRepository {
   private _data: BehaviorSubject<GmudDTO[]> = new BehaviorSubject<GmudDTO[]>(
-    []
+    [],
   );
 
   private get data() {
@@ -23,17 +23,25 @@ export default class GmudRepositoryLocalStorage implements GmudRepository {
 
   private load() {
     this._data.next(
-      JSON.parse(localStorage.getItem(StorageKey.DATA_GESTAO_MUDANCA) ?? "[]")
+      JSON.parse(localStorage.getItem(StorageKey.DATA_GESTAO_MUDANCA) ?? "[]"),
     );
   }
 
   private save() {
-    localStorage.setItem(StorageKey.DATA_GESTAO_MUDANCA, JSON.stringify(this.data ?? []));
+    localStorage.setItem(
+      StorageKey.DATA_GESTAO_MUDANCA,
+      JSON.stringify(this.data ?? []),
+    );
   }
 
   getAll(filter?: TFilter) {
     this.load();
     return this.data.map((item) => GmudDTO.toDomain(item));
+  }
+
+  export() {
+    this.load();
+    return this.data;
   }
 
   getById(id: string) {
@@ -75,7 +83,7 @@ export default class GmudRepositoryLocalStorage implements GmudRepository {
   cancel(id: string) {
     this.load();
     const updated = this.data.map((item) =>
-      item.id === id ? { ...item, status: GmudStatus.CANCELADA } : item
+      item.id === id ? { ...item, status: GmudStatus.CANCELADA } : item,
     );
     this._data.next(updated);
     this.save();

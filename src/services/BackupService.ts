@@ -1,3 +1,4 @@
+import { StorageKey } from "./../enums/StorageKey";
 import Papa from "papaparse";
 
 import ExportHelper from "../helpers/export.helper";
@@ -35,7 +36,7 @@ export class BackupService {
     const backupKeys = [];
     let data = {};
     for (let key in localStorage) {
-      if (!key.startsWith("data_")) continue;
+      if (!key.startsWith("data_") && key !== StorageKey.SETTINGS_ALL) continue;
       backupKeys.push(key);
       data = { ...data, [key]: JSON.parse(localStorage.getItem(key) ?? "{}") };
     }
