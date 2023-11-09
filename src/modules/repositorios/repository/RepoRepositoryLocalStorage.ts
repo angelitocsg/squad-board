@@ -6,11 +6,15 @@ import RepoDTO from "./RepoDTO";
 import RepoRepository, { TFilterRepo } from "./RepoRepository";
 
 export default class RepoRepositoryLocalStorage implements RepoRepository {
-  private _data: BehaviorSubject<RepoDTO[]> = new BehaviorSubject<RepoDTO[]>([]);
+  private _data: BehaviorSubject<RepoDTO[]> = new BehaviorSubject<RepoDTO[]>(
+    [],
+  );
 
   private get data() {
     return this._data.value.sort((a, b) =>
-      `${a.productId}-${a.repository}`.localeCompare(`${b.productId}-${b.repository}`),
+      `${a.productId}-${a.repository}`.localeCompare(
+        `${b.productId}-${b.repository}`,
+      ),
     );
   }
 
@@ -21,11 +25,16 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
   }
 
   private load() {
-    this._data.next(JSON.parse(localStorage.getItem(StorageKey.DATA_REPOSITORIOS) ?? "[]"));
+    this._data.next(
+      JSON.parse(localStorage.getItem(StorageKey.DATA_REPOSITORIOS) ?? "[]"),
+    );
   }
 
   private save() {
-    localStorage.setItem(StorageKey.DATA_REPOSITORIOS, JSON.stringify(this.data ?? []));
+    localStorage.setItem(
+      StorageKey.DATA_REPOSITORIOS,
+      JSON.stringify(this.data ?? []),
+    );
   }
 
   getAll(filter?: TFilterRepo) {
@@ -38,6 +47,11 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
       );
     }
     return this.data.map((itemDTO) => RepoDTO.toDomain(itemDTO));
+  }
+
+  export() {
+    this.load();
+    return this.data;
   }
 
   getById(id: string) {

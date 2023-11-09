@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useService } from "../../../../di/DecouplerContext";
+import { StorageKey } from "../../../../enums/StorageKey";
+import { BackupService } from "../../../../services/BackupService";
 import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
@@ -141,6 +143,17 @@ const useTableRepository = () => {
       .open();
   };
 
+  const handleImport = () => {
+    BackupService.importCsvToData(StorageKey.DATA_REPOSITORIOS);
+  };
+
+  const handleExport = () => {
+    BackupService.exportDataAsCsv(
+      repoRepository.export(),
+      StorageKey.DATA_REPOSITORIOS,
+    );
+  };
+
   const tColumns: IColumns[] = [
     { field: "product", title: "Produto" },
     { field: "repoName", title: "Repositório" },
@@ -170,6 +183,14 @@ const useTableRepository = () => {
     buttonNew: {
       label: "Novo",
       action: handleNew,
+    },
+    buttonImport: {
+      label: "Importar",
+      action: handleImport,
+    },
+    buttonExport: {
+      label: "Exportar",
+      action: handleExport,
     },
   };
 
