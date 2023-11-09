@@ -134,7 +134,10 @@ const useController = () => {
   };
 
   const handleExport = () => {
-    BackupService.exportDataAsCsv(siglaRepository.export());
+    BackupService.exportDataAsCsv(
+      siglaRepository.export(),
+      StorageKey.DATA_SIGLA,
+    );
   };
 
   const tActions: IActions[] = [

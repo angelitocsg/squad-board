@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useService } from "../../../../di/DecouplerContext";
+import { StorageKey } from "../../../../enums/StorageKey";
+import { BackupService } from "../../../../services/BackupService";
 import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
@@ -32,15 +34,19 @@ const useController = () => {
 
   useEffect(() => {
     productRepository.getAll();
-    var subscriber = productRepository.data$.subscribe(products => {
+    var subscriber = productRepository.data$.subscribe((products) => {
       const _max = 20;
       const _description = (d?: string) =>
         (d ?? "").length > _max ? `${d?.substring(0, _max)}...` : d ? d : "-";
       setLines(
-        products.map(product => ({
+        products.map((product) => ({
           ...ProductModel.fromDomain(product),
-          descriptionTruncated: _description(ProductModel.fromDomain(product).description),
-          disabledSimNao: ProductModel.fromDomain(product).disabled ? "Inativo" : "Ativo",
+          descriptionTruncated: _description(
+            ProductModel.fromDomain(product).description,
+          ),
+          disabledSimNao: ProductModel.fromDomain(product).disabled
+            ? "Inativo"
+            : "Ativo",
         })),
       );
     });
@@ -91,7 +97,7 @@ const useController = () => {
         children: () => (
           <ProductForm
             data={model}
-            onChange={state => {
+            onChange={(state) => {
               productStore.updateCurrent(state);
             }}
           />
@@ -101,7 +107,7 @@ const useController = () => {
   };
 
   const handleEdit = (line: ProductModel) => {
-    const model = lines.find(x => x.id === line.id);
+    const model = lines.find((x) => x.id === line.id);
     if (!model) return;
     modalService
       .config({
@@ -112,7 +118,7 @@ const useController = () => {
         children: () => (
           <ProductForm
             data={model}
-            onChange={state => {
+            onChange={(state) => {
               productStore.updateCurrent(state);
             }}
           />
@@ -122,7 +128,19 @@ const useController = () => {
   };
 
   const handleDelete = (line: ProductModel) => {
-    if (window.confirm("Excluir produto digital?")) productRepository.delete(line.id);
+    if (window.confirm("Excluir produto digital?"))
+      productRepository.delete(line.id);
+  };
+
+  const handleImport = () => {
+    BackupService.importCsvToData(StorageKey.DATA_PROD_DIGITAL);
+  };
+
+  const handleExport = () => {
+    BackupService.exportDataAsCsv(
+      productRepository.export(),
+      StorageKey.DATA_PROD_DIGITAL,
+    );
   };
 
   const tActions: IActions[] = [
@@ -136,6 +154,14 @@ const useController = () => {
     buttonNew: {
       label: "Novo",
       action: handleNew,
+    },
+    buttonImport: {
+      label: "Importar",
+      action: handleImport,
+    },
+    buttonExport: {
+      label: "Exportar",
+      action: handleExport,
     },
   };
 

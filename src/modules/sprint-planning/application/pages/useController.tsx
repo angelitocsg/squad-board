@@ -21,7 +21,12 @@ const useController = () => {
   const tColumns: IColumns[] = [
     { field: "parentId", title: "Nº item pai", width: 140 },
     { field: "taskId", title: "Nº item", width: 140 },
-    { field: "type", title: "Tipo", width: 100, datalist: ["Story", "Task", "Bug", "Subtask"] },
+    {
+      field: "type",
+      title: "Tipo",
+      width: 100,
+      datalist: ["Story", "Task", "Bug", "Subtask"],
+    },
     { field: "description", title: "Descrição", required: true, indent: true },
     { field: "owner", title: "Responsável", width: 150 },
     {
@@ -44,7 +49,7 @@ const useController = () => {
 
   useEffect(() => {
     taskRepository.getAll();
-    var subscriber = taskRepository.data$.subscribe(items => {
+    var subscriber = taskRepository.data$.subscribe((items) => {
       const newEmpty = new TaskModel();
       setEmptyLine(newEmpty);
       if (items.length === 0) {
@@ -52,7 +57,7 @@ const useController = () => {
         return;
       }
       setLines([
-        ...items.map(item => ({
+        ...items.map((item) => ({
           ...TaskModel.fromDomain(item),
           description:
             item.parentId && item.type?.toLowerCase().indexOf("sub") !== -1
@@ -69,7 +74,7 @@ const useController = () => {
   }, [taskRepository]);
 
   const handleFieldChange = (line: TaskModel, field: any, value: any) => {
-    const linesUpdated = lines.map(curLine =>
+    const linesUpdated = lines.map((curLine) =>
       curLine.id === line.id ? { ...curLine, [field]: value } : curLine,
     );
     if (line.id === emptyLine.id) {
@@ -83,7 +88,7 @@ const useController = () => {
   const handleSave = () => {
     try {
       taskRepository.clear();
-      lines.forEach(line => {
+      lines.forEach((line) => {
         const model = line;
         if (!model.description) return;
         const task = Task.create(
@@ -107,7 +112,11 @@ const useController = () => {
     }
   };
 
-  const showMessage = (type: modalType, message: string, title: string = "Erro") => {
+  const showMessage = (
+    type: modalType,
+    message: string,
+    title: string = "Erro",
+  ) => {
     alertService
       .config({
         type: type,
@@ -124,7 +133,10 @@ const useController = () => {
   };
 
   const handleExport = () => {
-    BackupService.exportDataAsCsv(lines.filter(x => x.description));
+    BackupService.exportDataAsCsv(
+      lines.filter((x) => x.description),
+      StorageKey.DATA_TASK_PLANNING,
+    );
   };
 
   const handleDelete = (line: TaskModel) => {
