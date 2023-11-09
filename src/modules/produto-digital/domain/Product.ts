@@ -39,7 +39,7 @@ export default class Product {
     this._sigla = sigla;
     this._squad = squad;
     this._name = name;
-    this._description = description;
+    this._description = description ?? "";
     this._disabled = disabled ?? false;
   }
 

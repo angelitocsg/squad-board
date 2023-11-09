@@ -7,8 +7,6 @@ import AlertModalService from "../../../core/components/AlertModal/AlertModalSer
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
-import Product from "../../domain/Product";
-import Sigla from "../../domain/Sigla";
 import ProductRepository from "../../repository/ProductRepository";
 import ProductModel from "../data/ProductModel";
 import ProductStore from "../data/ProductStore";
@@ -58,13 +56,7 @@ const useController = () => {
   const handleSave = () => {
     try {
       const model = productStore.current;
-      const product = Product.create(
-        Sigla.create(model.sigla),
-        model.squad,
-        model.name,
-        model.description,
-        model.disabled,
-      );
+      const product = ProductModel.toDomain(model);
       if (!model.id) productRepository.create(product);
       else productRepository.update(model.id, product.updateId(model.id));
       modalService.close();

@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { useService } from "../../../../di/DecouplerContext";
 import FormInput from "../../../core/components/FormInput";
 import FormInputFilter from "../../../core/components/FormInputFilter";
-import SelectInput, { ISelectOptions } from "../../../core/components/SelectInput";
+import SelectInput, {
+  ISelectOptions,
+} from "../../../core/components/SelectInput";
 import ProductRepository from "../../../produto-digital/repository/ProductRepository";
 import { CodeBaseType } from "../../types/CodeBaseType";
 import { RepositoryType } from "../../types/RepositoryType";
@@ -70,8 +72,8 @@ const RepoForm = ({ data, onChange }: IProps) => {
   const getProductValue = () => {
     const _default = { label: "", value: "" };
     if (products.length === 0) return _default;
-    const product = products.find((p) => p.value === state.productId);
-    return product ?? _default;
+    const item = products.find((p) => p.value === state.productId);
+    return item ?? _default;
   };
 
   return (

@@ -71,6 +71,15 @@ const SiglaForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="ID TOOL"
+            field="awsTooEnvironmentId"
+            value={state.awsTooEnvironmentId}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <FormInput
         type="textarea"

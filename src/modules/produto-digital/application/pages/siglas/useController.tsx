@@ -25,6 +25,7 @@ const useController = () => {
     { field: "awsDevEnvironmentId", title: "ID DEV" },
     { field: "awsHomEnvironmentId", title: "ID HOM" },
     { field: "awsPrdEnvironmentId", title: "ID PROD" },
+    { field: "awsTooEnvironmentId", title: "ID TOOL" },
     { field: "descriptionTruncated", title: "Descrição" },
   ];
 
@@ -55,14 +56,7 @@ const useController = () => {
   const handleSave = () => {
     try {
       const model = siglaStore.current;
-      const sigla = Sigla.create(
-        model.id,
-        model.awsAccount,
-        model.description,
-        model.awsDevEnvironmentId,
-        model.awsHomEnvironmentId,
-        model.awsPrdEnvironmentId,
-      );
+      const sigla = SiglaModel.toDomain(model);
       if (!model.id) siglaRepository.create(sigla);
       else siglaRepository.update(model.id, sigla);
       modalService.close();

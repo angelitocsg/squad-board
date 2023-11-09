@@ -6,6 +6,7 @@ export default class SiglaDTO {
   awsDevEnvironmentId?: string;
   awsHomEnvironmentId?: string;
   awsPrdEnvironmentId?: string;
+  awsTooEnvironmentId?: string;
   description?: string;
 
   constructor(entity: Sigla) {
@@ -15,6 +16,7 @@ export default class SiglaDTO {
     this.awsDevEnvironmentId = entity.awsDevEnvironmentId;
     this.awsHomEnvironmentId = entity.awsHomEnvironmentId;
     this.awsPrdEnvironmentId = entity.awsPrdEnvironmentId;
+    this.awsTooEnvironmentId = entity.awsTooEnvironmentId;
   }
 
   static toDomain(dto: SiglaDTO) {
@@ -25,6 +27,7 @@ export default class SiglaDTO {
       dto.awsDevEnvironmentId,
       dto.awsHomEnvironmentId,
       dto.awsPrdEnvironmentId,
+      dto.awsTooEnvironmentId,
     );
   }
 

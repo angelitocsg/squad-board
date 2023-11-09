@@ -1,4 +1,5 @@
 import Product from "../../domain/Product";
+import Sigla from "../../domain/Sigla";
 
 export default class ProductModel {
   id: string = "";
@@ -7,6 +8,17 @@ export default class ProductModel {
   name: string = "";
   description?: string = "";
   disabled: boolean = false;
+
+  static toDomain(model: ProductModel): Product {
+    const product = Product.create(
+      Sigla.create(model.sigla),
+      model.squad,
+      model.name,
+      model.description,
+      model.disabled,
+    );
+    return product;
+  }
 
   static fromDomain(entity: Product): ProductModel {
     return {

@@ -19,6 +19,10 @@ export default class Sigla {
   get awsPrdEnvironmentId() {
     return this._awsPrdEnvironmentId;
   }
+  private _awsTooEnvironmentId?: string;
+  get awsTooEnvironmentId() {
+    return this._awsTooEnvironmentId;
+  }
   private _description?: string;
   get description() {
     return this._description;
@@ -31,13 +35,15 @@ export default class Sigla {
     awsDevEnvironmentId?: string,
     awsHomEnvironmentId?: string,
     awsPrdEnvironmentId?: string,
+    awsTooEnvironmentId?: string,
   ) {
     this._id = id;
-    this._awsAccount = awsAccount;
-    this._description = description;
-    this._awsDevEnvironmentId = awsDevEnvironmentId;
-    this._awsHomEnvironmentId = awsHomEnvironmentId;
-    this._awsPrdEnvironmentId = awsPrdEnvironmentId;
+    this._awsAccount = awsAccount ?? "";
+    this._description = description ?? "";
+    this._awsDevEnvironmentId = awsDevEnvironmentId ?? "";
+    this._awsHomEnvironmentId = awsHomEnvironmentId ?? "";
+    this._awsPrdEnvironmentId = awsPrdEnvironmentId ?? "";
+    this._awsTooEnvironmentId = awsTooEnvironmentId ?? "";
   }
 
   static create(
@@ -47,6 +53,7 @@ export default class Sigla {
     awsDevEnvironmentId?: string,
     awsHomEnvironmentId?: string,
     awsPrdEnvironmentId?: string,
+    awsTooEnvironmentId?: string,
   ) {
     if (!id) throw Error("A sigla deve ser informada");
     return new Sigla(
@@ -56,6 +63,7 @@ export default class Sigla {
       awsDevEnvironmentId,
       awsHomEnvironmentId,
       awsPrdEnvironmentId,
+      awsTooEnvironmentId,
     );
   }
 
@@ -66,6 +74,7 @@ export default class Sigla {
     awsDevEnvironmentId?: string,
     awsHomEnvironmentId?: string,
     awsPrdEnvironmentId?: string,
+    awsTooEnvironmentId?: string,
   ) {
     return new Sigla(
       id,
@@ -74,6 +83,7 @@ export default class Sigla {
       awsDevEnvironmentId,
       awsHomEnvironmentId,
       awsPrdEnvironmentId,
+      awsTooEnvironmentId,
     );
   }
 }
