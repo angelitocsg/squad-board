@@ -1,5 +1,7 @@
 const jsonFile = (exportData: any, fileName: string) => {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData));
+  const dataStr =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(exportData));
   const dlAnchorElem = document.createElement("a");
   dlAnchorElem?.setAttribute("href", dataStr);
   dlAnchorElem?.setAttribute("download", `${fileName}_${Date.now()}.json`);
@@ -8,7 +10,8 @@ const jsonFile = (exportData: any, fileName: string) => {
 };
 
 const csvFile = (exportData: any, fileName: string) => {
-  const dataStr = "data:text/csv;charset=utf-8," + encodeURIComponent(exportData);
+  const dataStr =
+    "data:text/csv;charset=utf-8," + encodeURIComponent(exportData);
   const dlAnchorElem = document.createElement("a");
   dlAnchorElem?.setAttribute("href", dataStr);
   dlAnchorElem?.setAttribute("download", `${fileName}_${Date.now()}.csv`);
