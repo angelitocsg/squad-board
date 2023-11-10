@@ -22,6 +22,7 @@ const useController = () => {
     { field: "sigla", title: "Sigla" },
     { field: "squad", title: "Squad" },
     { field: "name", title: "Produto" },
+    { field: "sonarqubeCoverage", title: "Coverage" },
     { field: "descriptionTruncated", title: "Descrição" },
     { field: "disabledSimNao", title: "Ativo" },
   ];

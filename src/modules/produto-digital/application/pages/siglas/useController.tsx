@@ -26,7 +26,9 @@ const useController = () => {
     { field: "awsHomEnvironmentId", title: "ID HOM" },
     { field: "awsPrdEnvironmentId", title: "ID PROD" },
     { field: "awsTooEnvironmentId", title: "ID TOOL" },
-    { field: "descriptionTruncated", title: "Descrição" },
+    { field: "awsDevVpcId", title: "VPC ID DEV" },
+    { field: "awsHomVpcId", title: "VPC ID HOM" },
+    { field: "awsPrdVpcId", title: "VPC ID PROD" },
   ];
 
   useEffect(() => {

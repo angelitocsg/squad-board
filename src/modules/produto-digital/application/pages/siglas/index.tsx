@@ -3,7 +3,8 @@ import DisplayTable from "../../../../core/components/DisplayTable";
 import useController from "./useController";
 
 const SiglaPage = () => {
-  const { tActions, tColumns, tHeaderButtons, lines, handleEdit } = useController();
+  const { tActions, tColumns, tHeaderButtons, lines, handleEdit } =
+    useController();
 
   return (
     <PageLayout title="Siglas">
