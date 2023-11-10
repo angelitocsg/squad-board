@@ -1,4 +1,5 @@
 export enum CodeBaseType {
+  NONE = "",
   TERRAFORM = "terraform",
   CLOUDFORMATION = "cloudformation",
   ANGULAR = "angular",
@@ -9,6 +10,7 @@ export enum CodeBaseType {
 }
 
 export type TCodeBase =
+  | CodeBaseType.NONE
   | CodeBaseType.TERRAFORM
   | CodeBaseType.CLOUDFORMATION
   | CodeBaseType.ANGULAR

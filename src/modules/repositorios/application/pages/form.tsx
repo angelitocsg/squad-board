@@ -157,6 +157,46 @@ const RepoForm = ({ data, onChange }: IProps) => {
           />
         </div>
       </div>
+      {state.type === RepositoryType.GATEWAY ? (
+        <div className="row">
+          <div className="col">
+            <FormInput
+              type="text"
+              label="Lambda Authorizer"
+              field="gatewayAuthorizer"
+              value={state.gatewayAuthorizer}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col">
+            <FormInput
+              type="text"
+              label="Gateway Id Dev"
+              field="gatewayIdDev"
+              value={state.gatewayIdDev}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col">
+            <FormInput
+              type="text"
+              label="Gateway Id Hom"
+              field="gatewayIdHom"
+              value={state.gatewayIdHom}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col">
+            <FormInput
+              type="text"
+              label="Gateway Id Prod"
+              field="gatewayIdPrd"
+              value={state.gatewayIdPrd}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+      ) : undefined}
     </div>
   );
 };

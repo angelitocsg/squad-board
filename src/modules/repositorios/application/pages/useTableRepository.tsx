@@ -83,16 +83,7 @@ const useTableRepository = () => {
   const handleSave = () => {
     try {
       const model = repoStore.current;
-      const repo = Repo.create(
-        model.productId,
-        model.repository,
-        model.type,
-        model.deploySequence,
-        model.siglaApp,
-        model.description,
-        model.codeBase,
-        model.pipelineVersion,
-      );
+      const repo = RepoModel.toDomain(model);
       if (!model.id) repoRepository.create(repo);
       else repoRepository.update(model.id, repo.updateId(model.id));
       modalService.close();

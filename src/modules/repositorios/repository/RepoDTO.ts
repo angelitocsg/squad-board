@@ -12,6 +12,10 @@ export default class RepoDTO {
   description?: string;
   codeBase?: TCodeBase;
   pipelineVersion?: string;
+  gatewayAuthorizer?: string;
+  gatewayIdDev?: string;
+  gatewayIdHom?: string;
+  gatewayIdPrd?: string;
 
   constructor(repo: Repo) {
     this.id = repo.id;
@@ -23,6 +27,10 @@ export default class RepoDTO {
     this.description = repo.description;
     this.codeBase = repo.codeBase;
     this.pipelineVersion = repo.pipelineVersion;
+    this.gatewayAuthorizer = repo.gatewayAuthorizer;
+    this.gatewayIdDev = repo.gatewayIdDev;
+    this.gatewayIdHom = repo.gatewayIdHom;
+    this.gatewayIdPrd = repo.gatewayIdPrd;
   }
 
   static toDomain(dto: RepoDTO) {
@@ -33,9 +41,13 @@ export default class RepoDTO {
       dto.type,
       dto.deploySequence,
       dto.siglaApp,
-      dto.description ?? "",
+      dto.description,
       dto.codeBase,
-      dto.pipelineVersion ?? "",
+      dto.pipelineVersion,
+      dto.gatewayAuthorizer,
+      dto.gatewayIdDev,
+      dto.gatewayIdHom,
+      dto.gatewayIdPrd,
     );
   }
 

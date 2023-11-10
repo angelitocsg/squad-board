@@ -13,6 +13,28 @@ export default class RepoModel {
   description?: string = "";
   codeBase?: TCodeBase;
   pipelineVersion?: string = "";
+  gatewayAuthorizer?: string = "";
+  gatewayIdDev?: string = "";
+  gatewayIdHom?: string = "";
+  gatewayIdPrd?: string = "";
+
+  static toDomain(model: RepoModel): Repo {
+    const repo = Repo.create(
+      model.productId,
+      model.repository,
+      model.type,
+      model.deploySequence,
+      model.siglaApp,
+      model.description,
+      model.codeBase,
+      model.pipelineVersion,
+      model.gatewayAuthorizer,
+      model.gatewayIdDev,
+      model.gatewayIdHom,
+      model.gatewayIdPrd,
+    );
+    return repo;
+  }
 
   static fromDomain(entity: Repo): RepoModel {
     return {
@@ -25,6 +47,10 @@ export default class RepoModel {
       description: entity.description,
       codeBase: entity.codeBase,
       pipelineVersion: entity.pipelineVersion,
+      gatewayAuthorizer: entity.gatewayAuthorizer,
+      gatewayIdDev: entity.gatewayIdDev,
+      gatewayIdHom: entity.gatewayIdHom,
+      gatewayIdPrd: entity.gatewayIdPrd,
     };
   }
 }
