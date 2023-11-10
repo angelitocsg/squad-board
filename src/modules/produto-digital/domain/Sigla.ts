@@ -23,9 +23,37 @@ export default class Sigla {
   get awsTooEnvironmentId() {
     return this._awsTooEnvironmentId;
   }
+  private _awsDevVpcId?: string;
+  get awsDevVpcId() {
+    return this._awsDevVpcId;
+  }
+  private _awsHomVpcId?: string;
+  get awsHomVpcId() {
+    return this._awsHomVpcId;
+  }
+  private _awsPrdVpcId?: string;
+  get awsPrdVpcId() {
+    return this._awsPrdVpcId;
+  }
+  private _awsDevVpcCidr?: string;
+  get awsDevVpcCidr() {
+    return this._awsDevVpcCidr;
+  }
+  private _awsHomVpcCidr?: string;
+  get awsHomVpcCidr() {
+    return this._awsHomVpcCidr;
+  }
+  private _awsPrdVpcCidr?: string;
+  get awsPrdVpcCidr() {
+    return this._awsPrdVpcCidr;
+  }
   private _description?: string;
   get description() {
     return this._description;
+  }
+  private _permissions?: string;
+  get permissions() {
+    return this._permissions;
   }
 
   private constructor(
@@ -36,6 +64,13 @@ export default class Sigla {
     awsHomEnvironmentId?: string,
     awsPrdEnvironmentId?: string,
     awsTooEnvironmentId?: string,
+    awsDevVpcId?: string,
+    awsHomVpcId?: string,
+    awsPrdVpcId?: string,
+    awsDevVpcCidr?: string,
+    awsHomVpcCidr?: string,
+    awsPrdVpcCidr?: string,
+    permissions?: string,
   ) {
     this._id = id;
     this._awsAccount = awsAccount ?? "";
@@ -44,6 +79,13 @@ export default class Sigla {
     this._awsHomEnvironmentId = awsHomEnvironmentId ?? "";
     this._awsPrdEnvironmentId = awsPrdEnvironmentId ?? "";
     this._awsTooEnvironmentId = awsTooEnvironmentId ?? "";
+    this._awsDevVpcId = awsDevVpcId ?? "";
+    this._awsHomVpcId = awsHomVpcId ?? "";
+    this._awsPrdVpcId = awsPrdVpcId ?? "";
+    this._awsDevVpcCidr = awsDevVpcCidr ?? "";
+    this._awsHomVpcCidr = awsHomVpcCidr ?? "";
+    this._awsPrdVpcCidr = awsPrdVpcCidr ?? "";
+    this._permissions = permissions ?? "";
   }
 
   static create(
@@ -54,6 +96,13 @@ export default class Sigla {
     awsHomEnvironmentId?: string,
     awsPrdEnvironmentId?: string,
     awsTooEnvironmentId?: string,
+    awsDevVpcId?: string,
+    awsHomVpcId?: string,
+    awsPrdVpcId?: string,
+    awsDevVpcCidr?: string,
+    awsHomVpcCidr?: string,
+    awsPrdVpcCidr?: string,
+    permissions?: string,
   ) {
     if (!id) throw Error("A sigla deve ser informada");
     return new Sigla(
@@ -64,6 +113,13 @@ export default class Sigla {
       awsHomEnvironmentId,
       awsPrdEnvironmentId,
       awsTooEnvironmentId,
+      awsDevVpcId,
+      awsHomVpcId,
+      awsPrdVpcId,
+      awsDevVpcCidr,
+      awsHomVpcCidr,
+      awsPrdVpcCidr,
+      permissions,
     );
   }
 
@@ -75,6 +131,13 @@ export default class Sigla {
     awsHomEnvironmentId?: string,
     awsPrdEnvironmentId?: string,
     awsTooEnvironmentId?: string,
+    awsDevVpcId?: string,
+    awsHomVpcId?: string,
+    awsPrdVpcId?: string,
+    awsDevVpcCidr?: string,
+    awsHomVpcCidr?: string,
+    awsPrdVpcCidr?: string,
+    permissions?: string,
   ) {
     return new Sigla(
       id,
@@ -84,6 +147,13 @@ export default class Sigla {
       awsHomEnvironmentId,
       awsPrdEnvironmentId,
       awsTooEnvironmentId,
+      awsDevVpcId,
+      awsHomVpcId,
+      awsPrdVpcId,
+      awsDevVpcCidr,
+      awsHomVpcCidr,
+      awsPrdVpcCidr,
+      permissions,
     );
   }
 }

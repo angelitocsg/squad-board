@@ -7,7 +7,14 @@ export default class SiglaModel {
   awsHomEnvironmentId?: string = "";
   awsPrdEnvironmentId?: string = "";
   awsTooEnvironmentId?: string = "";
+  awsDevVpcId?: string = "";
+  awsHomVpcId?: string = "";
+  awsPrdVpcId?: string = "";
+  awsDevVpcCidr?: string = "";
+  awsHomVpcCidr?: string = "";
+  awsPrdVpcCidr?: string = "";
   description?: string = "";
+  permissions?: string = "";
 
   static toDomain(model: SiglaModel): Sigla {
     const sigla = Sigla.create(
@@ -18,6 +25,13 @@ export default class SiglaModel {
       model.awsHomEnvironmentId,
       model.awsPrdEnvironmentId,
       model.awsTooEnvironmentId,
+      model.awsDevVpcId,
+      model.awsHomVpcId,
+      model.awsPrdVpcId,
+      model.awsDevVpcCidr,
+      model.awsHomVpcCidr,
+      model.awsPrdVpcCidr,
+      model.permissions,
     );
     return sigla;
   }
@@ -31,6 +45,13 @@ export default class SiglaModel {
       awsHomEnvironmentId: entity.awsHomEnvironmentId,
       awsPrdEnvironmentId: entity.awsPrdEnvironmentId,
       awsTooEnvironmentId: entity.awsTooEnvironmentId,
+      awsDevVpcId: entity.awsDevVpcId,
+      awsHomVpcId: entity.awsHomVpcId,
+      awsPrdVpcId: entity.awsPrdVpcId,
+      awsDevVpcCidr: entity.awsDevVpcCidr,
+      awsHomVpcCidr: entity.awsHomVpcCidr,
+      awsPrdVpcCidr: entity.awsPrdVpcCidr,
+      permissions: entity.permissions,
     };
   }
 }

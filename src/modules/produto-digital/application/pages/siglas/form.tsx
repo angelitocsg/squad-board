@@ -81,14 +81,89 @@ const SiglaForm = ({ data, onChange }: IProps) => {
           />
         </div>
       </div>
-      <FormInput
-        type="textarea"
-        label="Descrição"
-        field="description"
-        value={state.description}
-        rows={4}
-        onTextAreaChange={handleChange}
-      />
+      <div className="row">
+        <div className="col">
+          <FormInput
+            type="text"
+            label="VPC ID DEV"
+            field="awsDevVpcId"
+            value={state.awsDevVpcId}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="VPC ID HOM"
+            field="awsHomVpcId"
+            value={state.awsHomVpcId}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="VPC ID PROD"
+            field="awsPrdVpcId"
+            value={state.awsPrdVpcId}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <FormInput
+            type="text"
+            label="VPC CIDR DEV"
+            field="awsDevVpcCidr"
+            placeholder="0.0.0.0/0"
+            value={state.awsDevVpcCidr}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="VPC CIDR HOM"
+            field="awsHomVpcCidr"
+            placeholder="0.0.0.0/0"
+            value={state.awsHomVpcCidr}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="VPC CIDR PROD"
+            field="awsPrdVpcCidr"
+            placeholder="0.0.0.0/0"
+            value={state.awsPrdVpcCidr}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <FormInput
+            type="textarea"
+            label="Descrição"
+            field="description"
+            value={state.description}
+            rows={5}
+            onTextAreaChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="textarea"
+            label="Permissões"
+            field="permissions"
+            value={state.permissions}
+            rows={5}
+            onTextAreaChange={handleChange}
+          />
+        </div>
+      </div>
     </div>
   );
 };

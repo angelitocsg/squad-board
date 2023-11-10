@@ -7,7 +7,14 @@ export default class SiglaDTO {
   awsHomEnvironmentId?: string;
   awsPrdEnvironmentId?: string;
   awsTooEnvironmentId?: string;
+  awsDevVpcId?: string;
+  awsHomVpcId?: string;
+  awsPrdVpcId?: string;
+  awsDevVpcCidr?: string;
+  awsHomVpcCidr?: string;
+  awsPrdVpcCidr?: string;
   description?: string;
+  permissions?: string;
 
   constructor(entity: Sigla) {
     this.id = entity.id;
@@ -17,6 +24,13 @@ export default class SiglaDTO {
     this.awsHomEnvironmentId = entity.awsHomEnvironmentId;
     this.awsPrdEnvironmentId = entity.awsPrdEnvironmentId;
     this.awsTooEnvironmentId = entity.awsTooEnvironmentId;
+    this.awsDevVpcId = entity.awsDevVpcId;
+    this.awsHomVpcId = entity.awsHomVpcId;
+    this.awsPrdVpcId = entity.awsPrdVpcId;
+    this.awsDevVpcCidr = entity.awsDevVpcCidr;
+    this.awsHomVpcCidr = entity.awsHomVpcCidr;
+    this.awsPrdVpcCidr = entity.awsPrdVpcCidr;
+    this.permissions = entity.permissions;
   }
 
   static toDomain(dto: SiglaDTO) {
@@ -28,6 +42,13 @@ export default class SiglaDTO {
       dto.awsHomEnvironmentId,
       dto.awsPrdEnvironmentId,
       dto.awsTooEnvironmentId,
+      dto.awsDevVpcId,
+      dto.awsHomVpcId,
+      dto.awsPrdVpcId,
+      dto.awsDevVpcCidr,
+      dto.awsHomVpcCidr,
+      dto.awsPrdVpcCidr,
+      dto.permissions,
     );
   }
 
