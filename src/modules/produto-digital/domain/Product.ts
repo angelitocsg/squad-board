@@ -26,6 +26,42 @@ export default class Product {
   get disabled() {
     return this._disabled;
   }
+  private _appDynamicsFrontend: boolean = false;
+  get appDynamicsFrontend() {
+    return this._appDynamicsFrontend;
+  }
+  private _appDynamicsBackend: boolean = false;
+  get appDynamicsBackend() {
+    return this._appDynamicsBackend;
+  }
+  private _googleAnalytics: boolean = false;
+  get googleAnalytics() {
+    return this._googleAnalytics;
+  }
+  private _grafanaCloudWatch: boolean = false;
+  get grafanaCloudWatch() {
+    return this._grafanaCloudWatch;
+  }
+  private _grafanaPrometheus: boolean = false;
+  get grafanaPrometheus() {
+    return this._grafanaPrometheus;
+  }
+  private _sonarqubeCoverage?: string;
+  get sonarqubeCoverage() {
+    return this._sonarqubeCoverage;
+  }
+  private _sonarqube?: string;
+  get sonarqube() {
+    return this._sonarqube;
+  }
+  private _fortify?: string;
+  get fortify() {
+    return this._fortify;
+  }
+  private _iuConfia?: string;
+  get iuConfia() {
+    return this._iuConfia;
+  }
 
   private constructor(
     id: string,
@@ -34,6 +70,15 @@ export default class Product {
     name: string,
     description?: string,
     disabled?: boolean,
+    appDynamicsFrontend?: boolean,
+    appDynamicsBackend?: boolean,
+    googleAnalytics?: boolean,
+    grafanaCloudWatch?: boolean,
+    grafanaPrometheus?: boolean,
+    sonarqubeCoverage?: string,
+    sonarqube?: string,
+    fortify?: string,
+    iuConfia?: string,
   ) {
     this._id = id;
     this._sigla = sigla;
@@ -41,6 +86,15 @@ export default class Product {
     this._name = name;
     this._description = description ?? "";
     this._disabled = disabled ?? false;
+    this._appDynamicsFrontend = appDynamicsFrontend ?? false;
+    this._appDynamicsBackend = appDynamicsBackend ?? false;
+    this._googleAnalytics = googleAnalytics ?? false;
+    this._grafanaCloudWatch = grafanaCloudWatch ?? false;
+    this._grafanaPrometheus = grafanaPrometheus ?? false;
+    this._sonarqubeCoverage = sonarqubeCoverage ?? "";
+    this._sonarqube = sonarqube ?? "";
+    this._fortify = fortify ?? "";
+    this._iuConfia = iuConfia ?? "";
   }
 
   updateId(id: string): Product {
@@ -55,12 +109,37 @@ export default class Product {
     name: string,
     description?: string,
     disabled?: boolean,
+    appDynamicsFrontend?: boolean,
+    appDynamicsBackend?: boolean,
+    googleAnalytics?: boolean,
+    grafanaCloudWatch?: boolean,
+    grafanaPrometheus?: boolean,
+    sonarqubeCoverage?: string,
+    sonarqube?: string,
+    fortify?: string,
+    iuConfia?: string,
   ) {
     if (!sigla || !sigla.id) throw Error("A sigla deve ser informada");
     if (!squad) throw Error("A squad deve ser informada");
     if (!name) throw Error("O nome do produto deve ser informado");
     const id = uuidv4();
-    return new Product(id, sigla, squad, name, description, disabled);
+    return new Product(
+      id,
+      sigla,
+      squad,
+      name,
+      description,
+      disabled,
+      appDynamicsFrontend,
+      appDynamicsBackend,
+      googleAnalytics,
+      grafanaCloudWatch,
+      grafanaPrometheus,
+      sonarqubeCoverage,
+      sonarqube,
+      fortify,
+      iuConfia,
+    );
   }
 
   static restore(
@@ -70,7 +149,32 @@ export default class Product {
     name: string,
     description?: string,
     disabled?: boolean,
+    appDynamicsFrontend?: boolean,
+    appDynamicsBackend?: boolean,
+    googleAnalytics?: boolean,
+    grafanaCloudWatch?: boolean,
+    grafanaPrometheus?: boolean,
+    sonarqubeCoverage?: string,
+    sonarqube?: string,
+    fortify?: string,
+    iuConfia?: string,
   ) {
-    return new Product(id, sigla, squad, name, description, disabled);
+    return new Product(
+      id,
+      sigla,
+      squad,
+      name,
+      description,
+      disabled,
+      appDynamicsFrontend,
+      appDynamicsBackend,
+      googleAnalytics,
+      grafanaCloudWatch,
+      grafanaPrometheus,
+      sonarqubeCoverage,
+      sonarqube,
+      fortify,
+      iuConfia,
+    );
   }
 }

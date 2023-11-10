@@ -194,10 +194,36 @@ const useController = () => {
     );
   };
 
+  const handleGithub = (line: RepoModel) => {
+    const dlAnchorElem = document.createElement("a");
+    dlAnchorElem?.setAttribute("href", `http://github.com/${line.repository}`);
+    dlAnchorElem?.setAttribute("target", "_blank");
+    dlAnchorElem?.setAttribute("rel", "noopener noreferrer");
+    dlAnchorElem?.click();
+    dlAnchorElem?.remove();
+  };
+
+  const handleGmudDetails = (line: GmudModel) => {
+    const dlAnchorElem = document.createElement("a");
+    dlAnchorElem?.setAttribute("href", line.link);
+    dlAnchorElem?.setAttribute("target", "_blank");
+    dlAnchorElem?.setAttribute("rel", "noopener noreferrer");
+    dlAnchorElem?.click();
+    dlAnchorElem?.remove();
+  };
+
   const tActions: IActions[] = [
     {
       label: "publicar",
       onClick: handlePublish,
+    },
+    {
+      label: "github",
+      onClick: handleGithub,
+    },
+    {
+      label: "detalhes",
+      onClick: handleGmudDetails,
     },
     {
       label: "cancelar",

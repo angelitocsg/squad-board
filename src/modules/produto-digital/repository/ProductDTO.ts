@@ -9,6 +9,16 @@ export default class ProductDTO {
   description?: string;
   disabled!: boolean;
 
+  appDynamicsFrontend = false;
+  appDynamicsBackend = false;
+  googleAnalytics = false;
+  grafanaCloudWatch = false;
+  grafanaPrometheus = false;
+  sonarqubeCoverage?: string;
+  sonarqube?: string;
+  fortify?: string;
+  iuConfia?: string;
+
   constructor(product: Product) {
     this.id = product.id;
     this.sigla = product.sigla.id;
@@ -16,6 +26,15 @@ export default class ProductDTO {
     this.name = product.name;
     this.description = product.description;
     this.disabled = product.disabled;
+    this.appDynamicsFrontend = product.appDynamicsFrontend;
+    this.appDynamicsBackend = product.appDynamicsBackend;
+    this.googleAnalytics = product.googleAnalytics;
+    this.grafanaCloudWatch = product.grafanaCloudWatch;
+    this.grafanaPrometheus = product.grafanaPrometheus;
+    this.sonarqubeCoverage = product.sonarqubeCoverage;
+    this.sonarqube = product.sonarqube;
+    this.fortify = product.fortify;
+    this.iuConfia = product.iuConfia;
   }
 
   static toDomain(dto: ProductDTO) {
@@ -26,6 +45,15 @@ export default class ProductDTO {
       dto.name,
       dto.description,
       dto.disabled,
+      dto.appDynamicsFrontend,
+      dto.appDynamicsBackend,
+      dto.googleAnalytics,
+      dto.grafanaCloudWatch,
+      dto.grafanaPrometheus,
+      dto.sonarqubeCoverage,
+      dto.sonarqube,
+      dto.fortify,
+      dto.iuConfia,
     );
   }
 

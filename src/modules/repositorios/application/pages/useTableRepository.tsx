@@ -9,7 +9,6 @@ import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import ProductModel from "../../../produto-digital/application/data/ProductModel";
 import ProductRepository from "../../../produto-digital/repository/ProductRepository";
-import Repo from "../../domain/Repo";
 import RepoRepository, { TFilterRepo } from "../../repository/RepoRepository";
 import RepoModel from "../data/RepoModel";
 import RepoStore from "../data/RepoStore";

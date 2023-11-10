@@ -9,6 +9,16 @@ export default class ProductModel {
   description?: string = "";
   disabled: boolean = false;
 
+  appDynamicsFrontend = false;
+  appDynamicsBackend = false;
+  googleAnalytics = false;
+  grafanaCloudWatch = false;
+  grafanaPrometheus = false;
+  sonarqubeCoverage?: string = "";
+  sonarqube?: string = "";
+  fortify?: string = "";
+  iuConfia?: string = "";
+
   static toDomain(model: ProductModel): Product {
     const product = Product.create(
       Sigla.create(model.sigla),
@@ -16,6 +26,15 @@ export default class ProductModel {
       model.name,
       model.description,
       model.disabled,
+      model.appDynamicsFrontend,
+      model.appDynamicsBackend,
+      model.googleAnalytics,
+      model.grafanaCloudWatch,
+      model.grafanaPrometheus,
+      model.sonarqubeCoverage,
+      model.sonarqube,
+      model.fortify,
+      model.iuConfia,
     );
     return product;
   }
@@ -28,6 +47,15 @@ export default class ProductModel {
       name: entity.name,
       description: entity.description,
       disabled: entity.disabled,
+      appDynamicsFrontend: entity.appDynamicsFrontend,
+      appDynamicsBackend: entity.appDynamicsBackend,
+      googleAnalytics: entity.googleAnalytics,
+      grafanaCloudWatch: entity.grafanaCloudWatch,
+      grafanaPrometheus: entity.grafanaPrometheus,
+      sonarqubeCoverage: entity.sonarqubeCoverage,
+      sonarqube: entity.sonarqube,
+      fortify: entity.fortify,
+      iuConfia: entity.iuConfia,
     };
   }
 }

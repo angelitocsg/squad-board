@@ -6,6 +6,7 @@ import FormInputFilter from "../../../core/components/FormInputFilter";
 import { ISelectOptions } from "../../../core/components/SelectInput";
 import SiglaRepository from "../../repository/SiglaRepository";
 import ProductModel from "../data/ProductModel";
+import FormCheckBox from "../../../core/components/FormCheckBox";
 
 type IProps = {
   data: ProductModel;
@@ -79,36 +80,112 @@ const ProductForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-        <FormInput
-          type="textarea"
-          label="Descrição"
-          field="description"
-          value={state.description}
-          rows={4}
-          onTextAreaChange={handleChange}
-        />
-        <div className="row">
-          <div className="col">
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="disabled"
-                name="disabled"
-                checked={state.disabled ?? false}
-                onChange={() =>
-                  handleChange({
-                    target: {
-                      name: "disabled",
-                      value: !(state.disabled ?? false),
-                    },
-                  })
-                }
-              />
-              <label className="form-check-label" htmlFor="disabled">
-                Desativado
-              </label>
-            </div>
+      </div>
+      <div className="row">
+        <div className="col-8">
+          <FormInput
+            type="textarea"
+            label="Descrição"
+            field="description"
+            value={state.description}
+            rows={5}
+            onTextAreaChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <label className="mb-1">Monitoramento</label>
+          <FormCheckBox
+            label="Google Analytics"
+            field="googleAnalytics"
+            value={state.googleAnalytics}
+            onChange={handleChange}
+          />
+          <FormCheckBox
+            label="AppDynamics (Frontend)"
+            field="appDynamicsFrontend"
+            value={state.appDynamicsFrontend}
+            onChange={handleChange}
+          />
+          <FormCheckBox
+            label="AppDynamics (Backend)"
+            field="appDynamicsBackend"
+            value={state.appDynamicsBackend}
+            onChange={handleChange}
+          />
+          <FormCheckBox
+            label="Grafana (Cloudwatch)"
+            field="grafanaCloudWatch"
+            value={state.grafanaCloudWatch}
+            onChange={handleChange}
+          />
+          <FormCheckBox
+            label="Grafana (Prometheus)"
+            field="grafanaPrometheus"
+            value={state.grafanaPrometheus}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col">
+          <FormInput
+            type="text"
+            label="Sonarqube (Coverage)"
+            field="sonarqubeCoverage"
+            value={state.sonarqubeCoverage}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="date"
+            label="Sonarqube"
+            field="sonarqube"
+            value={state.sonarqube}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="date"
+            label="Fortify"
+            field="fortify"
+            value={state.fortify}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="date"
+            label="IU Confia"
+            field="iuConfia"
+            value={state.iuConfia}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <div className="form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="disabled"
+              name="disabled"
+              checked={state.disabled ?? false}
+              onChange={() =>
+                handleChange({
+                  target: {
+                    name: "disabled",
+                    value: !(state.disabled ?? false),
+                  },
+                })
+              }
+            />
+            <label className="form-check-label" htmlFor="disabled">
+              Desativado
+            </label>
           </div>
         </div>
       </div>
