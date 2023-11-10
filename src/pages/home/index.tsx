@@ -20,7 +20,10 @@ const HomeItem = ({ title, route }: IHomeItem) => {
       onClick={handleItemClick}
       style={{ minWidth: "180px" }}>
       <div className="card-body p-2 d-flex flex-column justify-content-center align-items-center">
-        <span className="bi bi-columns-gap px-4 py-2" style={{ fontSize: "2.5em" }} />
+        <span
+          className="bi bi-columns-gap px-4 py-2"
+          style={{ fontSize: "2.5em" }}
+        />
         <span className="h5">{title}</span>
       </div>
     </div>
@@ -33,10 +36,8 @@ const HomePage = () => {
       <div className="d-flex justify-content-start flex-wrap gap-2">
         <HomeItem title="Siglas" route="/cadastros/siglas" />
         <HomeItem title="Produtos" route="/produtos" />
-        <HomeItem title="Tarefas" route="/tarefas" />
-        <HomeItem title="Planejamento" route="/sprint-planning" />
-        <HomeItem title="Aplicações" route="/projects" />
         <HomeItem title="GMUDs" route="/cadastros/gestao-mudanca" />
+        <HomeItem title="Tarefas" route="/tarefas" />
       </div>
     </PageLayout>
   );

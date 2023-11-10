@@ -179,11 +179,15 @@ const useTableRepository = () => {
     },
   ];
 
-  const tHeaderButtons: IHeaderActions = {
+  const tHeaderButtonsView: IHeaderActions = {
     buttonNew: {
       label: "Novo",
       action: handleNew,
     },
+  };
+
+  const tHeaderButtons: IHeaderActions = {
+    ...tHeaderButtonsView,
     buttonImport: {
       label: "Importar",
       action: handleImport,
@@ -197,6 +201,7 @@ const useTableRepository = () => {
   return {
     tActionsView,
     tActions,
+    tHeaderButtonsView,
     tHeaderButtons,
     tColumns,
     lines,

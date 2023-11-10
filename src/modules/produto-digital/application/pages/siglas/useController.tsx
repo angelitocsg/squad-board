@@ -30,7 +30,7 @@ const useController = () => {
   ];
 
   useEffect(() => {
-    document.title = "Produtos digitais | Squad";
+    document.title = "Siglas | Squad";
   }, []);
 
   useEffect(() => {

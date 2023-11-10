@@ -1,31 +1,54 @@
 import { useEffect, useState } from "react";
 
-import { Tab, TabContent, TabContentGroup, TabGroup } from "../../../../components/Tab";
+import {
+  Tab,
+  TabContent,
+  TabContentGroup,
+  TabGroup,
+} from "../../../../components/Tab";
 import { useService } from "../../../../di/DecouplerContext";
 import PageLayout from "../../../../shared/PageLayout";
+import AppModalService from "../../../core/components/AppModal/AppModalService";
 import DisplayTable from "../../../core/components/DisplayTable";
 import ProductModel from "../../../produto-digital/application/data/ProductModel";
 import ProductRepository from "../../../produto-digital/repository/ProductRepository";
+import SiglaRepository from "../../../produto-digital/repository/SiglaRepository";
+import RepoModel from "../../../repositorios/application/data/RepoModel";
 import useTableRepository from "../../../repositorios/application/pages/useTableRepository";
 
 const PainelProdutos = () => {
   const productRepository = useService<ProductRepository>("ProductRepository");
+  const siglaRepository = useService<SiglaRepository>("SiglaRepository");
+  const modalService = useService<AppModalService>("AppModalService");
   const [products, setProducts] = useState<ProductModel[]>([]);
   const [currentProduct, setCurrentProduct] = useState<ProductModel>();
-  const [siglasFromProduct, setSiglasFromProduct] = useState<string[]>([]);
-  const { tActionsView, tHeaderButtons, tColumns, lines, loadRepositories, handleEdit } =
-    useTableRepository();
+  const [siglas, setSiglas] = useState<string[]>([]);
+  const {
+    tActionsView,
+    tHeaderButtonsView,
+    tColumns,
+    lines,
+    loadRepositories,
+    handleEdit,
+  } = useTableRepository();
+
+  useEffect(() => {
+    document.title = "Produtos digitais - Painel | Squad";
+  }, []);
+
+  useEffect(() => {
+    siglaRepository.getAll();
+    const subscriber = siglaRepository.data$.subscribe((items) => {
+      setSiglas(items.map((item) => item.id));
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [siglaRepository]);
 
   useEffect(() => {
     productRepository.getAll();
     const subscriber = productRepository.data$.subscribe((items) => {
-      const siglas = items
-        .reduce((p, c) => {
-          if (!p.some((x) => x === c.sigla.id)) p.push(c.sigla.id);
-          return p;
-        }, [] as string[])
-        .sort((a, b) => a.localeCompare(b));
-      setSiglasFromProduct(siglas);
       setProducts(items.map((item) => ProductModel.fromDomain(item)));
     });
     return () => {
@@ -38,16 +61,31 @@ const PainelProdutos = () => {
     loadRepositories({ productId: product.id });
   };
 
+  const handleEditAndFilter = (line: RepoModel) => {
+    handleEdit(line);
+    const sub = modalService.visibility$.subscribe((value) => {
+      if (!value) {
+        sub.unsubscribe();
+        currentProduct && handleProductSelect(currentProduct);
+      }
+    });
+  };
+
   return (
     <PageLayout title="Painel de produtos">
       <TabGroup>
-        {siglasFromProduct.map((sigla, i) => (
-          <Tab key={i} active={i === 0} tabId={`${sigla}-tab`} tabLabel={sigla} />
+        {siglas.map((sigla, i) => (
+          <Tab
+            key={i}
+            active={i === 0}
+            tabId={`${sigla}-tab`}
+            tabLabel={sigla}
+          />
         ))}
       </TabGroup>
 
       <TabContentGroup>
-        {siglasFromProduct.map((sigla, i) => (
+        {siglas.map((sigla, i) => (
           <TabContent key={i} active={i === 0} tabId={`${sigla}-tab`}>
             <div className="d-flex justify-content-start flex-wrap gap-2">
               {products
@@ -56,7 +94,9 @@ const PainelProdutos = () => {
                   <div
                     key={product.id}
                     className={`card ${
-                      currentProduct?.name === product.name ? "bg-secondary bg-opacity-25" : ""
+                      currentProduct?.name === product.name
+                        ? "bg-secondary bg-opacity-25"
+                        : ""
                     }`}
                     role="button"
                     onClick={() => handleProductSelect(product)}>
@@ -83,9 +123,9 @@ const PainelProdutos = () => {
             <DisplayTable
               actions={tActionsView}
               columns={tColumns}
-              headerButtons={tHeaderButtons}
+              headerButtons={tHeaderButtonsView}
               lines={lines}
-              onLineClick={handleEdit}
+              onLineClick={handleEditAndFilter}
             />
           </div>
         </>
