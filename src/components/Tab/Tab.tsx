@@ -2,9 +2,10 @@ interface IProps {
   active?: boolean;
   tabId: string;
   tabLabel: string;
+  onClick?: () => void;
 }
 
-const Tab = ({ active, tabId, tabLabel }: IProps) => {
+const Tab = ({ active, tabId, tabLabel, onClick }: IProps) => {
   return (
     <li className="nav-item" role="presentation">
       <button
@@ -16,7 +17,7 @@ const Tab = ({ active, tabId, tabLabel }: IProps) => {
         role="tab"
         aria-controls={`${tabId}-tab-pane`}
         aria-selected={active ? "true" : "false"}
-      >
+        onClick={onClick}>
         {tabLabel}
       </button>
     </li>

@@ -56,6 +56,10 @@ const PainelProdutos = () => {
     };
   }, [productRepository]);
 
+  const handleSiglaSelect = () => {
+    setCurrentProduct(undefined);
+  };
+
   const handleProductSelect = (product: ProductModel) => {
     setCurrentProduct(product);
     loadRepositories({ productId: product.id });
@@ -72,7 +76,7 @@ const PainelProdutos = () => {
   };
 
   return (
-    <PageLayout title="Painel de produtos">
+    <PageLayout title="Painel de produtos" full>
       <TabGroup>
         {siglas.map((sigla, i) => (
           <Tab
@@ -80,6 +84,7 @@ const PainelProdutos = () => {
             active={i === 0}
             tabId={`${sigla}-tab`}
             tabLabel={sigla}
+            onClick={handleSiglaSelect}
           />
         ))}
       </TabGroup>

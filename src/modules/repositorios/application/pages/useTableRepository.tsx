@@ -25,7 +25,7 @@ const useTableRepository = () => {
 
   useEffect(() => {
     productRepository.getAll();
-    var subscriber = productRepository.data$.subscribe((items) => {
+    const subscriber = productRepository.data$.subscribe((items) => {
       setProducts(items.map((item) => ProductModel.fromDomain(item)));
     });
     return () => {
@@ -34,7 +34,7 @@ const useTableRepository = () => {
   }, [productRepository]);
 
   useEffect(() => {
-    var subscriber = repoRepository.data$.subscribe((items) => {
+    const subscriber = repoRepository.data$.subscribe((items) => {
       setLines(
         items.map((item) => {
           return {
@@ -146,6 +146,7 @@ const useTableRepository = () => {
 
   const tColumns: IColumns[] = [
     { field: "product", title: "Produto" },
+    { field: "description", title: "Descrição" },
     { field: "repoName", title: "Repositório" },
     { field: "type", title: "Tipo" },
     { field: "deploySequence", title: "Sequência" },
