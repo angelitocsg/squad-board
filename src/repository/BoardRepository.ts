@@ -128,7 +128,9 @@ export class BoardRepository {
 
   private _getIssueByAssignee(issues: IBoardIssue[]): IBoardIssue[] {
     return issues.filter((f) => {
-      const subs = f.issues?.filter((s) => s.assignee === this.current_assignee);
+      const subs = f.issues?.filter(
+        (s) => s.assignee === this.current_assignee,
+      );
 
       if (f.assignee !== this.current_assignee && !subs?.length) {
         return false;
@@ -158,7 +160,9 @@ export class BoardRepository {
   }
   private _getIssueByHidden(issues: IBoardIssue[]): IBoardIssue[] {
     return issues.filter((f) => {
-      const subs = this.current_hidden.find((fd) => fd === IssueType.subs) ? [] : f.issues;
+      const subs = this.current_hidden.find((fd) => fd === IssueType.subs)
+        ? []
+        : f.issues;
 
       if (this.current_hidden.find((fd) => fd === f.type)) {
         return false;
@@ -184,7 +188,11 @@ export class BoardRepository {
         id: this._getStatusOrder(d.status),
         status: d.status ?? "",
         count: issues
-          .filter((f) => f.status === d.status || f.issues?.find((ff) => ff.status === d.status))
+          .filter(
+            (f) =>
+              f.status === d.status ||
+              f.issues?.find((ff) => ff.status === d.status),
+          )
           .map((m) => count_issue(m, d.status ?? ""))
           .reduce((p, c) => p + c, 0),
       }))
@@ -206,26 +214,32 @@ export class BoardRepository {
       case IssueStatus.A_FAZER:
         return "0";
       case IssueStatus.EM_REFINAMENTO:
-        return "1";
+        return "10";
       case IssueStatus.EM_EXECUCAO:
       case IssueStatus.EM_EXPLORACAO:
-        return "2";
+        return "20";
+      case IssueStatus.EXECUTADO:
+        return "30";
       case IssueStatus.EM_TESTES:
       case IssueStatus.EM_VALIDACAO_DE_HIPOTESES:
-        return "3";
+        return "40";
+      case IssueStatus.TESTADO:
+        return "50";
       case IssueStatus.EM_VALIDACAO:
+        return "60";
       case IssueStatus.VALIDADO:
-        return "4";
+        return "70";
       case IssueStatus.EM_IMPLANTACAO:
+        return "80";
       case IssueStatus.IMPLANTADO:
-        return "5";
+        return "90";
       case IssueStatus.ENCERRADO_ATIVADO:
       case IssueStatus.VALIDADA:
-        return "7";
+        return "91";
       case IssueStatus.CANCELADO:
-        return "8";
+        return "92";
       default:
-        return "9";
+        return "99";
     }
   }
 
