@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import NavDropdown from "./NavDropdown";
+import NavDropdownDivider from "./NavDropdownDivider";
 import NavDropdownItem from "./NavDropdownItem";
 import NavItem from "./NavItem";
 
@@ -13,6 +14,8 @@ const NavCadastros = () => {
         link="/cadastros/produto-digital"
       />
       <NavDropdownItem label="Repositórios" link="/cadastros/repositorios" />
+      <NavDropdownDivider />
+      <NavDropdownItem label="Acessos Hub" link="/cadastros/acessos-hub" />
     </NavDropdown>
   );
 };

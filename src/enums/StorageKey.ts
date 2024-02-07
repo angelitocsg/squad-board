@@ -11,4 +11,5 @@ export enum StorageKey {
   DATA_REPOSITORIOS = "data_repositorios",
   DATA_TASK_PLANNING = "data_task_planning",
   DATA_SIGLA = "data_sigla",
+  DATA_ACESSOS_HUB = "data_acessos_hub",
 }

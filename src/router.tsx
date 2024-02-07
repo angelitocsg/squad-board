@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
+import AcessosHubHome from "./modules/hub/application/pages";
 import { PainelProdutos } from "./modules/paineis/application/pages";
 import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
 import SiglaPage from "./modules/produto-digital/application/pages/siglas";
@@ -87,6 +88,10 @@ const router = createBrowserRouter(
             {
               path: "/cadastros/gestao-mudanca",
               element: <GestaoMudancaHome />,
+            },
+            {
+              path: "/cadastros/acessos-hub",
+              element: <AcessosHubHome />,
             },
           ],
         },

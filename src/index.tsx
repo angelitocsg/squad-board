@@ -10,6 +10,8 @@ import AlertModalService from "./modules/core/components/AlertModal/AlertModalSe
 import AppModalService from "./modules/core/components/AppModal/AppModalService";
 import GmudStore from "./modules/gestao-mudanca/application/data/GmudStore";
 import GmudRepositoryLocalStorage from "./modules/gestao-mudanca/repository/GmudRepositoryLocalStorage";
+import ConsumidorStore from "./modules/hub/application/data/ConsumidorStore";
+import ConsumidorRepositoryLocalStorage from "./modules/hub/repository/ConsumidorRepositoryLocalStorage";
 import ProductStore from "./modules/produto-digital/application/data/ProductStore";
 import SiglaStore from "./modules/produto-digital/application/data/SiglaStore";
 import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
@@ -32,6 +34,8 @@ locator.register("AlertModalService", AlertModalService);
 locator.register("AppModalService", AppModalService);
 locator.register("BoardService", BoardService);
 locator.register("BoardRepository", BoardRepository);
+locator.register("ConsumidorStore", ConsumidorStore);
+locator.register("ConsumidorRepository", ConsumidorRepositoryLocalStorage);
 locator.register("FaqService", FaqService);
 locator.register("GmudRepository", GmudRepositoryLocalStorage);
 locator.register("GmudStore", GmudStore);
