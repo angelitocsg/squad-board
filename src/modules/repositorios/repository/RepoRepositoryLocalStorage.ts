@@ -12,8 +12,8 @@ export default class RepoRepositoryLocalStorage implements RepoRepository {
 
   private get data() {
     return this._data.value.sort((a, b) =>
-      `${a.productId}-${a.repository}`.localeCompare(
-        `${b.productId}-${b.repository}`,
+      `${a.productId}-${a.deploySequence}-${a.repository}`.localeCompare(
+        `${b.productId}-${b.deploySequence}-${b.repository}`,
       ),
     );
   }

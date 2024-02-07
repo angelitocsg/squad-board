@@ -14,8 +14,8 @@ export default class ProductRepositoryLocalStorage
 
   private get data() {
     return this._data.value.sort((a, b) =>
-      `${a.sigla}-${a.disabled ? 1 : -1}-${a.name}`.localeCompare(
-        `${b.sigla}-${b.disabled ? 1 : -1}-${b.name}`,
+      `${a.sigla}-${a.disabled ? "z" : "a"}-${a.name}`.localeCompare(
+        `${b.sigla}-${b.disabled ? "z" : "a"}-${b.name}`,
       ),
     );
   }
