@@ -57,6 +57,7 @@ export class BackupService {
       if (typeof line[col] === "string")
         return `"${line[col]?.replace(/\t/g, "")}"`;
       if (typeof line[col] === "boolean") return line[col];
+      if (typeof line[col] === "object") return JSON.stringify(line[col]);
       return line[col] !== undefined ? `"${line[col]}"` : "";
     };
 
@@ -68,7 +69,7 @@ export class BackupService {
     ExportHelper.csvFile(content, `${fileName ?? "data"}_${dt}`);
   }
 
-  static importCsvToData(key: string) {
+  static importCsvToData(key: string, detailColumns?: string[]) {
     const fileInput = document.getElementById("fileInput") as HTMLInputElement;
     fileInput.accept = "text/csv";
     fileInput?.addEventListener("change", handleFiles, false);
@@ -93,7 +94,10 @@ export class BackupService {
           .map((line) => {
             const it: any = {};
             columns.forEach((col, i) => {
-              it[col] = line[i];
+              it[col] =
+                detailColumns?.indexOf(col) !== -1 && line[i] !== undefined
+                  ? JSON.parse(line[i])
+                  : line[i];
             });
             return it;
           })

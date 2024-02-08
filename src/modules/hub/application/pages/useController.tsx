@@ -19,8 +19,9 @@ const useController = () => {
   const modalService = useService<AppModalService>("AppModalService");
   const alertService = useService<AlertModalService>("AlertModalService");
   const consumidorStore = useService<ConsumidorStore>("ConsumidorStore");
-  const consumidorRepository =
-    useService<ConsumidorRepository>("ConsumidorRepository");
+  const consumidorRepository = useService<ConsumidorRepository>(
+    "ConsumidorRepository",
+  );
   const [lines, setLines] = useState<ConsumidorModel[]>([]);
 
   const tColumns: IColumns[] = [
@@ -28,6 +29,8 @@ const useController = () => {
     { field: "razaoSocial", title: "Razão Social" },
     { field: "nomeFantasia", title: "Nome fantasia" },
     { field: "dataCadastro", title: "Data cadastro" },
+    { field: "acessoDoctoSimNao", title: "Documentação" },
+    { field: "acessoViaHierarquiaSimNao", title: "Via hierarquia" },
   ];
 
   useEffect(() => {
@@ -39,8 +42,13 @@ const useController = () => {
     const subscriber = consumidorRepository.data$.subscribe((items) => {
       setLines(
         items.map((item) => {
+          const model = ConsumidorModel.fromDomain(item);
           return {
-            ...ConsumidorModel.fromDomain(item),
+            ...model,
+            acessoDoctoSimNao: model.acessoDocto ? "SIM" : "NÃO",
+            acessoViaHierarquiaSimNao: model.acessoViaHierarquia
+              ? "SIM"
+              : "NÃO",
           };
         }),
       );
@@ -60,6 +68,8 @@ const useController = () => {
         model.dataCadastro,
         model.contatos.map((x) => ContatoModel.toDomain(x)),
         model.acessos.map((x) => AcessoModel.toDomain(x)),
+        model.acessoDocto,
+        model.acessoViaHierarquia,
       );
       if (!model.id) consumidorRepository.create(consumidor);
       else consumidorRepository.update(model.id, consumidor.updateId(model.id));
@@ -124,17 +134,21 @@ const useController = () => {
   };
 
   const handleDelete = (line: ConsumidorModel) => {
-    if (window.confirm("Excluir consumidor?")) consumidorRepository.delete(line.id);
+    if (window.confirm("Excluir consumidor?"))
+      consumidorRepository.delete(line.id);
   };
 
   const handleImport = () => {
-    BackupService.importCsvToData(StorageKey.DATA_GESTAO_MUDANCA);
+    BackupService.importCsvToData(StorageKey.DATA_ACESSOS_HUB, [
+      "acessos",
+      "contatos",
+    ]);
   };
 
   const handleExport = () => {
     BackupService.exportDataAsCsv(
       consumidorRepository.export(),
-      StorageKey.DATA_GESTAO_MUDANCA,
+      StorageKey.DATA_ACESSOS_HUB,
     );
   };
 

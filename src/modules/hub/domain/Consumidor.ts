@@ -19,6 +19,14 @@ export default class Consumidor {
   get acessos() {
     return this._acessos;
   }
+  private _acessoDocto: boolean = false;
+  get acessoDocto() {
+    return this._acessoDocto;
+  }
+  private _acessoViaHierarquia: boolean = false;
+  get acessoViaHierarquia() {
+    return this._acessoViaHierarquia;
+  }
 
   constructor(
     id: string,
@@ -28,6 +36,8 @@ export default class Consumidor {
     dataCadastro: string,
     contatos: Contato[],
     acessos: Acesso[],
+    acessoDocto?: boolean,
+    acessoViaHierarquia?: boolean,
   ) {
     this._id = id;
     this.cnpj = cnpj;
@@ -36,6 +46,8 @@ export default class Consumidor {
     this.dataCadastro = dataCadastro;
     this._contatos = contatos;
     this._acessos = acessos;
+    this._acessoDocto = acessoDocto ?? false;
+    this._acessoViaHierarquia = acessoViaHierarquia ?? false;
   }
 
   updateId(id: string): this {
@@ -51,6 +63,8 @@ export default class Consumidor {
     dataCadastro: string,
     contatos: Contato[],
     acessos: Acesso[],
+    acessoDocto?: boolean,
+    acessoViaHierarquia?: boolean,
   ) {
     if (!cnpj) throw Error("O CNPJ deve ser informado");
     if (!razaoSocial) throw Error("A razão social deve ser informada");
@@ -63,6 +77,8 @@ export default class Consumidor {
       dataCadastro,
       contatos,
       acessos,
+      acessoDocto,
+      acessoViaHierarquia,
     );
   }
 
@@ -74,6 +90,8 @@ export default class Consumidor {
     dataCadastro: string,
     contatos: Contato[],
     acessos: Acesso[],
+    acessoDocto?: boolean,
+    acessoViaHierarquia?: boolean,
   ) {
     return new Consumidor(
       id,
@@ -83,6 +101,8 @@ export default class Consumidor {
       dataCadastro,
       contatos,
       acessos,
+      acessoDocto,
+      acessoViaHierarquia,
     );
   }
 }

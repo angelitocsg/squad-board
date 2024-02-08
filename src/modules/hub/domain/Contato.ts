@@ -29,12 +29,14 @@ export default class Contato {
 
   static create(nome: string, telefone: string, email: string) {
     if (!nome) throw Error("O nome deve ser informado");
-    if (!email) throw Error("O email deve ser informado");
+    if (!email) throw Error("O e-mail deve ser informado");
     const id = uuidv4();
     return new Contato(id, nome, telefone, email);
   }
 
   static restore(id: string, nome: string, telefone: string, email: string) {
+    if (!nome) throw Error("O nome deve ser informado");
+    if (!email) throw Error("O e-mail deve ser informado");
     return new Contato(id, nome, telefone, email);
   }
 }

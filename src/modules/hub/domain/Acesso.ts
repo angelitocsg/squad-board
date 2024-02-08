@@ -35,6 +35,8 @@ export default class Acesso {
   }
 
   static restore(id: string, apiKey: string, sigla: string, escopos: string[]) {
+    if (!apiKey) throw Error("O ApiKey deve ser informado");
+    if (!sigla) throw Error("A sigla deve ser informada");
     return new Acesso(id, apiKey, sigla, escopos);
   }
 }

@@ -9,8 +9,10 @@ export default class ConsumidorModel {
   razaoSocial: string = "";
   nomeFantasia: string = "";
   dataCadastro: string = "";
-  contatos: ContatoModel[] = [];
-  acessos: AcessoModel[] = [];
+  contatos: ContatoModel[] = [new ContatoModel()];
+  acessos: AcessoModel[] = [new AcessoModel()];
+  acessoDocto: boolean = false;
+  acessoViaHierarquia: boolean = false;
 
   constructor() {
     this.dataCadastro = dateHelper.format(new Date(), "dd/MM/yyyy hh:mm:ss");
@@ -25,6 +27,8 @@ export default class ConsumidorModel {
       dataCadastro: entity.dataCadastro,
       contatos: entity.contatos,
       acessos: entity.acessos,
+      acessoDocto: entity.acessoDocto,
+      acessoViaHierarquia: entity.acessoViaHierarquia,
     };
   }
 
@@ -37,6 +41,8 @@ export default class ConsumidorModel {
       model.dataCadastro,
       model.contatos.map((x) => ContatoModel.toDomain(x)),
       model.acessos.map((x) => AcessoModel.toDomain(x)),
+      model.acessoDocto,
+      model.acessoViaHierarquia,
     );
   }
 }
