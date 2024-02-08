@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { useService } from "../../../../di/DecouplerContext";
 import FormCheckBox from "../../../core/components/FormCheckBox";
 import FormInput from "../../../core/components/FormInput";
-import { ISelectOptions } from "../../../core/components/SelectInput";
-import RepoModel from "../../../repositorios/application/data/RepoModel";
-import RepoRepository from "../../../repositorios/repository/RepoRepository";
 import AcessoModel from "../data/AcessoModel";
 import ConsumidorModel from "../data/ConsumidorModel";
 import ContatoModel from "../data/ContatoModel";
@@ -17,8 +13,6 @@ type IProps = {
 
 const ConsumidorForm = ({ data, onChange }: IProps) => {
   const [state, setState] = useState<ConsumidorModel>(data);
-  const repoRepository = useService<RepoRepository>("RepoRepository");
-  const [repositories, setRepositories] = useState<ISelectOptions[]>([]);
 
   const handleChange = (e: any) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -59,22 +53,6 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
             })),
     });
   };
-
-  useEffect(() => {
-    repoRepository.getAll();
-    var subscriber = repoRepository.data$.subscribe((items) => {
-      setRepositories([
-        { label: "", value: "" },
-        ...items.map((item) => ({
-          label: RepoModel.fromDomain(item).repository,
-          value: RepoModel.fromDomain(item).id,
-        })),
-      ]);
-    });
-    return () => {
-      subscriber.unsubscribe();
-    };
-  }, [repoRepository]);
 
   useEffect(() => {
     onChange && onChange(state);
