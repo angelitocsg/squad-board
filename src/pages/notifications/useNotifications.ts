@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 interface Notification {
   id: string;
   v: number;
+  cp: "banner" | "modal";
   t: "error" | "warn" | "danger" | "info";
   m: string;
   mf: string[];
@@ -16,11 +17,14 @@ interface Notification {
   ed?: string;
   edh?: string;
   fx: 0 | 1;
+  tit?: string; // titulo
+  txb?: string; // texto botão
 }
 
 const notificationInitial: Notification = {
-  id: uuidv4().split('-')[0],
+  id: uuidv4().split("-")[0],
   v: 1,
+  cp: "banner",
   t: "info",
   fx: 0,
   m: "",
@@ -34,6 +38,7 @@ const useNotifications = () => {
   const [notification, set_notification] =
     useState<Notification>(notificationInitial);
   const [messages, set_messages] = useState<Notification[]>([]);
+  const [is_modal, set_is_modal] = useState<boolean>(false);
 
   const updateValue = (field: string, value: any) => {
     set_notification({
@@ -66,7 +71,7 @@ const useNotifications = () => {
       ...valid_data,
       messages: valid_data.messages,
     });
-    set_notification({ ...notificationInitial, id: uuidv4().split('-')[0] });
+    set_notification({ ...notificationInitial, id: uuidv4().split("-")[0] });
   };
 
   const removeNotification = (idx: number) => {
@@ -98,6 +103,19 @@ const useNotifications = () => {
   }, [input_data]);
 
   useEffect(() => {
+    const is = notification.cp === "modal";
+    if (!is) {
+      set_notification({
+        ...notification,
+        txb: undefined,
+        tit: undefined,
+      });
+    }
+    set_is_modal(is);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [notification.cp]);
+
+  useEffect(() => {
     document.title = "Notificações | Squad";
   }, []);
 
@@ -107,6 +125,7 @@ const useNotifications = () => {
     valid_data,
     input_data,
     invalid_json,
+    is_modal,
     editNotification,
     set_notification,
     saveNotification,

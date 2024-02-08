@@ -7,6 +7,7 @@ const NotificationsPage = () => {
     valid_data,
     input_data,
     invalid_json,
+    is_modal,
     editNotification,
     saveNotification,
     set_input_data,
@@ -31,8 +32,7 @@ const NotificationsPage = () => {
               id="origem"
               rows={8}
               value={input_data}
-              onChange={(e) => set_input_data(e.target.value)}
-            ></textarea>
+              onChange={(e) => set_input_data(e.target.value)}></textarea>
             <span className="text-danger">{invalid_json}</span>
           </div>
         </div>
@@ -48,8 +48,7 @@ const NotificationsPage = () => {
               className="form-control"
               id="destino"
               rows={8}
-              value={JSON.stringify(valid_data)}
-            ></textarea>
+              value={JSON.stringify(valid_data)}></textarea>
           </div>
         </div>
       </div>
@@ -97,6 +96,7 @@ const NotificationsPage = () => {
           <table className="table table-hover table-sm">
             <thead className="table-dark">
               <tr>
+                <th>Componente</th>
                 <th>Tipo</th>
                 <th>Mensagem</th>
                 <th colSpan={2}>Vigência</th>
@@ -106,6 +106,7 @@ const NotificationsPage = () => {
             <tbody className="table-light">
               {(messages as any[]).map((msg, idx) => (
                 <tr key={idx}>
+                  <td>{msg.cp === "modal" ? "Modal" : "Banner"}</td>
                   <td>
                     {msg.t === "info"
                       ? "Novidade"
@@ -124,14 +125,12 @@ const NotificationsPage = () => {
                     <span
                       role="button"
                       onClick={(e) => editNotification(idx)}
-                      className="me-2"
-                    >
+                      className="me-2">
                       <i className="bi bi-pencil"></i>
                     </span>
                     <span
                       role="button"
-                      onClick={(e) => removeNotification(idx)}
-                    >
+                      onClick={(e) => removeNotification(idx)}>
                       <i className="bi bi-trash"></i>
                     </span>
                   </td>
@@ -144,7 +143,7 @@ const NotificationsPage = () => {
       <h2 className="h5 mt-5 mb-3">Adicionar notificação</h2>
       <form onSubmit={saveNotification}>
         <div className="row">
-          <div className="col">
+          <div className="col-1">
             <div className="mb-3">
               <label htmlFor="v" className="form-label">
                 Versão
@@ -161,7 +160,24 @@ const NotificationsPage = () => {
             </div>
           </div>
 
-          <div className="col">
+          <div className="col-2">
+            <div className="mb-3">
+              <label htmlFor="cp" className="form-label">
+                Componente
+              </label>
+              <select
+                className="form-select"
+                id="cp"
+                name="cp"
+                value={notification.cp}
+                onChange={(e) => updateValue(e.target.name, e.target.value)}>
+                <option value="banner">Banner</option>
+                <option value="modal">Modal</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-2">
             <div className="mb-3">
               <label htmlFor="t" className="form-label">
                 Tipo
@@ -171,8 +187,7 @@ const NotificationsPage = () => {
                 id="t"
                 name="t"
                 value={notification.t}
-                onChange={(e) => updateValue(e.target.name, e.target.value)}
-              >
+                onChange={(e) => updateValue(e.target.name, e.target.value)}>
                 <option value="info">Novidade</option>
                 <option value="warn">Alerta</option>
                 <option value="error">Erro</option>
@@ -191,8 +206,7 @@ const NotificationsPage = () => {
                 id="fx"
                 name="fx"
                 value={notification.fx}
-                onChange={(e) => updateValue(e.target.name, e.target.value)}
-              >
+                onChange={(e) => updateValue(e.target.name, e.target.value)}>
                 <option value="0">Usuário pode fechar</option>
                 <option value="1">
                   Sempre exibir sem possibilidade de fechar
@@ -201,13 +215,13 @@ const NotificationsPage = () => {
             </div>
           </div>
 
-          <div className="col">
+          <div className="col-3">
             <div className="mb-3">
               <label htmlFor="rcm" className="form-label">
                 Reexibir a cada x minutos
               </label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="rcm"
                 name="rcm"
@@ -219,8 +233,48 @@ const NotificationsPage = () => {
           </div>
         </div>
 
+        {is_modal ? (
+          <div className="row">
+            <div className="col-8">
+              <div className="mb-3">
+                <label htmlFor="tit" className="form-label">
+                  Título (Máximo 50 caracteres. Atual:{" "}
+                  {notification.tit?.length ?? 0})
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="tit"
+                  name="tit"
+                  maxLength={50}
+                  value={notification.tit}
+                  onChange={(e) => updateValue(e.target.name, e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="col">
+              <div className="mb-3">
+                <label htmlFor="txb" className="form-label">
+                  Texto botão (Máximo 15 caracteres. Atual:{" "}
+                  {notification.txb?.length ?? 0})
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="txb"
+                  name="txb"
+                  maxLength={15}
+                  placeholder="ex: ok, entendi"
+                  value={notification.txb}
+                  onChange={(e) => updateValue(e.target.name, e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        ) : undefined}
+
         <div className="row">
-          <div className="col">
+          <div className="col-8">
             <div className="mb-3">
               <label htmlFor="m" className="form-label">
                 Mensagem{" "}
@@ -236,15 +290,16 @@ const NotificationsPage = () => {
                 rows={4}
                 maxLength={200}
                 value={notification.m}
-                onChange={(e) => updateValue(e.target.name, e.target.value)}
-              ></textarea>
+                onChange={(e) =>
+                  updateValue(e.target.name, e.target.value)
+                }></textarea>
             </div>
           </div>
 
           <div className="col">
             <div className="mb-3">
               <label htmlFor="mf" className="form-label">
-                Microfrontend
+                Microfrontend*
               </label>
               <select
                 className="form-select"
@@ -254,8 +309,7 @@ const NotificationsPage = () => {
                 value={notification.mf}
                 onChange={(e) =>
                   updateSelectMultiple(e.target.name, e.target.options)
-                }
-              >
+                }>
                 <option value="mf-corban-chassi">Chassi</option>
                 <option value="mf-corban-configuracoes">Configurações</option>
                 <option value="mf-faq-ui">FAQ</option>
@@ -391,8 +445,7 @@ const NotificationsPage = () => {
               <button
                 type="submit"
                 className="btn btn-primary mt-3"
-                style={{ minWidth: 250 }}
-              >
+                style={{ minWidth: 250 }}>
                 Salvar
               </button>
             </div>
