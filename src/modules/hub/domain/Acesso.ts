@@ -7,13 +7,13 @@ export default class Acesso {
   }
   readonly apiKey: string;
   readonly sigla: string;
-  readonly escopos: string[];
+  readonly escopos: string;
 
   private constructor(
     id: string,
     apiKey: string,
     sigla: string,
-    escopos: string[],
+    escopos: string,
   ) {
     this._id = id;
     this.apiKey = apiKey;
@@ -27,14 +27,14 @@ export default class Acesso {
     return this;
   }
 
-  static create(apiKey: string, sigla: string, escopos: string[]) {
+  static create(apiKey: string, sigla: string, escopos: string) {
     if (!apiKey) throw Error("O ApiKey deve ser informado");
     if (!sigla) throw Error("A sigla deve ser informada");
     const id = uuidv4();
     return new Acesso(id, apiKey, sigla, escopos);
   }
 
-  static restore(id: string, apiKey: string, sigla: string, escopos: string[]) {
+  static restore(id: string, apiKey: string, sigla: string, escopos: string) {
     if (!apiKey) throw Error("O ApiKey deve ser informado");
     if (!sigla) throw Error("A sigla deve ser informada");
     return new Acesso(id, apiKey, sigla, escopos);

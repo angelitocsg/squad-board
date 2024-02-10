@@ -97,7 +97,7 @@ const useController = () => {
     modalService
       .config({
         title: "novo consumidor",
-        size: "large",
+        size: "xlarge",
         buttonOkLabel: "Criar",
         buttonOkAction: handleSave,
         children: () => (
@@ -118,7 +118,7 @@ const useController = () => {
     modalService
       .config({
         title: `editar consumidor (${line.id.split("-")[0]})`,
-        size: "large",
+        size: "xlarge",
         buttonOkLabel: "Salvar",
         buttonOkAction: handleSave,
         children: () => (

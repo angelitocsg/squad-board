@@ -8,8 +8,8 @@ export default class ConsumidorDTO {
   razaoSocial: string;
   nomeFantasia: string;
   dataCadastro: string;
-  contatos: object[];
-  acessos: object[];
+  contatos: any[];
+  acessos: any[];
   acessoDocto: boolean;
   acessoViaHierarquia: boolean;
 
@@ -32,8 +32,17 @@ export default class ConsumidorDTO {
       dto.razaoSocial,
       dto.nomeFantasia,
       dto.dataCadastro,
-      dto.contatos as Contato[],
-      dto.acessos as Acesso[],
+      dto.contatos.map((contato) =>
+        Contato.restore(
+          contato.id,
+          contato.nome,
+          contato.telefone,
+          contato.email,
+        ),
+      ),
+      dto.acessos.map((acesso) =>
+        Acesso.restore(acesso.id, acesso.apiKey, acesso.sigla, acesso.escopos),
+      ),
       dto.acessoDocto,
       dto.acessoViaHierarquia,
     );
