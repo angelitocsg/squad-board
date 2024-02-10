@@ -28,9 +28,11 @@ const useModalController = () => {
     setSize(
       state.size === "full"
         ? "modal-fullscreen"
+        : state.size === "xlarge"
+        ? "modal-xl"
         : state.size === "large"
         ? "modal-lg"
-        : state.size
+        : state.size,
     );
   }, [state.size]);
 

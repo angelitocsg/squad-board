@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs";
 
 export type IModal = {
   title?: string;
-  size?: "full" | "large";
+  size?: "full" | "large" | "xlarge";
   modalId?: string;
   buttonOkLabel?: string;
   buttonOkAction?: () => void;
