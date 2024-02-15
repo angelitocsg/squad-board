@@ -61,7 +61,6 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
             label="Data cadastro"
             field="dataCadastro"
             value={state.dataCadastro}
-            disabled
             onChange={handleChange}
           />
         </div>
