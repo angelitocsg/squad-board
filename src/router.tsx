@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
-import AcessosHubHome from "./modules/hub/application/pages";
+import HubConsumidoresHome from "./modules/hub/application/pages";
+import HubAcessosHome from "./modules/hub/application/pages/acessos";
+import HubContatosHome from "./modules/hub/application/pages/contatos";
 import { PainelProdutos } from "./modules/paineis/application/pages";
 import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
 import SiglaPage from "./modules/produto-digital/application/pages/siglas";
@@ -89,9 +91,22 @@ const router = createBrowserRouter(
               path: "/cadastros/gestao-mudanca",
               element: <GestaoMudancaHome />,
             },
+          ],
+        },
+        {
+          path: "hub",
+          children: [
             {
-              path: "/cadastros/acessos-hub",
-              element: <AcessosHubHome />,
+              path: "correspondentes",
+              element: <HubConsumidoresHome />,
+            },
+            {
+              path: "acessos",
+              element: <HubAcessosHome />,
+            },
+            {
+              path: "contatos",
+              element: <HubContatosHome />,
             },
           ],
         },

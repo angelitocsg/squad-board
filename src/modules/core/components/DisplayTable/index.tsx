@@ -5,6 +5,7 @@ export type IColumns = {
   field: string;
   title: string;
   width?: number;
+  nowrap?: boolean;
 };
 
 export type IActions = {

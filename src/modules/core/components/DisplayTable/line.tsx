@@ -24,7 +24,10 @@ const DisplayTableLine = ({
   return (
     <tr key={lineKey} role={onLineClick ? "button" : undefined}>
       {columns.map((cl, ci) => (
-        <td key={`${lineKey}_${ci}`} onClick={handleOnClick}>
+        <td
+          key={`${lineKey}_${ci}`}
+          className={cl.nowrap ? "text-nowrap small" : "small"}
+          onClick={handleOnClick}>
           {line[cl.field]}
         </td>
       ))}
@@ -33,8 +36,7 @@ const DisplayTableLine = ({
           <div
             key={`act_${i}`}
             onClick={() => handleActionClick(a.onClick)}
-            className="small btn-link d-inline-flex px-1 text-primary"
-          >
+            className="small btn-link d-inline-flex px-1 text-primary">
             {a.label}
           </div>
         ))}

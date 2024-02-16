@@ -7,6 +7,8 @@ import AlertModalService from "../../../core/components/AlertModal/AlertModalSer
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
+import GmudModel from "../../../gestao-mudanca/application/data/GmudModel";
+import GmudRepository from "../../../gestao-mudanca/repository/GmudRepository";
 import ProductModel from "../../../produto-digital/application/data/ProductModel";
 import ProductRepository from "../../../produto-digital/repository/ProductRepository";
 import RepoRepository, { TFilterRepo } from "../../repository/RepoRepository";
@@ -20,7 +22,9 @@ const useTableRepository = () => {
   const repoStore = useService<RepoStore>("RepoStore");
   const productRepository = useService<ProductRepository>("ProductRepository");
   const repoRepository = useService<RepoRepository>("RepoRepository");
+  const gmudRepository = useService<GmudRepository>("GmudRepository");
   const [products, setProducts] = useState<ProductModel[]>([]);
+  const [gmuds, setGmuds] = useState<GmudModel[]>([]);
   const [lines, setLines] = useState<RepoModel[]>([]);
 
   useEffect(() => {
@@ -34,6 +38,16 @@ const useTableRepository = () => {
   }, [productRepository]);
 
   useEffect(() => {
+    gmudRepository.getAll();
+    const subscriber = gmudRepository.data$.subscribe((items) => {
+      setGmuds(items.map((item) => GmudModel.fromDomain(item)));
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [gmudRepository]);
+
+  useEffect(() => {
     const subscriber = repoRepository.data$.subscribe((items) => {
       setLines(
         items.map((item) => {
@@ -41,6 +55,10 @@ const useTableRepository = () => {
             ...RepoModel.fromDomain(item),
             product: products.find((x) => x.id === item.productId)?.name,
             repoName: item.repository.split("/")[1],
+            gmuds:
+              gmuds.filter((x) => x.repositoryId === item.id).length === 0
+                ? ""
+                : "SIM",
           };
         }),
       );
@@ -153,6 +171,7 @@ const useTableRepository = () => {
     { field: "codeBase", title: "Code base" },
     { field: "siglaApp", title: "Sigla App" },
     { field: "pipelineVersion", title: "Pipeline" },
+    { field: "gmuds", title: "Gmuds" },
   ];
 
   const tActionsView: IActions[] = [

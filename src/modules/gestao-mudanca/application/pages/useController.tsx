@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useService } from "../../../../di/DecouplerContext";
 import { GmudStatus } from "../../../../enums/GmudStatus";
 import { StorageKey } from "../../../../enums/StorageKey";
+import dateHelper from "../../../../helpers/date.helper";
 import { BackupService } from "../../../../services/BackupService";
 import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
 import AppModalService from "../../../core/components/AppModal/AppModalService";
@@ -27,13 +28,12 @@ const useController = () => {
 
   const tColumns: IColumns[] = [
     { field: "number", title: "Número" },
-    { field: "story", title: "Tarefa" },
+    { field: "story", title: "Tarefa", nowrap: true },
     { field: "version", title: "Versão" },
-    { field: "date", title: "Data" },
-    { field: "time", title: "Hora" },
+    { field: "dateTime", title: "Data e hora", nowrap: true },
     { field: "status", title: "Status" },
     { field: "repository", title: "Repositório" },
-    { field: "owner", title: "Responsável" },
+    { field: "owner", title: "Responsável", nowrap: true },
     { field: "description", title: "Descrição" },
   ];
 
@@ -60,6 +60,12 @@ const useController = () => {
             ...GmudModel.fromDomain(item),
             repository: repositories.find((x) => x.id === item.repositoryId)
               ?.repository,
+            dateTime: item.date
+              ? `${dateHelper.format(
+                  dateHelper.toDate(item.date),
+                  "dd/MM/yyyy",
+                )} ${item.time}`
+              : "",
           };
         }),
       );

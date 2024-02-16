@@ -14,8 +14,6 @@ const NavCadastros = () => {
         link="/cadastros/produto-digital"
       />
       <NavDropdownItem label="Repositórios" link="/cadastros/repositorios" />
-      <NavDropdownDivider />
-      <NavDropdownItem label="Acessos Hub" link="/cadastros/acessos-hub" />
     </NavDropdown>
   );
 };
@@ -26,6 +24,17 @@ const NavUtils = () => {
       <NavDropdownItem label="Notificações" link="/notifications" />
       <NavDropdownItem label="Editor FAQ" link="/faq-editor" />
       <NavDropdownItem label="Planejamento" link="/sprint-planning" />
+    </NavDropdown>
+  );
+};
+
+const NavHubServicos = () => {
+  return (
+    <NavDropdown label="Hub">
+      <NavDropdownItem label="Corrrespodentes" link="/hub/correspondentes" />
+      <NavDropdownDivider />
+      <NavDropdownItem label="Acessos" link="/hub/acessos" />
+      <NavDropdownItem label="Contatos" link="/hub/contatos" />
     </NavDropdown>
   );
 };
@@ -64,6 +73,7 @@ const Navbar = () => {
             />
             <NavItem label="Tarefas" link="/tarefas" />
             <NavItem label="Aplicações" link="/projects" />
+            <NavHubServicos />
             <NavCadastros />
             <NavUtils />
             <NavItem label="Configurações" link="/settings" />

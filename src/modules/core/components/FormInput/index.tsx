@@ -11,7 +11,7 @@ type IFormInputRightButton = {
 interface IFormInput extends IFormInputRightButton {
   label: string;
   field: string;
-  type: "text" | "email" | "textarea" | "date";
+  type: "text" | "tel" | "email" | "textarea" | "date";
   value?: string | number | readonly string[];
   defaultValue?: string | number | readonly string[];
   disabled?: boolean;
