@@ -1,5 +1,3 @@
-import Acesso from "./Acesso";
-import Contato from "./Contato";
 import { v4 as uuidv4 } from "uuid";
 
 export default class Consumidor {
@@ -11,14 +9,7 @@ export default class Consumidor {
   readonly razaoSocial: string;
   readonly nomeFantasia: string;
   readonly dataCadastro: string;
-  private _contatos: Contato[];
-  get contatos() {
-    return this._contatos;
-  }
-  private _acessos: Acesso[];
-  get acessos() {
-    return this._acessos;
-  }
+  readonly responsavel: string;
   private _acessoDocto: boolean = false;
   get acessoDocto() {
     return this._acessoDocto;
@@ -27,6 +18,10 @@ export default class Consumidor {
   get acessoViaHierarquia() {
     return this._acessoViaHierarquia;
   }
+  private _ativo: boolean = false;
+  get ativo() {
+    return this._ativo;
+  }
 
   constructor(
     id: string,
@@ -34,20 +29,20 @@ export default class Consumidor {
     razaoSocial: string,
     nomeFantasia: string,
     dataCadastro: string,
-    contatos: Contato[],
-    acessos: Acesso[],
+    responsavel: string,
     acessoDocto?: boolean,
     acessoViaHierarquia?: boolean,
+    ativo?: boolean,
   ) {
     this._id = id;
     this.cnpj = cnpj;
     this.razaoSocial = razaoSocial;
     this.nomeFantasia = nomeFantasia;
     this.dataCadastro = dataCadastro;
-    this._contatos = contatos;
-    this._acessos = acessos;
+    this.responsavel = responsavel;
     this._acessoDocto = acessoDocto ?? false;
     this._acessoViaHierarquia = acessoViaHierarquia ?? false;
+    this._ativo = ativo ?? false;
   }
 
   updateId(id: string): this {
@@ -61,10 +56,10 @@ export default class Consumidor {
     razaoSocial: string,
     nomeFantasia: string,
     dataCadastro: string,
-    contatos: Contato[],
-    acessos: Acesso[],
+    responsavel: string,
     acessoDocto?: boolean,
     acessoViaHierarquia?: boolean,
+    ativo?: boolean,
   ) {
     if (!cnpj) throw Error("O CNPJ deve ser informado");
     if (!razaoSocial) throw Error("A razão social deve ser informada");
@@ -75,10 +70,10 @@ export default class Consumidor {
       razaoSocial,
       nomeFantasia,
       dataCadastro,
-      contatos,
-      acessos,
+      responsavel,
       acessoDocto,
       acessoViaHierarquia,
+      ativo,
     );
   }
 
@@ -88,10 +83,10 @@ export default class Consumidor {
     razaoSocial: string,
     nomeFantasia: string,
     dataCadastro: string,
-    contatos: Contato[],
-    acessos: Acesso[],
+    responsavel: string,
     acessoDocto?: boolean,
     acessoViaHierarquia?: boolean,
+    ativo?: boolean,
   ) {
     return new Consumidor(
       id,
@@ -99,10 +94,10 @@ export default class Consumidor {
       razaoSocial,
       nomeFantasia,
       dataCadastro,
-      contatos,
-      acessos,
+      responsavel,
       acessoDocto,
       acessoViaHierarquia,
+      ativo,
     );
   }
 }

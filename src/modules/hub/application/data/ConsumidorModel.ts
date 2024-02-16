@@ -1,7 +1,5 @@
 import dateHelper from "../../../../helpers/date.helper";
 import Consumidor from "../../domain/Consumidor";
-import AcessoModel from "./AcessoModel";
-import ContatoModel from "./ContatoModel";
 
 export default class ConsumidorModel {
   id: string = "";
@@ -9,10 +7,10 @@ export default class ConsumidorModel {
   razaoSocial: string = "";
   nomeFantasia: string = "";
   dataCadastro: string = "";
-  contatos: ContatoModel[] = [new ContatoModel()];
-  acessos: AcessoModel[] = [new AcessoModel()];
+  responsavel: string = "";
   acessoDocto: boolean = false;
   acessoViaHierarquia: boolean = false;
+  ativo: boolean = false;
 
   constructor() {
     this.dataCadastro = dateHelper.format(new Date(), "dd/MM/yyyy hh:mm:ss");
@@ -25,10 +23,10 @@ export default class ConsumidorModel {
       razaoSocial: entity.razaoSocial,
       nomeFantasia: entity.nomeFantasia,
       dataCadastro: entity.dataCadastro,
-      contatos: entity.contatos,
-      acessos: entity.acessos,
+      responsavel: entity.responsavel,
       acessoDocto: entity.acessoDocto,
       acessoViaHierarquia: entity.acessoViaHierarquia,
+      ativo: entity.ativo,
     };
   }
 
@@ -39,10 +37,10 @@ export default class ConsumidorModel {
       model.razaoSocial,
       model.nomeFantasia,
       model.dataCadastro,
-      model.contatos.map((x) => ContatoModel.toDomain(x)),
-      model.acessos.map((x) => AcessoModel.toDomain(x)),
+      model.responsavel,
       model.acessoDocto,
       model.acessoViaHierarquia,
+      model.ativo,
     );
   }
 }

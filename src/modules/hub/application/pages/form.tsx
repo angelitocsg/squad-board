@@ -4,13 +4,11 @@ import {
   TabContentGroup,
   TabGroup,
 } from "../../../../components/Tab";
-import DynamicTable from "../../../core/components/DynamicTable";
+import DisplayTable from "../../../core/components/DisplayTable";
 import FormCheckBox from "../../../core/components/FormCheckBox";
 import FormInput from "../../../core/components/FormInput";
 import ConsumidorModel from "../data/ConsumidorModel";
 import useForm from "./useForm";
-import useFormAcesso from "./useFormAcesso";
-import useFormContato from "./useFormContato";
 
 type IProps = {
   data: ConsumidorModel;
@@ -18,9 +16,17 @@ type IProps = {
 };
 
 const ConsumidorForm = ({ data, onChange }: IProps) => {
-  const { state, handleChange } = useForm({ data, onChange });
-  const useAcesso = useFormAcesso({ data: state, onChange });
-  const useContato = useFormContato({ data: state, onChange });
+  const {
+    state,
+    acessos,
+    contatos,
+    handleChange,
+    tColumnsAcessos,
+    tColumnsContatos,
+  } = useForm({
+    data,
+    onChange,
+  });
 
   return (
     <div>
@@ -67,6 +73,12 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
       </div>
       <div className="mb-3 d-flex gap-4">
         <FormCheckBox
+          label="Ativo"
+          field="ativo"
+          value={!!state.ativo}
+          onChange={handleChange}
+        />
+        <FormCheckBox
           label="Acesso documentação API"
           field="acessoDocto"
           value={!!state.acessoDocto}
@@ -86,22 +98,10 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
       </TabGroup>
       <TabContentGroup>
         <TabContent tabId="tabAcessos" active>
-          <DynamicTable
-            actions={useAcesso.tActions}
-            columns={useAcesso.tColumns}
-            lines={useAcesso.lines}
-            headerButtons={useAcesso.tHeaderButtons}
-            onFieldChange={useAcesso.handleChangeLine}
-          />
+          <DisplayTable columns={tColumnsAcessos} lines={acessos} />
         </TabContent>
         <TabContent tabId="tabContatos">
-          <DynamicTable
-            actions={useContato.tActions}
-            columns={useContato.tColumns}
-            lines={useContato.lines}
-            headerButtons={useContato.tHeaderButtons}
-            onFieldChange={useContato.handleChangeLine}
-          />
+          <DisplayTable columns={tColumnsContatos} lines={contatos} />
         </TabContent>
       </TabContentGroup>
     </div>

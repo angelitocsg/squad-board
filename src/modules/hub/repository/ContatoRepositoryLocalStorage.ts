@@ -1,15 +1,15 @@
 import { BehaviorSubject, map } from "rxjs";
 
 import { StorageKey } from "../../../enums/StorageKey";
-import Consumidor from "../domain/Consumidor";
-import ConsumidorDTO from "./ConsumidorDTO";
-import ConsumidorRepository, { TFilter } from "./ConsumidorRepository";
+import Contato from "../domain/Contato";
+import ContatoDTO from "./ContatoDTO";
+import ContatoRepository, { TFilter } from "./ContatoRepository";
 
-export default class ConsumidorRepositoryLocalStorage
-  implements ConsumidorRepository
+export default class ContatoRepositoryLocalStorage
+  implements ContatoRepository
 {
-  private _data: BehaviorSubject<ConsumidorDTO[]> = new BehaviorSubject<
-    ConsumidorDTO[]
+  private _data: BehaviorSubject<ContatoDTO[]> = new BehaviorSubject<
+    ContatoDTO[]
   >([]);
 
   private get data() {
@@ -19,25 +19,25 @@ export default class ConsumidorRepositoryLocalStorage
   get data$() {
     return this._data
       .asObservable()
-      .pipe(map((items) => items.map((item) => ConsumidorDTO.toDomain(item))));
+      .pipe(map((items) => items.map((item) => ContatoDTO.toDomain(item))));
   }
 
   private load() {
     this._data.next(
-      JSON.parse(localStorage.getItem(StorageKey.DATA_HUB_CONSUMIDORES) ?? "[]"),
+      JSON.parse(localStorage.getItem(StorageKey.DATA_HUB_CONTATOS) ?? "[]"),
     );
   }
 
   private save() {
     localStorage.setItem(
-      StorageKey.DATA_HUB_CONSUMIDORES,
+      StorageKey.DATA_HUB_CONTATOS,
       JSON.stringify(this.data ?? []),
     );
   }
 
   getAll(filter?: TFilter) {
     this.load();
-    return this.data.map((item) => ConsumidorDTO.toDomain(item));
+    return this.data.map((item) => ContatoDTO.toDomain(item));
   }
 
   export() {
@@ -48,22 +48,22 @@ export default class ConsumidorRepositoryLocalStorage
   getById(id: string) {
     this.load();
     const itemDTO = this.data.find((item) => item.id === id);
-    return itemDTO ? ConsumidorDTO.toDomain(itemDTO) : undefined;
+    return itemDTO ? ContatoDTO.toDomain(itemDTO) : undefined;
   }
 
-  create(entity: Consumidor) {
+  create(entity: Contato) {
     this.load();
     const updated = this.data;
-    updated.push(new ConsumidorDTO(entity));
+    updated.push(new ContatoDTO(entity));
     this._data.next(updated);
     this.save();
     return entity;
   }
 
-  update(id: string, entity: Consumidor) {
+  update(id: string, entity: Contato) {
     this.load();
     const updated = this.data.filter((item) => item.id !== id);
-    updated.push(new ConsumidorDTO(entity));
+    updated.push(new ContatoDTO(entity));
     this._data.next(updated);
     this.save();
     return entity;

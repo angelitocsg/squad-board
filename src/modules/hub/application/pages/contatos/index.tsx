@@ -1,13 +1,13 @@
-import PageLayout from "../../../../shared/PageLayout";
-import DisplayTable from "../../../core/components/DisplayTable";
+import PageLayout from "../../../../../shared/PageLayout";
+import DisplayTable from "../../../../core/components/DisplayTable";
 import useController from "./useController";
 
-const HubConsumidoresHome = () => {
+const HubContatosHome = () => {
   const { tActions, tColumns, tHeaderButtons, lines, handleEdit } =
     useController();
 
   return (
-    <PageLayout title="Acessos Hub" full>
+    <PageLayout title="Hub - Contatos" full>
       <DisplayTable
         actions={tActions}
         columns={tColumns}
@@ -19,4 +19,4 @@ const HubConsumidoresHome = () => {
   );
 };
 
-export default HubConsumidoresHome;
+export default HubContatosHome;

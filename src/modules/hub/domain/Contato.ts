@@ -5,17 +5,20 @@ export default class Contato {
   get id() {
     return this._id;
   }
+  readonly consumidorId: string;
   readonly nome: string;
   readonly telefone: string;
   readonly email: string;
 
   private constructor(
     id: string,
+    consumidorId: string,
     nome: string,
     telefone: string,
     email: string,
   ) {
     this._id = id;
+    this.consumidorId = consumidorId;
     this.nome = nome;
     this.telefone = telefone;
     this.email = email;
@@ -27,16 +30,29 @@ export default class Contato {
     return this;
   }
 
-  static create(nome: string, telefone: string, email: string) {
+  static create(
+    consumidorId: string,
+    nome: string,
+    telefone: string,
+    email: string,
+  ) {
+    if (!consumidorId) throw Error("O correspondente deve ser informado");
     if (!nome) throw Error("O nome deve ser informado");
     if (!email) throw Error("O e-mail deve ser informado");
     const id = uuidv4();
-    return new Contato(id, nome, telefone, email);
+    return new Contato(id, consumidorId, nome, telefone, email);
   }
 
-  static restore(id: string, nome: string, telefone: string, email: string) {
+  static restore(
+    id: string,
+    consumidorId: string,
+    nome: string,
+    telefone: string,
+    email: string,
+  ) {
+    if (!consumidorId) throw Error("O correspondente deve ser informado");
     if (!nome) throw Error("O nome deve ser informado");
     if (!email) throw Error("O e-mail deve ser informado");
-    return new Contato(id, nome, telefone, email);
+    return new Contato(id, consumidorId, nome, telefone, email);
   }
 }

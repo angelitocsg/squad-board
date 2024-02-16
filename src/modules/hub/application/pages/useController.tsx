@@ -9,10 +9,8 @@ import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import Consumidor from "../../domain/Consumidor";
 import ConsumidorRepository from "../../repository/ConsumidorRepository";
-import AcessoModel from "../data/AcessoModel";
 import ConsumidorModel from "../data/ConsumidorModel";
 import ConsumidorStore from "../data/ConsumidorStore";
-import ContatoModel from "../data/ContatoModel";
 import ConsumidorForm from "./form";
 
 const useController = () => {
@@ -31,10 +29,13 @@ const useController = () => {
     { field: "dataCadastro", title: "Data cadastro" },
     { field: "acessoDoctoSimNao", title: "Documentação" },
     { field: "acessoViaHierarquiaSimNao", title: "Via hierarquia" },
+    { field: "num_contatos", title: "Contatos" },
+    { field: "num_acessos", title: "Acesos" },
+    { field: "ativoSimNao", title: "Ativo" },
   ];
 
   useEffect(() => {
-    document.title = "Gestão de Mudanças | Squad";
+    document.title = "Hub | Squad";
   }, []);
 
   useEffect(() => {
@@ -49,6 +50,7 @@ const useController = () => {
             acessoViaHierarquiaSimNao: model.acessoViaHierarquia
               ? "SIM"
               : "NÃO",
+            ativoSimNao: model.ativo ? "SIM" : "NÃO",
           };
         }),
       );
@@ -66,10 +68,10 @@ const useController = () => {
         model.razaoSocial,
         model.nomeFantasia,
         model.dataCadastro,
-        model.contatos.map((x) => ContatoModel.toDomain(x)),
-        model.acessos.map((x) => AcessoModel.toDomain(x)),
+        model.responsavel,
         model.acessoDocto,
         model.acessoViaHierarquia,
+        model.ativo,
       );
       if (!model.id) consumidorRepository.create(consumidor);
       else consumidorRepository.update(model.id, consumidor.updateId(model.id));
@@ -139,7 +141,7 @@ const useController = () => {
   };
 
   const handleImport = () => {
-    BackupService.importCsvToData(StorageKey.DATA_ACESSOS_HUB, [
+    BackupService.importCsvToData(StorageKey.DATA_HUB_CONSUMIDORES, [
       "acessos",
       "contatos",
     ]);
@@ -148,7 +150,7 @@ const useController = () => {
   const handleExport = () => {
     BackupService.exportDataAsCsv(
       consumidorRepository.export(),
-      StorageKey.DATA_ACESSOS_HUB,
+      StorageKey.DATA_HUB_CONSUMIDORES,
     );
   };
 

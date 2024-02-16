@@ -1,6 +1,4 @@
-import Acesso from "../domain/Acesso";
 import Consumidor from "../domain/Consumidor";
-import Contato from "../domain/Contato";
 
 export default class ConsumidorDTO {
   id: string;
@@ -8,10 +6,10 @@ export default class ConsumidorDTO {
   razaoSocial: string;
   nomeFantasia: string;
   dataCadastro: string;
-  contatos: any[];
-  acessos: any[];
+  responsavel: string;
   acessoDocto: boolean;
   acessoViaHierarquia: boolean;
+  ativo: boolean;
 
   constructor(entity: Consumidor) {
     this.id = entity.id;
@@ -19,10 +17,10 @@ export default class ConsumidorDTO {
     this.razaoSocial = entity.razaoSocial;
     this.nomeFantasia = entity.nomeFantasia;
     this.dataCadastro = entity.dataCadastro;
-    this.contatos = entity.contatos;
-    this.acessos = entity.acessos;
+    this.responsavel = entity.responsavel;
     this.acessoDocto = entity.acessoDocto;
     this.acessoViaHierarquia = entity.acessoViaHierarquia;
+    this.ativo = entity.ativo;
   }
 
   static toDomain(dto: ConsumidorDTO) {
@@ -32,19 +30,10 @@ export default class ConsumidorDTO {
       dto.razaoSocial,
       dto.nomeFantasia,
       dto.dataCadastro,
-      dto.contatos.map((contato) =>
-        Contato.restore(
-          contato.id,
-          contato.nome,
-          contato.telefone,
-          contato.email,
-        ),
-      ),
-      dto.acessos.map((acesso) =>
-        Acesso.restore(acesso.id, acesso.apiKey, acesso.sigla, acesso.escopos),
-      ),
+      dto.responsavel,
       dto.acessoDocto,
       dto.acessoViaHierarquia,
+      dto.ativo,
     );
   }
 }
