@@ -13,7 +13,9 @@ export default class ConsumidorRepositoryLocalStorage
   >([]);
 
   private get data() {
-    return this._data.value;
+    return this._data.value.sort((a, b) =>
+      a.nomeFantasia.localeCompare(b.nomeFantasia),
+    );
   }
 
   get data$() {
@@ -24,7 +26,9 @@ export default class ConsumidorRepositoryLocalStorage
 
   private load() {
     this._data.next(
-      JSON.parse(localStorage.getItem(StorageKey.DATA_HUB_CONSUMIDORES) ?? "[]"),
+      JSON.parse(
+        localStorage.getItem(StorageKey.DATA_HUB_CONSUMIDORES) ?? "[]",
+      ),
     );
   }
 

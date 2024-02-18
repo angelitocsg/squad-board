@@ -17,7 +17,7 @@ const ContatoForm = ({ data, onChange }: IProps) => {
   return (
     <div>
       <div className="row">
-        <div className="col-4">
+        <div className="col">
           <FormInputFilter
             label="Consumidor"
             field="consumidorId"
@@ -27,7 +27,7 @@ const ContatoForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-8">
+        <div className="col">
           <FormInput
             type="text"
             label="Nome"
@@ -38,7 +38,7 @@ const ContatoForm = ({ data, onChange }: IProps) => {
         </div>
       </div>
       <div className="row">
-        <div className="col-8">
+        <div className="col">
           <FormInput
             type="tel"
             label="Telefone"
@@ -47,7 +47,7 @@ const ContatoForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-8">
+        <div className="col">
           <FormInput
             type="email"
             label="E-mail"

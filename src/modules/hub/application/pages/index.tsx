@@ -7,7 +7,7 @@ const HubConsumidoresHome = () => {
     useController();
 
   return (
-    <PageLayout title="Acessos Hub" full>
+    <PageLayout title="Hub - Consumidores" full>
       <DisplayTable
         actions={tActions}
         columns={tColumns}

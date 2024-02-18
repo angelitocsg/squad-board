@@ -8,9 +8,13 @@ import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import Consumidor from "../../domain/Consumidor";
+import AcessoRepository from "../../repository/AcessoRepository";
 import ConsumidorRepository from "../../repository/ConsumidorRepository";
+import ContatoRepository from "../../repository/ContatoRepository";
+import AcessoModel from "../data/AcessoModel";
 import ConsumidorModel from "../data/ConsumidorModel";
 import ConsumidorStore from "../data/ConsumidorStore";
+import ContatoModel from "../data/ContatoModel";
 import ConsumidorForm from "./form";
 
 const useController = () => {
@@ -21,6 +25,10 @@ const useController = () => {
     "ConsumidorRepository",
   );
   const [lines, setLines] = useState<ConsumidorModel[]>([]);
+  const acessoRepository = useService<AcessoRepository>("AcessoRepository");
+  const contatoRepository = useService<ContatoRepository>("ContatoRepository");
+  const [acessos, setAcessos] = useState<AcessoModel[]>([]);
+  const [contatos, setContatos] = useState<ContatoModel[]>([]);
 
   const tColumns: IColumns[] = [
     { field: "cnpj", title: "CNPJ" },
@@ -29,14 +37,34 @@ const useController = () => {
     { field: "dataCadastro", title: "Data cadastro" },
     { field: "acessoDoctoSimNao", title: "Documentação" },
     { field: "acessoViaHierarquiaSimNao", title: "Via hierarquia" },
-    { field: "num_contatos", title: "Contatos" },
-    { field: "num_acessos", title: "Acesos" },
+    { field: "numContatos", title: "Contatos" },
+    { field: "numAcessos", title: "Acessos" },
     { field: "ativoSimNao", title: "Ativo" },
   ];
 
   useEffect(() => {
     document.title = "Hub | Squad";
   }, []);
+
+  useEffect(() => {
+    contatoRepository.getAll();
+    const subscriber = contatoRepository.data$.subscribe((items) => {
+      setContatos(items.map((item) => ContatoModel.fromDomain(item)));
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [contatoRepository]);
+
+  useEffect(() => {
+    acessoRepository.getAll();
+    const subscriber = acessoRepository.data$.subscribe((items) => {
+      setAcessos(items.map((item) => AcessoModel.fromDomain(item)));
+    });
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [acessoRepository]);
 
   useEffect(() => {
     consumidorRepository.getAll();
@@ -51,6 +79,10 @@ const useController = () => {
               ? "SIM"
               : "NÃO",
             ativoSimNao: model.ativo ? "SIM" : "NÃO",
+            numContatos: contatos.filter((x) => x.consumidorId === item.id)
+              .length,
+            numAcessos: acessos.filter((x) => x.consumidorId === item.id)
+              .length,
           };
         }),
       );
@@ -58,7 +90,7 @@ const useController = () => {
     return () => {
       subscriber.unsubscribe();
     };
-  }, [consumidorRepository]);
+  }, [acessos, consumidorRepository, contatos]);
 
   const handleSave = () => {
     try {
