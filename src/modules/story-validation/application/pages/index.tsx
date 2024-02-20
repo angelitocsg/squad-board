@@ -2,6 +2,7 @@ import PageLayout from "../../../../shared/PageLayout";
 import HeaderActions from "../../../core/components/DisplayTable/headerActions";
 import FormInput from "../../../core/components/FormInput";
 import PageBusinessDoR from "./pageBusinessDoR";
+import PageTechDoD from "./pageTechDoD";
 import PageTechDoR from "./pageTechDoR";
 import Resumo from "./resumo";
 import useController from "./useController";
@@ -13,6 +14,7 @@ const StoryValidationHome = () => {
     handleChange,
     handleChangeBusinessDoR,
     handleChangeTechDoR,
+    handleChangeTechDoD,
   } = useController();
 
   return (
@@ -88,6 +90,12 @@ const StoryValidationHome = () => {
               handleChangeTechDoR={handleChangeTechDoR}
             />
           </div>
+
+          <hr />
+          <PageTechDoD
+            state={state}
+            handleChangeTechDoD={handleChangeTechDoD}
+          />
 
           <hr />
           <h2 className="h5 mb-3">Resumo</h2>

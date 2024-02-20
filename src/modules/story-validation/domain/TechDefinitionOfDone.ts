@@ -1,3 +1,24 @@
-export interface TechDefinitionOfDone {
-
+export class TechDefinitionOfDone {
+  criterioDeAceite: boolean = false;
+  codeReview: boolean = false;
+  envVarDevHomProd: boolean = false;
+  logsRastreabilidade: boolean = false;
+  logsSemDadosSensiveis: boolean = false;
+  testesUnitarios90p: boolean = false;
+  tagueamentoMinimoGoogleAnalytics: boolean = false;
+  testesFuncionaisComEvidencias: boolean = false;
+  testesTaac: boolean = false;
+  testesPerformance: boolean = false;
+  testesAcessibilidade: boolean = false;
+  testesVulnerabilidade: boolean = false;
+  sandboxParaApi: boolean = false;
+  gatewayAtualizado: boolean = false;
+  releaseNotesApp: boolean = false;
+  deployRealizado: boolean = false;
+  debitosTecnicosDocumentados: boolean = false;
+  treinamentoFaqAtualizados: boolean = false;
+  comunicadoViaMarketing: boolean = false;
+  revisarSonarQube: boolean = false;
+  revisarSast: boolean = false;
+  featureToggleImplementado: boolean = false;
 }

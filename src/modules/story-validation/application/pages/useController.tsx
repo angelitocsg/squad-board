@@ -22,9 +22,14 @@ const useController = () => {
     handleChangeDetail("businessDefinitionOfReady", e);
   const handleChangeTechDoR = (e: any) =>
     handleChangeDetail("techDefinitionOfReady", e);
+  const handleChangeTechDoD = (e: any) =>
+    handleChangeDetail("techDefinitionOfDone", e);
 
   const handleChangeDetail = (
-    parent: "businessDefinitionOfReady" | "techDefinitionOfReady",
+    parent:
+      | "businessDefinitionOfReady"
+      | "techDefinitionOfReady"
+      | "techDefinitionOfDone",
     e: any,
   ) => {
     setState({
@@ -39,6 +44,8 @@ const useController = () => {
   const handleNew = () => {
     setState(new StoryModel());
   };
+
+  const handleImport = () => {};
 
   const handleExport = () => {
     modalService
@@ -57,6 +64,10 @@ const useController = () => {
       label: "Nova",
       action: handleNew,
     },
+    buttonImport: {
+      label: "Importar",
+      action: handleImport,
+    },
     buttonExport: {
       label: "Exportar",
       action: handleExport,
@@ -69,6 +80,7 @@ const useController = () => {
     handleChange,
     handleChangeBusinessDoR,
     handleChangeTechDoR,
+    handleChangeTechDoD,
   };
 };
 

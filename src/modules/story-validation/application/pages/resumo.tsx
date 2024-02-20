@@ -1,5 +1,6 @@
 import StoryModel from "../data/StoryModel";
 import ResumoBusinessDoR from "./resumoBusinessDoR";
+import ResumoTechDoD from "./resumoTechDoD";
 import ResumoTechDoR from "./resumoTechDoR";
 import { renderText } from "./useController";
 
@@ -40,6 +41,7 @@ const Resumo = ({ modal, state }: IProps) => {
 
         <ResumoBusinessDoR state={state} />
         <ResumoTechDoR state={state} />
+        <ResumoTechDoD state={state} />
       </div>
     </div>
   );

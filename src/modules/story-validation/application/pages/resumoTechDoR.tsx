@@ -7,7 +7,7 @@ interface IProps {
 
 const ResumoTechDoR = ({ state }: IProps) => {
   return (
-    <>
+    <div className="mb-3">
       <h3 className="h6">DoR - Visão tecnologia</h3>
       <ul id="lista-resumo-tech-dor" className="small m-0">
         {renderRequired(!state.techDefinitionOfReady.contagemBcp, [
@@ -41,7 +41,7 @@ const ResumoTechDoR = ({ state }: IProps) => {
           "[Desenvolvedor] Considerar sempre a implementação de feature toggle para novas funcionalidades ou modificação das mesmas",
         ])}
       </ul>
-    </>
+    </div>
   );
 };
 

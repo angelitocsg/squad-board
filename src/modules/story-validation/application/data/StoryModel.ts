@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { BusinessDefinitionOfReady } from "../../domain/BusinessDefinitionOfReady";
 import { TechDefinitionOfReady } from "../../domain/TechDefinitionOfReady";
+import { TechDefinitionOfDone } from "../../domain/TechDefinitionOfDone";
 
 export default class StoryModel {
   id: string = "";
@@ -13,6 +14,7 @@ export default class StoryModel {
 
   businessDefinitionOfReady = new BusinessDefinitionOfReady();
   techDefinitionOfReady = new TechDefinitionOfReady();
+  techDefinitionOfDone = new TechDefinitionOfDone();
 
   constructor() {
     this.id = uuidv4();
