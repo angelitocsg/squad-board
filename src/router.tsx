@@ -9,6 +9,7 @@ import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
 import SiglaPage from "./modules/produto-digital/application/pages/siglas";
 import RepoHome from "./modules/repositorios/application/pages";
 import SprintPlanningHome from "./modules/sprint-planning/application/pages";
+import StoryValidationHome from "./modules/story-validation/application/pages";
 import BoardPage from "./pages/board";
 import ErrorPage from "./pages/error";
 import FaqEditorPage from "./pages/faq-editor";
@@ -69,8 +70,17 @@ const router = createBrowserRouter(
           element: <SettingsPage />,
         },
         {
-          path: "/sprint-planning",
-          element: <SprintPlanningHome />,
+          path: "/utils",
+          children: [
+            {
+              path: "/utils/story-validation",
+              element: <StoryValidationHome />,
+            },
+            {
+              path: "/utils/sprint-planning",
+              element: <SprintPlanningHome />,
+            },
+          ],
         },
         {
           path: "/cadastros",
