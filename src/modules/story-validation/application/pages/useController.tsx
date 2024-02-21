@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { useService } from "../../../../di/DecouplerContext";
+import ExportHelper from "../../../../helpers/export.helper";
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import StoryModel from "../data/StoryModel";
-import Resumo from "./resumo";
+import ImportStoryForm from "./importStoryForm";
 
 const useController = () => {
   const modalService = useService<AppModalService>("AppModalService");
@@ -45,18 +46,35 @@ const useController = () => {
     setState(new StoryModel());
   };
 
-  const handleImport = () => {};
+  const [importStory, setImportStory] = useState("");
 
-  const handleExport = () => {
+  useEffect(() => {
+    try {
+      const jsonData = JSON.parse(importStory);
+      setState({
+        ...new StoryModel(),
+        ...jsonData,
+      });
+    } catch {
+      setState(new StoryModel());
+    }
+  }, [importStory]);
+
+  const handleImport = () => {
     modalService
       .config({
-        title: "cole o texto abaixo na descrição da história",
-        size: "xlarge",
+        title: "cole o conteúdo do json aqui",
+        size: "large",
         buttonOkLabel: "Fechar",
         buttonCancelHidden: true,
-        children: () => <Resumo state={state} modal />,
+        children: () => <ImportStoryForm update={setImportStory} />,
       })
       .open();
+  };
+
+  const handleExport = () => {
+    if (!state.story) return;
+    ExportHelper.jsonFile(state, `${state.story}-validacao`);
   };
 
   const tHeaderButtons: IHeaderActions = {

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import StoryModel from "../data/StoryModel";
 import { render, renderRequired } from "./useController";
 
@@ -6,9 +8,16 @@ interface IProps {
 }
 
 const ResumoBusinessDoR = ({ state }: IProps) => {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    setHidden(
+      !document.getElementById("lista-resumo-business-dor")?.childElementCount,
+    );
+  }, [state.businessDefinitionOfReady]);
+
   return (
     <div className="mb-3">
-      <h3 className="h6">DoR - Visão negócio</h3>
+      <h3 className={`h6 ${hidden && "d-none"}`}>DoR - Visão negócio</h3>
       <ul id="lista-resumo-business-dor" className="small m-0">
         {renderRequired(!state.businessDefinitionOfReady.titulo, [
           "[Negócio] Revisar título da história",
@@ -39,7 +48,7 @@ const ResumoBusinessDoR = ({ state }: IProps) => {
           "[Tech] Necessário criar tarefa para atualização de conteúdo para FAQ",
         ])}
         {renderRequired(
-          state.businessDefinitionOfReady.comunicacaoViaMarketing,
+          !state.businessDefinitionOfReady.comunicacaoViaMarketing,
           ["[Negócio] Avaliar necessidade de comunicação via marketing"],
         )}
       </ul>

@@ -163,7 +163,7 @@ const PageTechDoD = ({ state, handleChangeTechDoD }: IProps) => {
           />
           <FormCheckBox
             className="small mb-2"
-            field="revisarSast"
+            field="featureToggleImplementado"
             label="Feature Toggle implementado"
             value={state.techDefinitionOfDone.featureToggleImplementado}
             onChange={handleChangeTechDoD}

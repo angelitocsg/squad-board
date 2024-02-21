@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import StoryModel from "../data/StoryModel";
 import { render, renderRequired } from "./useController";
 
@@ -6,9 +8,16 @@ interface IProps {
 }
 
 const ResumoTechDoR = ({ state }: IProps) => {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    setHidden(
+      !document.getElementById("lista-resumo-tech-dor")?.childElementCount,
+    );
+  }, [state.techDefinitionOfReady]);
+
   return (
     <div className="mb-3">
-      <h3 className="h6">DoR - Visão tecnologia</h3>
+      <h3 className={`h6 ${hidden && "d-none"}`}>DoR - Visão tecnologia</h3>
       <ul id="lista-resumo-tech-dor" className="small m-0">
         {renderRequired(!state.techDefinitionOfReady.contagemBcp, [
           "[Desenvolvedor] Efetuar contagem de BCP antes de iniciar a tarefa",
