@@ -7,6 +7,7 @@ export enum CodeBaseType {
   GO = "go_lang",
   JAVA_KOTLIN = "java_kotlin",
   NODE_JS = "node_js",
+  PYTHON = "python",
 }
 
 export type TCodeBase =
@@ -17,4 +18,5 @@ export type TCodeBase =
   | CodeBaseType.CSHARP_DOTNET
   | CodeBaseType.GO
   | CodeBaseType.JAVA_KOTLIN
-  | CodeBaseType.NODE_JS;
+  | CodeBaseType.NODE_JS
+  | CodeBaseType.PYTHON;

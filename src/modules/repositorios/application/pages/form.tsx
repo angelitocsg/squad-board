@@ -50,7 +50,7 @@ const RepoForm = ({ data, onChange }: IProps) => {
     var subscriber = productRepository.data$.subscribe((products) => {
       setProducts([
         { label: "", value: "" },
-        ...products.map((p) => ({ label: p.name, value: p.id })),
+        ...products.map((p) => ({ label: `${p.name} (${p.sigla.id})`, value: p.id })),
       ]);
     });
     return () => {
