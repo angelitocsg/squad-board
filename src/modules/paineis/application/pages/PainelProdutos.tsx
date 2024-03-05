@@ -106,8 +106,14 @@ const PainelProdutos = () => {
                     role="button"
                     onClick={() => handleProductSelect(product)}>
                     <div className="card-body p-2 px-3">
-                      {/* <span className="bi bi-boxes ps-2 pe-3" style={{ fontSize: "1.5em" }} /> */}
-                      {product.name}
+                      <div className="d-flex">
+                        <div>
+                          <p className="m-0 h6">{product.name}</p>
+                          <p className="m-0 small text-muted">
+                            {product.squad}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -118,12 +124,7 @@ const PainelProdutos = () => {
 
       {currentProduct ? (
         <>
-          <div className="mt-4">
-            <h2 className="h5">
-              {currentProduct?.name} ({currentProduct?.sigla})
-            </h2>
-            <hr className="mt-2 mb-3" />
-          </div>
+          <div className="mb-3" />
           <div>
             <DisplayTable
               actions={tActionsView}

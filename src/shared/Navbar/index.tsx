@@ -23,7 +23,9 @@ const NavUtils = () => {
     <NavDropdown label="Utilitários">
       <NavDropdownItem label="Notificações" link="/notifications" />
       <NavDropdownItem label="Editor FAQ" link="/faq-editor" />
+      <NavDropdownDivider />
       <NavDropdownItem label="Planejamento" link="/utils/sprint-planning" />
+      <NavDropdownItem label="Aplicações" link="/projects" />
       <NavDropdownDivider />
       <NavDropdownItem
         label="Validação de histórias"
@@ -77,7 +79,6 @@ const Navbar = () => {
               link="/cadastros/gestao-mudanca"
             />
             <NavItem label="Tarefas" link="/tarefas" />
-            <NavItem label="Aplicações" link="/projects" />
             <NavHubServicos />
             <NavCadastros />
             <NavUtils />
