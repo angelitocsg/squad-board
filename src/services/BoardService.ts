@@ -83,6 +83,8 @@ export class BoardService implements IImportService {
         ? "story_points"
         : c.trim() === "u_impediment"
         ? "impediment"
+        : c.trim() === "u_impediment_desc"
+        ? "impediment_description"
         : "",
     );
   }
@@ -108,7 +110,7 @@ export class BoardService implements IImportService {
             it[columnNames[i]] =
               itValue === IssueStatus.ENCERRADO ||
               itValue === IssueStatus.ATIVADO ||
-              itValue === IssueStatus.ATIVADO_DISPONIVEL_USO||
+              itValue === IssueStatus.ATIVADO_DISPONIVEL_USO ||
               itValue === IssueStatus.VALIDADA
                 ? IssueStatus.ENCERRADO_ATIVADO
                 : itValue === IssueStatus.EM_EXPLORACAO
@@ -125,7 +127,7 @@ export class BoardService implements IImportService {
             break;
           case "impediment":
             it[columnNames[i]] =
-              values[i]?.toUpperCase() === "FALSO" ? false : true;
+              values[i]?.toUpperCase() === "FALSO" || !values[i] ? false : true;
             break;
           case "type":
             const col_value = values[i]?.toLowerCase();

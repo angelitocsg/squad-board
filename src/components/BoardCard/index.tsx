@@ -16,6 +16,7 @@ interface IProps {
   priority?: TPriority;
   story_points?: number;
   impediment: boolean;
+  impediment_description?: string;
   status?: string;
   group?: boolean;
   hidden?: boolean;
@@ -32,6 +33,7 @@ const BoardCard = ({
   priority,
   story_points,
   impediment,
+  impediment_description,
   status,
   group,
   hidden,
@@ -72,6 +74,7 @@ const BoardCard = ({
           priority={priority}
           parent_id={parent_id}
           impediment={impediment}
+          impediment_description={impediment_description}
         />
         <BoardCardGroupExpander
           id={id}

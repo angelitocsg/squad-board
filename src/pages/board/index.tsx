@@ -83,6 +83,7 @@ const BoardPage = () => {
                   group={(item.issues?.length ?? 0) > 0 ?? false}
                   hidden={(item.issues?.length ?? 0) === 0}
                   impediment={item.impediment ?? false}
+                  impediment_description={item.impediment_description}
                 />
               </BoardColumn>
 

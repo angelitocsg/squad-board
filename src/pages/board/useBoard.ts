@@ -96,6 +96,7 @@ const useBoard = () => {
 
   useEffect(() => {
     set_status(repository.getStatusAndItemsCount());
+    window.refreshTooltip();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [issues]);
 

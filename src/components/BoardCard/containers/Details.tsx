@@ -10,6 +10,7 @@ interface IProps {
   priority?: TPriority;
   parent_id?: string;
   impediment: boolean;
+  impediment_description?: string;
 }
 
 const BoardCardDetails = ({
@@ -21,10 +22,19 @@ const BoardCardDetails = ({
   priority,
   parent_id,
   impediment,
+  impediment_description,
 }: IProps) => (
   <div className="flex-grow-1">
-    {impediment ? (
-      <i className={`bi bi-exclamation-octagon-fill text-danger pe-1`}></i>
+    {!!impediment ? (
+      <button
+        type="button"
+        className={`bg-white border-0 p-0 m-0 bi text-danger ${
+          !!impediment_description ? "bi-file-earmark-text-fill" : "bi-file-earmark-text"
+        } pe-1`}
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-title={impediment_description}
+      />
     ) : undefined}
     <strong>{description}</strong>
     {((group && expanded) || !group) && id && (
