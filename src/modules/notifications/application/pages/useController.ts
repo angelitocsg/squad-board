@@ -1,44 +1,18 @@
-import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-interface Notification {
-  id: string;
-  v: number;
-  cp: "banner" | "modal";
-  t: "error" | "warn" | "danger" | "info";
-  m: string;
-  mf: string[];
-  pg?: string[];
-  op?: string;
-  lk?: string;
-  rcm?: number;
-  st?: string;
-  sth?: string;
-  ed?: string;
-  edh?: string;
-  fx: 0 | 1;
-  tit?: string; // titulo
-  txb?: string; // texto botão
-}
+import { useService } from '../../../../di/DecouplerContext';
+import { NotificationModel } from '../data/NotificationModel';
+import NotificationStore from '../data/NotificationStore';
 
-const notificationInitial: Notification = {
-  id: uuidv4().split("-")[0],
-  v: 1,
-  cp: "banner",
-  t: "info",
-  fx: 0,
-  m: "",
-  mf: [],
-};
-
-const useNotifications = () => {
-  const [input_data, set_input_data] = useState("{}");
-  const [invalid_json, set_invalid_json] = useState<string | undefined>();
-  const [valid_data, set_valid_data] = useState<any>({});
-  const [notification, set_notification] =
-    useState<Notification>(notificationInitial);
+const useController = () => {
+  const notificationStore = useService<NotificationStore>("NotificationStore");
+  const [notification, set_notification] = useState<NotificationModel>(
+    notificationStore.current,
+  );
   const [messages, set_messages] = useState<Notification[]>([]);
   const [is_modal, set_is_modal] = useState<boolean>(false);
+  const [valid_data, set_valid_data] = useState<any>({});
 
   const updateValue = (field: string, value: any) => {
     set_notification({
@@ -71,7 +45,10 @@ const useNotifications = () => {
       ...valid_data,
       messages: valid_data.messages,
     });
-    set_notification({ ...notificationInitial, id: uuidv4().split("-")[0] });
+    set_notification({
+      ...notificationStore.current,
+      id: uuidv4().split("-")[0],
+    });
   };
 
   const removeNotification = (idx: number) => {
@@ -93,22 +70,14 @@ const useNotifications = () => {
   }, [valid_data]);
 
   useEffect(() => {
-    set_invalid_json(undefined);
-    try {
-      const jsonData = JSON.parse(input_data);
-      set_valid_data({ messages: [], ...jsonData });
-    } catch {
-      set_invalid_json("Conteúdo do 'input-data' atual inválido!");
-    }
-  }, [input_data]);
-
-  useEffect(() => {
     const is = notification.cp === "modal";
     if (!is) {
       set_notification({
         ...notification,
-        txb: undefined,
         tit: undefined,
+        txb: undefined,
+        chk: undefined,
+        m: ""
       });
     }
     set_is_modal(is);
@@ -123,13 +92,11 @@ const useNotifications = () => {
     messages,
     notification,
     valid_data,
-    input_data,
-    invalid_json,
     is_modal,
     editNotification,
     set_notification,
     saveNotification,
-    set_input_data,
+    set_valid_data,
     updateValue,
     updateInputValue,
     updateSelectMultiple,
@@ -137,4 +104,4 @@ const useNotifications = () => {
   };
 };
 
-export default useNotifications;
+export default useController;

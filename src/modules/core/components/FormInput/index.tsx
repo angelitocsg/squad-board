@@ -11,13 +11,14 @@ type IFormInputRightButton = {
 interface IFormInput extends IFormInputRightButton {
   label: string;
   field: string;
-  type: "text" | "tel" | "email" | "textarea" | "date";
+  type: "text" | "tel" | "email" | "textarea" | "date" | "time";
   value?: string | number | readonly string[];
   defaultValue?: string | number | readonly string[];
   disabled?: boolean;
   readOnly?: boolean;
   placeholder?: string;
   rows?: number;
+  maxLength?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
 }
@@ -32,6 +33,7 @@ const FormInput = ({
   placeholder,
   rightButton,
   rows,
+  maxLength,
   onChange,
   onTextAreaChange,
 }: IFormInput) => (
@@ -50,6 +52,8 @@ const FormInput = ({
         readOnly={readOnly}
         placeholder={placeholder}
         rows={rows}
+        title={`campo: ${field}`}
+        maxLength={maxLength}
         onChange={onTextAreaChange}></textarea>
     ) : (
       <div className="input-group">
@@ -63,6 +67,8 @@ const FormInput = ({
           disabled={disabled}
           readOnly={readOnly}
           placeholder={placeholder}
+          title={`campo: ${field}`}
+          maxLength={maxLength}
           onChange={onChange}
         />
         {rightButton && (

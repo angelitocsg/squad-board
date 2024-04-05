@@ -13,6 +13,7 @@ interface ISelectInput {
   disabled?: boolean;
   placeholder?: string;
   options: ISelectOptions[];
+  multiple?: boolean;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
 const SelectInput = ({
@@ -23,6 +24,7 @@ const SelectInput = ({
   disabled,
   placeholder,
   options,
+  multiple,
   onChange,
 }: ISelectInput) => (
   <div className="mb-3">
@@ -31,6 +33,7 @@ const SelectInput = ({
     </label>
     <select
       className="form-select"
+      multiple={multiple}
       id={field}
       name={field}
       value={value}
@@ -38,7 +41,7 @@ const SelectInput = ({
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled}
-    >
+      title={`campo: ${field}`}>
       {options.map((opt, i) => (
         <option key={i} value={opt.value}>
           {opt.label}

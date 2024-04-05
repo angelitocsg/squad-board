@@ -39,6 +39,7 @@ const HomePage = () => {
         <HomeItem title="GMUDs" route="/cadastros/gestao-mudanca" />
         <HomeItem title="Tarefas" route="/tarefas" />
         <HomeItem title="Hub" route="/hub/correspondentes" />
+        <HomeItem title="Notificações" route="/notifications" />
       </div>
     </PageLayout>
   );
