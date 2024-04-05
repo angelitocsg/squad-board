@@ -16,6 +16,7 @@ import ContatoStore from "./modules/hub/application/data/ContatoStore";
 import AcessoRepositoryLocalStorage from "./modules/hub/repository/AcessoRepositoryLocalStorage";
 import ConsumidorRepositoryLocalStorage from "./modules/hub/repository/ConsumidorRepositoryLocalStorage";
 import ContatoRepositoryLocalStorage from "./modules/hub/repository/ContatoRepositoryLocalStorage";
+import NotificationStore from "./modules/notifications/application/data/NotificationStore";
 import ProductStore from "./modules/produto-digital/application/data/ProductStore";
 import SiglaStore from "./modules/produto-digital/application/data/SiglaStore";
 import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
@@ -59,6 +60,8 @@ locator.register("AcessoStore", AcessoStore);
 locator.register("AcessoRepository", AcessoRepositoryLocalStorage);
 locator.register("ContatoStore", ContatoStore);
 locator.register("ContatoRepository", ContatoRepositoryLocalStorage);
+
+locator.register("NotificationStore", NotificationStore);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
