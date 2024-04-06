@@ -107,7 +107,7 @@ const router = createBrowserRouter(
           path: "hub",
           children: [
             {
-              path: "correspondentes",
+              path: "consumidores",
               element: <HubConsumidoresHome />,
             },
             {

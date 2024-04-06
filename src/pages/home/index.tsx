@@ -38,7 +38,7 @@ const HomePage = () => {
         <HomeItem title="Produtos" route="/produtos" />
         <HomeItem title="GMUDs" route="/cadastros/gestao-mudanca" />
         <HomeItem title="Tarefas" route="/tarefas" />
-        <HomeItem title="Hub" route="/hub/correspondentes" />
+        <HomeItem title="Hub" route="/hub/consumidores" />
         <HomeItem title="Notificações" route="/notifications" />
       </div>
     </PageLayout>

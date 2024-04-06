@@ -38,7 +38,7 @@ const NavUtils = () => {
 const NavHubServicos = () => {
   return (
     <NavDropdown label="Hub">
-      <NavDropdownItem label="Corrrespodentes" link="/hub/correspondentes" />
+      <NavDropdownItem label="Corrrespodentes" link="/hub/consumidores" />
       <NavDropdownDivider />
       <NavDropdownItem label="Acessos" link="/hub/acessos" />
       <NavDropdownItem label="Contatos" link="/hub/contatos" />
