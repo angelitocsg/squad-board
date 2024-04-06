@@ -5,10 +5,12 @@ export default class ConsumidorDTO {
   cnpj: string;
   razaoSocial: string;
   nomeFantasia: string;
-  dataCadastro: string;
   responsavel: string;
-  acessoDocto: boolean;
-  acessoViaHierarquia: boolean;
+  dataCadastro: string;
+  dataAcessoDoc: string;
+  dataAcessoAuthHierarquia: string;
+  dataAcessoWhitelist: string;
+  observacoes: string;
   ativo: boolean;
 
   constructor(entity: Consumidor) {
@@ -16,10 +18,12 @@ export default class ConsumidorDTO {
     this.cnpj = entity.cnpj;
     this.razaoSocial = entity.razaoSocial;
     this.nomeFantasia = entity.nomeFantasia;
-    this.dataCadastro = entity.dataCadastro;
     this.responsavel = entity.responsavel;
-    this.acessoDocto = entity.acessoDocto;
-    this.acessoViaHierarquia = entity.acessoViaHierarquia;
+    this.dataCadastro = entity.dataCadastro;
+    this.dataAcessoDoc = entity.dataAcessoDoc;
+    this.dataAcessoAuthHierarquia = entity.dataAcessoAuthHierarquia;
+    this.dataAcessoWhitelist = entity.dataAcessoWhitelist;
+    this.observacoes = entity.observacoes;
     this.ativo = entity.ativo;
   }
 
@@ -29,10 +33,12 @@ export default class ConsumidorDTO {
       dto.cnpj,
       dto.razaoSocial,
       dto.nomeFantasia,
-      dto.dataCadastro,
       dto.responsavel,
-      dto.acessoDocto,
-      dto.acessoViaHierarquia,
+      dto.dataCadastro,
+      dto.dataAcessoDoc,
+      dto.dataAcessoAuthHierarquia,
+      dto.dataAcessoWhitelist,
+      dto.observacoes,
       dto.ativo,
     );
   }

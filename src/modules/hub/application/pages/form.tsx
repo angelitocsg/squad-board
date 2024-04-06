@@ -45,7 +45,46 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-8">
+        <div className="col">
+          <FormInput
+            type="text"
+            label="Data cadastro"
+            field="dataCadastro"
+            value={state.dataCadastro}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          {" "}
+          <FormInput
+            type="text"
+            label="Data DevPortal"
+            field="dataAcessoDoc"
+            value={state.dataAcessoDoc}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="Data AuthHierarquia"
+            field="dataAcessoAuthHierarquia"
+            value={state.dataAcessoAuthHierarquia}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="Data Whitelist"
+            field="dataAcessoWhitelist"
+            value={state.dataAcessoWhitelist}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-7">
           <FormInput
             type="text"
             label="Razão Social"
@@ -54,23 +93,12 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-      </div>
-      <div className="row">
-        <div className="col-8">
+        <div className="col">
           <FormInput
             type="text"
             label="Nome fantasia"
             field="nomeFantasia"
             value={state.nomeFantasia}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="col-4">
-          <FormInput
-            type="text"
-            label="Data cadastro"
-            field="dataCadastro"
-            value={state.dataCadastro}
             onChange={handleChange}
           />
         </div>
@@ -82,25 +110,27 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
           value={!!state.ativo}
           onChange={handleChange}
         />
-        <FormCheckBox
-          label="Acesso documentação API"
-          field="acessoDocto"
-          value={!!state.acessoDocto}
-          onChange={handleChange}
-        />
-        <FormCheckBox
-          label="Acesso via hierarquia"
-          field="acessoViaHierarquia"
-          value={!!state.acessoViaHierarquia}
-          onChange={handleChange}
-        />
       </div>
 
       <TabGroup>
-        <Tab tabId="tabAcessos" tabLabel="Acessos" active />
-        <Tab tabId="tabContatos" tabLabel="Contatos" />
+        <Tab
+          tabId="tabAcessos"
+          tabLabel="Acessos"
+          tabBadge={acessos.length.toString()}
+          active
+        />
+        <Tab
+          tabId="tabContatos"
+          tabLabel="Contatos"
+          tabBadge={contatos.length.toString()}
+        />
+        <Tab
+          tabId="tabObservacoes"
+          tabLabel="Observações"
+          tabBadge={state.observacoes ? "+" : ""}
+        />
       </TabGroup>
-      <TabContentGroup>
+      <TabContentGroup minHeight={320}>
         <TabContent tabId="tabAcessos" active>
           <DisplayTable
             headerButtons={tHeaderButtonsAcessos}
@@ -115,6 +145,16 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
             actions={tActionsContatos}
             columns={tColumnsContatos}
             lines={contatos}
+          />
+        </TabContent>
+        <TabContent tabId="tabObservacoes">
+          <FormInput
+            type="textarea"
+            label=""
+            field="observacoes"
+            rows={9}
+            value={state.observacoes}
+            onTextAreaChange={handleChange}
           />
         </TabContent>
       </TabContentGroup>

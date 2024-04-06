@@ -29,10 +29,12 @@ const useController = () => {
     { field: "razaoSocial", title: "Razão Social" },
     { field: "nomeFantasia", title: "Nome fantasia" },
     { field: "dataCadastro", title: "Data cadastro" },
-    { field: "acessoDoctoSimNao", title: "Documentação" },
-    { field: "acessoViaHierarquiaSimNao", title: "Via hierarquia" },
+    { field: "dataAcessoDoc", title: "Documentação" },
+    { field: "dataAcessoAuthHierarquia", title: "Hierarquia" },
+    { field: "dataAcessoWhitelist", title: "Whitelist" },
     { field: "numContatos", title: "Contatos" },
     { field: "numAcessos", title: "Acessos" },
+    { field: "obs", title: "Obs" },
     { field: "ativoSimNao", title: "Ativo" },
   ];
 
@@ -68,8 +70,8 @@ const useController = () => {
           const model = ConsumidorModel.fromDomain(item);
           return {
             ...model,
-            acessoDoctoSimNao: model.acessoDocto ? "SIM" : "NÃO",
-            acessoViaHierarquiaSimNao: model.acessoViaHierarquia
+            acessoDoctoSimNao: model.dataAcessoDoc ? "SIM" : "NÃO",
+            acessoViaHierarquiaSimNao: model.dataAcessoAuthHierarquia
               ? "SIM"
               : "NÃO",
             ativoSimNao: model.ativo ? "SIM" : "NÃO",
@@ -77,6 +79,7 @@ const useController = () => {
               .length,
             numAcessos: acessos.filter((x) => x.consumidorId === item.id)
               .length,
+            obs: model.observacoes ? "x" : "-",
           };
         }),
       );

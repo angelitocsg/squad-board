@@ -8,16 +8,12 @@ export default class Consumidor {
   readonly cnpj: string;
   readonly razaoSocial: string;
   readonly nomeFantasia: string;
-  readonly dataCadastro: string;
   readonly responsavel: string;
-  private _acessoDocto: boolean = false;
-  get acessoDocto() {
-    return this._acessoDocto;
-  }
-  private _acessoViaHierarquia: boolean = false;
-  get acessoViaHierarquia() {
-    return this._acessoViaHierarquia;
-  }
+  readonly dataCadastro: string;
+  readonly dataAcessoDoc: string;
+  readonly dataAcessoAuthHierarquia: string;
+  readonly dataAcessoWhitelist: string;
+  readonly observacoes: string;
   private _ativo: boolean = false;
   get ativo() {
     return this._ativo;
@@ -28,20 +24,24 @@ export default class Consumidor {
     cnpj: string,
     razaoSocial: string,
     nomeFantasia: string,
-    dataCadastro: string,
     responsavel: string,
-    acessoDocto?: boolean,
-    acessoViaHierarquia?: boolean,
+    dataCadastro: string,
+    dataAcessoDoc: string,
+    dataAcessoAuthHierarquia: string,
+    dataAcessoWhitelist: string,
+    observacoes: string,
     ativo?: boolean,
   ) {
     this._id = id;
     this.cnpj = cnpj;
     this.razaoSocial = razaoSocial;
     this.nomeFantasia = nomeFantasia;
-    this.dataCadastro = dataCadastro;
     this.responsavel = responsavel;
-    this._acessoDocto = acessoDocto ?? false;
-    this._acessoViaHierarquia = acessoViaHierarquia ?? false;
+    this.dataCadastro = dataCadastro;
+    this.dataAcessoDoc = dataAcessoDoc;
+    this.dataAcessoAuthHierarquia = dataAcessoAuthHierarquia;
+    this.dataAcessoWhitelist = dataAcessoWhitelist;
+    this.observacoes = observacoes;
     this._ativo = ativo ?? false;
   }
 
@@ -55,10 +55,12 @@ export default class Consumidor {
     cnpj: string,
     razaoSocial: string,
     nomeFantasia: string,
-    dataCadastro: string,
     responsavel: string,
-    acessoDocto?: boolean,
-    acessoViaHierarquia?: boolean,
+    dataCadastro: string,
+    dataAcessoDoc: string,
+    dataAcessoAuthHierarquia: string,
+    dataAcessoWhitelist: string,
+    observacoes: string,
     ativo?: boolean,
   ) {
     if (!cnpj) throw Error("O CNPJ deve ser informado");
@@ -69,10 +71,12 @@ export default class Consumidor {
       cnpj,
       razaoSocial,
       nomeFantasia,
-      dataCadastro,
       responsavel,
-      acessoDocto,
-      acessoViaHierarquia,
+      dataCadastro,
+      dataAcessoDoc,
+      dataAcessoAuthHierarquia,
+      dataAcessoWhitelist,
+      observacoes,
       ativo,
     );
   }
@@ -82,10 +86,12 @@ export default class Consumidor {
     cnpj: string,
     razaoSocial: string,
     nomeFantasia: string,
-    dataCadastro: string,
     responsavel: string,
-    acessoDocto?: boolean,
-    acessoViaHierarquia?: boolean,
+    dataCadastro: string,
+    dataAcessoDoc: string,
+    dataAcessoAuthHierarquia: string,
+    dataAcessoWhitelist: string,
+    observacoes: string,
     ativo?: boolean,
   ) {
     return new Consumidor(
@@ -93,10 +99,12 @@ export default class Consumidor {
       cnpj,
       razaoSocial,
       nomeFantasia,
-      dataCadastro,
       responsavel,
-      acessoDocto,
-      acessoViaHierarquia,
+      dataCadastro,
+      dataAcessoDoc,
+      dataAcessoAuthHierarquia,
+      dataAcessoWhitelist,
+      observacoes,
       ativo,
     );
   }

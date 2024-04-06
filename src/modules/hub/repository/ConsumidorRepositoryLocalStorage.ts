@@ -14,7 +14,9 @@ export default class ConsumidorRepositoryLocalStorage
 
   private get data() {
     return this._data.value.sort((a, b) =>
-      a.nomeFantasia.localeCompare(b.nomeFantasia),
+      `${a.nomeFantasia} ${a.razaoSocial}`.localeCompare(
+        `${b.nomeFantasia} ${b.razaoSocial}`,
+      ),
     );
   }
 

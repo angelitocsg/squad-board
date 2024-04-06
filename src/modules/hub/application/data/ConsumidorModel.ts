@@ -6,14 +6,16 @@ export default class ConsumidorModel {
   cnpj: string = "";
   razaoSocial: string = "";
   nomeFantasia: string = "";
-  dataCadastro: string = "";
   responsavel: string = "";
-  acessoDocto: boolean = false;
-  acessoViaHierarquia: boolean = false;
+  dataCadastro: string = "";
+  dataAcessoDoc: string = "";
+  dataAcessoAuthHierarquia: string = "";
+  dataAcessoWhitelist: string = "";
+  observacoes: string = "";
   ativo: boolean = false;
 
   constructor() {
-    this.dataCadastro = dateHelper.format(new Date(), "dd/MM/yyyy hh:mm:ss");
+    this.dataCadastro = dateHelper.format(new Date(), "dd/MM/yyyy hh:mm");
   }
 
   static fromDomain(entity: Consumidor): ConsumidorModel {
@@ -22,10 +24,12 @@ export default class ConsumidorModel {
       cnpj: entity.cnpj,
       razaoSocial: entity.razaoSocial,
       nomeFantasia: entity.nomeFantasia,
-      dataCadastro: entity.dataCadastro,
       responsavel: entity.responsavel,
-      acessoDocto: entity.acessoDocto,
-      acessoViaHierarquia: entity.acessoViaHierarquia,
+      dataCadastro: entity.dataCadastro,
+      dataAcessoDoc: entity.dataAcessoDoc,
+      dataAcessoAuthHierarquia: entity.dataAcessoAuthHierarquia,
+      dataAcessoWhitelist: entity.dataAcessoWhitelist,
+      observacoes: entity.observacoes,
       ativo: entity.ativo,
     };
   }
@@ -36,10 +40,12 @@ export default class ConsumidorModel {
       model.cnpj,
       model.razaoSocial,
       model.nomeFantasia,
-      model.dataCadastro,
       model.responsavel,
-      model.acessoDocto,
-      model.acessoViaHierarquia,
+      model.dataCadastro,
+      model.dataAcessoDoc,
+      model.dataAcessoAuthHierarquia,
+      model.dataAcessoWhitelist,
+      model.observacoes,
       model.ativo,
     );
   }

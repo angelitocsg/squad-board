@@ -11,7 +11,9 @@ export default class AcessoRepositoryLocalStorage implements AcessoRepository {
   >([]);
 
   private get data() {
-    return this._data.value;
+    return this._data.value.sort((a, b) =>
+      a.apiKey.localeCompare(b.apiKey),
+    );
   }
 
   get data$() {

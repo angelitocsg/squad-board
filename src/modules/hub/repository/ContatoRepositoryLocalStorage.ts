@@ -13,7 +13,9 @@ export default class ContatoRepositoryLocalStorage
   >([]);
 
   private get data() {
-    return this._data.value;
+    return this._data.value.sort((a, b) =>
+      a.nome.localeCompare(b.nome),
+    );
   }
 
   get data$() {

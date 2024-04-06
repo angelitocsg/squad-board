@@ -84,10 +84,12 @@ export default class ConsumidorStore {
         model.cnpj,
         model.razaoSocial,
         model.nomeFantasia,
-        model.dataCadastro,
         model.responsavel,
-        model.acessoDocto,
-        model.acessoViaHierarquia,
+        model.dataCadastro,
+        model.dataAcessoDoc,
+        model.dataAcessoAuthHierarquia,
+        model.dataAcessoWhitelist,
+        model.observacoes,
         model.ativo,
       );
       if (!model.id) this.consumidorRepository.create(consumidor);
