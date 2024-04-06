@@ -33,6 +33,7 @@ function timeDifference(
 type TDateFormat =
   | "dd/MM"
   | "dd/MM/yyyy"
+  | "dd/MM/yyyy hh:mm"
   | "dd/MM/yyyy hh:mm:ss"
   | "yyyy-MM-dd"
   | "yyyy-MM-dd hh:mm:ss"
@@ -56,6 +57,9 @@ const format = (value: Date, format: TDateFormat) => {
 
     case "yyyy-MM-dd":
       return `${year}-${month}-${day}`;
+
+    case "dd/MM/yyyy hh:mm":
+      return `${day}/${month}/${year} ${hour}:${minute}`;
 
     case "dd/MM/yyyy hh:mm:ss":
       return `${day}/${month}/${year} ${hour}:${minute}:${seconds}`;

@@ -38,9 +38,11 @@ const FormInput = ({
   onTextAreaChange,
 }: IFormInput) => (
   <div className="mb-3">
-    <label htmlFor={field} className="form-label">
-      {label}
-    </label>
+    {label && (
+      <label htmlFor={field} className="form-label">
+        {label}
+      </label>
+    )}
     {type === "textarea" ? (
       <textarea
         className="form-control"
