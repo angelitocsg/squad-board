@@ -27,11 +27,10 @@ const vv_fx: ISelectOptions[] = [
 ];
 
 const vv_mf: ISelectOptions[] = [
-  { label: "MFE Chassi", value: "mf-corban-chassi" },
+  { label: "MFE Chassi", value: "mf-corbans-chassi" },
   { label: "MFE Configurações", value: "mf-corban-configuracoes" },
-  { label: "MFE Embedamento IBConsig", value: "mf-corban-embed" },
+  { label: "MFE Embedamento IBConsig", value: "mf-corban-legado-embed" },
   { label: "MFE FAQ", value: "mf-faq-ui" },
-  { label: "MFE Gestão Propostas", value: "mf-corban-gestao-propostas" },
   { label: "MFE Relatórios", value: "mf-corban-relatorios" },
 ].map((x) => ({ label: `${x.label} (${x.value})`, value: x.value }));
 

@@ -34,25 +34,20 @@ const Footer = ({
         type="button"
         className="btn btn-secondary"
         data-bs-dismiss="modal"
-        onClick={handleCancel}
-      >
-        {buttonCancelLabel ?? "Cancelar"}
+        onClick={handleCancel}>
+        {buttonCancelLabel}
       </button>
     )}
-    <button
-      type="button"
-      className="btn btn-primary"
-      onClick={handleOk}
-    >
-      {buttonOkLabel ?? "Ok"}
+    <button type="button" className="btn btn-primary" onClick={handleOk}>
+      {buttonOkLabel}
     </button>
   </div>
 );
 
 const AppModal = () => {
   const { state, size, myModal, handleOk, handleCancel } = useModalController();
-  const _modalId = `${state.modalId ?? "appModal"}`;
-  const _modalIdLabel = `${state.modalId ?? "appModal"}`;
+  const _modalId = `${state.modalId}`;
+  const _modalIdLabel = `${state.modalId}`;
   const _modalDialogStyle = `modal-dialog modal-dialog-centered ${size}`;
 
   return (
@@ -62,8 +57,7 @@ const AppModal = () => {
       id={_modalId}
       tabIndex={-1}
       aria-labelledby={_modalIdLabel}
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       <div className={_modalDialogStyle}>
         <div className="modal-content">
           <Header title={state.title} modalIdLabel={_modalIdLabel} />

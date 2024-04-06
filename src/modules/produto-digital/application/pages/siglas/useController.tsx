@@ -7,7 +7,6 @@ import AlertModalService from "../../../../core/components/AlertModal/AlertModal
 import AppModalService from "../../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../../core/components/DisplayTable";
 import { IHeaderActions } from "../../../../core/components/DisplayTable/headerActions";
-import Sigla from "../../../domain/Sigla";
 import SiglaRepository from "../../../repository/SiglaRepository";
 import SiglaModel from "../../data/SiglaModel";
 import SiglaStore from "../../data/SiglaStore";

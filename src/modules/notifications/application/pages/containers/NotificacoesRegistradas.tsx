@@ -66,7 +66,7 @@ const NotificacoesRegistradas = ({
         {!hasNotification && (
           <tfoot className="p-1 pv-2">
             <tr>
-              <td colSpan={2}>
+              <td colSpan={5}>
                 <span className="p-1 pv-2">Sem notificações</span>
               </td>
             </tr>

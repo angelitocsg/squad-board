@@ -14,6 +14,9 @@ export type IModal = {
 
 export default class AppModalService {
   private initial: IModal = {
+    modalId: "appModal",
+    buttonOkLabel: "Ok",
+    buttonCancelLabel: "Cancelar",
     buttonOkAction: this.close.bind(this),
     buttonCancelAction: this.close.bind(this),
   };

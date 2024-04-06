@@ -31,16 +31,18 @@ const DisplayTableLine = ({
           {line[cl.field]}
         </td>
       ))}
-      <td>
-        {actions?.map((a, i) => (
-          <div
-            key={`act_${i}`}
-            onClick={() => handleActionClick(a.onClick)}
-            className="small btn-link d-inline-flex px-1 text-primary">
-            {a.label}
-          </div>
-        ))}
-      </td>
+      {actions && (
+        <td>
+          {actions?.map((a, i) => (
+            <div
+              key={`act_${i}`}
+              onClick={() => handleActionClick(a.onClick)}
+              className="small btn-link d-inline-flex px-1 text-primary">
+              {a.label}
+            </div>
+          ))}
+        </td>
+      )}
     </tr>
   );
 };
