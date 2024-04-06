@@ -16,6 +16,12 @@ export default class ContatoModel {
     this.email = "";
   }
 
+  static create(consumidorId: string): ContatoModel {
+    const contato = new ContatoModel();
+    contato.consumidorId = consumidorId;
+    return contato;
+  }
+
   static fromDomain(entity: Contato): ContatoModel {
     return {
       id: entity.id,

@@ -20,9 +20,13 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
     state,
     acessos,
     contatos,
-    handleChange,
     tColumnsAcessos,
+    tHeaderButtonsAcessos,
+    tActionsAcessos,
     tColumnsContatos,
+    tHeaderButtonsContatos,
+    tActionsContatos,
+    handleChange,
   } = useForm({
     data,
     onChange,
@@ -98,10 +102,20 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
       </TabGroup>
       <TabContentGroup>
         <TabContent tabId="tabAcessos" active>
-          <DisplayTable columns={tColumnsAcessos} lines={acessos} />
+          <DisplayTable
+            headerButtons={tHeaderButtonsAcessos}
+            actions={tActionsAcessos}
+            columns={tColumnsAcessos}
+            lines={acessos}
+          />
         </TabContent>
         <TabContent tabId="tabContatos">
-          <DisplayTable columns={tColumnsContatos} lines={contatos} />
+          <DisplayTable
+            headerButtons={tHeaderButtonsContatos}
+            actions={tActionsContatos}
+            columns={tColumnsContatos}
+            lines={contatos}
+          />
         </TabContent>
       </TabContentGroup>
     </div>

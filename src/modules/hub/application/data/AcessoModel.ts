@@ -19,6 +19,12 @@ export default class AcessoModel {
     this.ativo = false;
   }
 
+  static create(consumidorId: string): AcessoModel {
+    const acesso = new AcessoModel();
+    acesso.consumidorId = consumidorId;
+    return acesso;
+  }
+
   static fromDomain(entity: Acesso): AcessoModel {
     return {
       id: entity.id,
