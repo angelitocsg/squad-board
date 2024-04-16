@@ -35,7 +35,7 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
   return (
     <div>
       <div className="row">
-        <div className="col-4">
+        <div className="col-3">
           <FormInput
             type="text"
             label="CNPJ"
@@ -55,7 +55,6 @@ const ConsumidorForm = ({ data, onChange }: IProps) => {
           />
         </div>
         <div className="col">
-          {" "}
           <FormInput
             type="text"
             label="Data DevPortal"
