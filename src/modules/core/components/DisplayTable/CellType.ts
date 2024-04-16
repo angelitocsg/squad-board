@@ -1,4 +1,3 @@
-
 export enum CellType {
   NONE = "",
   TEXT = "text",

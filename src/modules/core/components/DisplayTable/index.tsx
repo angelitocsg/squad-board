@@ -34,28 +34,30 @@ const DisplayTable = ({
     <div className="card">
       <div className="card-body">
         {headerButtons && <HeaderActions {...headerButtons} />}
-        <table className="table table-hover">
-          <thead className="table-light">
-            <tr>
-              {columns.map((c, i) => (
-                <th key={i}>{c.title}</th>
+        <div className="table-responsive">
+          <table className="table table-hover">
+            <thead className="table-light">
+              <tr>
+                {columns.map((c, i) => (
+                  <th key={i}>{c.title}</th>
+                ))}
+                {actions ? <th>Ações</th> : undefined}
+              </tr>
+            </thead>
+            <tbody>
+              {lines.map((ln, li) => (
+                <DisplayTableLine
+                  actions={actions}
+                  key={li}
+                  lineKey={li}
+                  columns={columns}
+                  line={ln}
+                  onLineClick={onLineClick}
+                />
               ))}
-              {actions ? <th>Ações</th> : undefined}
-            </tr>
-          </thead>
-          <tbody>
-            {lines.map((ln, li) => (
-              <DisplayTableLine
-                actions={actions}
-                key={li}
-                lineKey={li}
-                columns={columns}
-                line={ln}
-                onLineClick={onLineClick}
-              />
-            ))}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
         <span className="small">
           Exibindo <strong>{lines.length}</strong> registros
         </span>
