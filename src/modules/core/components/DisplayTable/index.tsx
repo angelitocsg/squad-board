@@ -1,3 +1,4 @@
+import { TCell } from "./CellType";
 import HeaderActions, { IHeaderActions } from "./headerActions";
 import DisplayTableLine from "./line";
 
@@ -6,6 +7,7 @@ export type IColumns = {
   title: string;
   width?: number;
   nowrap?: boolean;
+  type?: TCell;
 };
 
 export type IActions = {
@@ -21,7 +23,13 @@ type IProps = {
   onLineClick?: (data: any) => void;
 };
 
-const DisplayTable = ({ actions, columns, lines, headerButtons, onLineClick }: IProps) => {
+const DisplayTable = ({
+  actions,
+  columns,
+  lines,
+  headerButtons,
+  onLineClick,
+}: IProps) => {
   return (
     <div className="card">
       <div className="card-body">

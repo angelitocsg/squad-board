@@ -1,4 +1,5 @@
 import { IActions, IColumns } from ".";
+import DisplayCell from "./cell";
 
 type IProps = {
   lineKey: any;
@@ -28,7 +29,7 @@ const DisplayTableLine = ({
           key={`${lineKey}_${ci}`}
           className={cl.nowrap ? "text-nowrap small" : "small"}
           onClick={handleOnClick}>
-          {line[cl.field]}
+          <DisplayCell type={cl.type} value={line[cl.field]} />
         </td>
       ))}
       {actions && (
