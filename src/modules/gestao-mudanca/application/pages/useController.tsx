@@ -8,6 +8,8 @@ import { BackupService } from "../../../../services/BackupService";
 import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
+import { BadgeType } from "../../../core/components/DisplayTable/BadgeType";
+import { CellType } from "../../../core/components/DisplayTable/CellType";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import RepoModel from "../../../repositorios/application/data/RepoModel";
 import RepoRepository from "../../../repositorios/repository/RepoRepository";
@@ -31,7 +33,7 @@ const useController = () => {
     { field: "story", title: "Tarefa", nowrap: true },
     { field: "version", title: "Versão" },
     { field: "dateTime", title: "Data e hora", nowrap: true },
-    { field: "status", title: "Status" },
+    { field: "statusBadge", title: "Status", type: CellType.BADGE },
     { field: "repository", title: "Repositório" },
     { field: "owner", title: "Responsável", nowrap: true },
     { field: "description", title: "Descrição" },
@@ -66,6 +68,17 @@ const useController = () => {
                   "dd/MM/yyyy",
                 )} ${item.time}`
               : "",
+            statusBadge: {
+              type:
+                item.status === GmudStatus.PLANEJADA
+                  ? BadgeType.WARNING
+                  : item.status === GmudStatus.AGENDADA
+                  ? BadgeType.PRIMARY
+                  : item.status === GmudStatus.PUBLICADA
+                  ? BadgeType.SUCCESS
+                  : BadgeType.SECONDARY,
+              value: item.status,
+            },
           };
         }),
       );
