@@ -1,5 +1,7 @@
 import Repo from "../domain/Repo";
 import { TCodeBase } from "../types/CodeBaseType";
+import { TEnvStatus } from "../types/EnvStatusType";
+import { TLongText } from "../types/LongText";
 import { TRepository } from "../types/RepositoryType";
 
 export default class RepoDTO {
@@ -16,6 +18,10 @@ export default class RepoDTO {
   gatewayIdDev?: string;
   gatewayIdHom?: string;
   gatewayIdPrd?: string;
+  devStatus?: TEnvStatus;
+  homStatus?: TEnvStatus;
+  prodStatus?: TEnvStatus;
+  notes?: TLongText;
 
   constructor(repo: Repo) {
     this.id = repo.id;
@@ -31,6 +37,10 @@ export default class RepoDTO {
     this.gatewayIdDev = repo.gatewayIdDev;
     this.gatewayIdHom = repo.gatewayIdHom;
     this.gatewayIdPrd = repo.gatewayIdPrd;
+    this.devStatus = repo.devStatus;
+    this.homStatus = repo.homStatus;
+    this.prodStatus = repo.prodStatus;
+    this.notes = repo.notes;
   }
 
   static toDomain(dto: RepoDTO) {
@@ -48,6 +58,10 @@ export default class RepoDTO {
       dto.gatewayIdDev,
       dto.gatewayIdHom,
       dto.gatewayIdPrd,
+      dto.devStatus,
+      dto.homStatus,
+      dto.prodStatus,
+      dto.notes,
     );
   }
 

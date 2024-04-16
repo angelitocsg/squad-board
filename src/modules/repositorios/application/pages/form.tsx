@@ -8,6 +8,7 @@ import SelectInput, {
 } from "../../../core/components/SelectInput";
 import ProductRepository from "../../../produto-digital/repository/ProductRepository";
 import { CodeBaseType } from "../../types/CodeBaseType";
+import { EnvStatusType } from "../../types/EnvStatusType";
 import { RepositoryType } from "../../types/RepositoryType";
 import RepoModel from "../data/RepoModel";
 
@@ -45,12 +46,27 @@ const RepoForm = ({ data, onChange }: IProps) => {
     ];
   };
 
+  const envStatusTypes = () => {
+    var items = Object.keys(EnvStatusType);
+    var values = Object.values(EnvStatusType);
+    return [
+      { label: "", value: "" },
+      ...items.map((item, i) => ({
+        label: item.replace("_", " "),
+        value: values[i],
+      })),
+    ];
+  };
+
   useEffect(() => {
     productRepository.getAll();
     var subscriber = productRepository.data$.subscribe((products) => {
       setProducts([
         { label: "", value: "" },
-        ...products.map((p) => ({ label: `${p.name} (${p.sigla.id})`, value: p.id })),
+        ...products.map((p) => ({
+          label: `${p.name} (${p.sigla.id})`,
+          value: p.id,
+        })),
       ]);
     });
     return () => {
@@ -154,6 +170,47 @@ const RepoForm = ({ data, onChange }: IProps) => {
             field="pipelineVersion"
             value={state.pipelineVersion}
             onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <SelectInput
+            label="Desenvolvimento"
+            field="devStatus"
+            value={state.devStatus}
+            options={envStatusTypes()}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <SelectInput
+            label="Homologação"
+            field="homStatus"
+            value={state.homStatus}
+            options={envStatusTypes()}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col">
+          <SelectInput
+            label="Produção"
+            field="prodStatus"
+            value={state.prodStatus}
+            options={envStatusTypes()}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <FormInput
+            type="textarea"
+            label="Anotações"
+            field="notes"
+            rows={5}
+            value={state.notes}
+            onTextAreaChange={handleChange}
           />
         </div>
       </div>

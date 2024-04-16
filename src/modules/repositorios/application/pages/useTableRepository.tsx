@@ -6,6 +6,7 @@ import { BackupService } from "../../../../services/BackupService";
 import AlertModalService from "../../../core/components/AlertModal/AlertModalService";
 import AppModalService from "../../../core/components/AppModal/AppModalService";
 import { IActions, IColumns } from "../../../core/components/DisplayTable";
+import { CellType } from "../../../core/components/DisplayTable/CellType";
 import { IHeaderActions } from "../../../core/components/DisplayTable/headerActions";
 import GmudModel from "../../../gestao-mudanca/application/data/GmudModel";
 import GmudRepository from "../../../gestao-mudanca/repository/GmudRepository";
@@ -66,7 +67,7 @@ const useTableRepository = () => {
     return () => {
       subscriber.unsubscribe();
     };
-  }, [products, repoRepository]);
+  }, [gmuds, products, repoRepository]);
 
   const loadRepositories = (filter?: TFilterRepo) => {
     repoRepository.getAll(filter);
@@ -166,12 +167,14 @@ const useTableRepository = () => {
     { field: "product", title: "Produto" },
     { field: "description", title: "Descrição" },
     { field: "repoName", title: "Repositório" },
-    { field: "type", title: "Tipo" },
+    { field: "type", title: "Tipo", type: CellType.BADGE },
     { field: "deploySequence", title: "Sequência" },
-    { field: "codeBase", title: "Code base" },
+    { field: "codeBase", title: "Code base", type: CellType.BADGE },
     { field: "siglaApp", title: "Sigla App" },
     { field: "pipelineVersion", title: "Pipeline" },
-    { field: "gmuds", title: "Gmuds" },
+    { field: "devStatus", title: "Dev", type: CellType.SEMAPHORE },
+    { field: "homStatus", title: "Hom", type: CellType.SEMAPHORE },
+    { field: "prodStatus", title: "Prod", type: CellType.SEMAPHORE },
   ];
 
   const tActionsView: IActions[] = [

@@ -1,5 +1,7 @@
 import Repo from "../../domain/Repo";
 import { TCodeBase } from "../../types/CodeBaseType";
+import { EnvStatusType, TEnvStatus } from "../../types/EnvStatusType";
+import { TLongText } from "../../types/LongText";
 import { RepositoryType, TRepository } from "../../types/RepositoryType";
 
 export default class RepoModel {
@@ -17,6 +19,10 @@ export default class RepoModel {
   gatewayIdDev?: string = "";
   gatewayIdHom?: string = "";
   gatewayIdPrd?: string = "";
+  devStatus?: TEnvStatus = EnvStatusType.DEFAULT;
+  homStatus?: TEnvStatus = EnvStatusType.DEFAULT;
+  prodStatus?: TEnvStatus = EnvStatusType.DEFAULT;
+  notes?: TLongText = "";
 
   static toDomain(model: RepoModel): Repo {
     const repo = Repo.create(
@@ -32,6 +38,10 @@ export default class RepoModel {
       model.gatewayIdDev,
       model.gatewayIdHom,
       model.gatewayIdPrd,
+      model.devStatus,
+      model.homStatus,
+      model.prodStatus,
+      model.notes,
     );
     return repo;
   }
@@ -51,6 +61,10 @@ export default class RepoModel {
       gatewayIdDev: entity.gatewayIdDev,
       gatewayIdHom: entity.gatewayIdHom,
       gatewayIdPrd: entity.gatewayIdPrd,
+      devStatus: entity.devStatus,
+      homStatus: entity.homStatus,
+      prodStatus: entity.prodStatus,
+      notes: entity.notes,
     };
   }
 }

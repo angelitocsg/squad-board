@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { CodeBaseType, TCodeBase } from "../types/CodeBaseType";
+import { EnvStatusType, TEnvStatus } from "../types/EnvStatusType";
+import { TLongText } from "../types/LongText";
 import { TRepository } from "../types/RepositoryType";
 
 export default class Repo {
@@ -56,6 +58,22 @@ export default class Repo {
   get gatewayIdPrd() {
     return this._gatewayIdPrd;
   }
+  private _devStatus?: TEnvStatus;
+  get devStatus() {
+    return this._devStatus;
+  }
+  private _homStatus?: TEnvStatus;
+  get homStatus() {
+    return this._homStatus;
+  }
+  private _prodStatus?: TEnvStatus;
+  get prodStatus() {
+    return this._prodStatus;
+  }
+  private _notes?: TLongText;
+  get notes() {
+    return this._notes;
+  }
 
   private constructor(
     id: string,
@@ -71,6 +89,10 @@ export default class Repo {
     gatewayIdDev?: string,
     gatewayIdHom?: string,
     gatewayIdPrd?: string,
+    devStatus?: TEnvStatus,
+    homStatus?: TEnvStatus,
+    prodStatus?: TEnvStatus,
+    notes?: TLongText,
   ) {
     this._id = id;
     this._productId = productId;
@@ -85,6 +107,10 @@ export default class Repo {
     this._gatewayIdDev = gatewayIdDev ?? "";
     this._gatewayIdHom = gatewayIdHom ?? "";
     this._gatewayIdPrd = gatewayIdPrd ?? "";
+    this._devStatus = devStatus ?? EnvStatusType.DEFAULT;
+    this._homStatus = homStatus ?? EnvStatusType.DEFAULT;
+    this._prodStatus = prodStatus ?? EnvStatusType.DEFAULT;
+    this._notes = notes ?? "";
   }
 
   updateId(id: string): Repo {
@@ -106,6 +132,10 @@ export default class Repo {
     gatewayIdDev?: string,
     gatewayIdHom?: string,
     gatewayIdPrd?: string,
+    devStatus?: TEnvStatus,
+    homStatus?: TEnvStatus,
+    prodStatus?: TEnvStatus,
+    notes?: TLongText,
   ) {
     if (!productId) throw Error("O produto deve ser informado");
     if (!repository) throw Error("O repositório deve ser informado");
@@ -128,6 +158,10 @@ export default class Repo {
       gatewayIdDev,
       gatewayIdHom,
       gatewayIdPrd,
+      devStatus,
+      homStatus,
+      prodStatus,
+      notes,
     );
   }
 
@@ -145,6 +179,10 @@ export default class Repo {
     gatewayIdDev?: string,
     gatewayIdHom?: string,
     gatewayIdPrd?: string,
+    devStatus?: TEnvStatus,
+    homStatus?: TEnvStatus,
+    prodStatus?: TEnvStatus,
+    notes?: TLongText,
   ) {
     return new Repo(
       id,
@@ -160,6 +198,10 @@ export default class Repo {
       gatewayIdDev,
       gatewayIdHom,
       gatewayIdPrd,
+      devStatus,
+      homStatus,
+      prodStatus,
+      notes,
     );
   }
 }
