@@ -3,8 +3,8 @@ export enum EnvStatusType {
   DEFAULT = "light",
   CANCELED = "secondary",
   PENDING = "warning",
-  FAIL = "danger",
   PUBLISHED = "success",
+  FAIL = "danger",
 }
 
 export type TEnvStatus =
@@ -12,5 +12,5 @@ export type TEnvStatus =
   | EnvStatusType.DEFAULT
   | EnvStatusType.CANCELED
   | EnvStatusType.PENDING
-  | EnvStatusType.FAIL
-  | EnvStatusType.PUBLISHED;
+  | EnvStatusType.PUBLISHED
+  | EnvStatusType.FAIL;

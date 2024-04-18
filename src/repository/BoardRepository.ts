@@ -72,7 +72,9 @@ export class BoardRepository {
   }
 
   getFeaturesFromLocalStorage() {
-    return localStorage.getItem(StorageKey.BOARD_DATA_FEATURES);
+    const data_features =
+      localStorage.getItem(StorageKey.BOARD_DATA_FEATURES) ?? "[]";
+    return JSON.stringify(JSON.parse(data_features), null, 2);
   }
 
   getAllIssues() {

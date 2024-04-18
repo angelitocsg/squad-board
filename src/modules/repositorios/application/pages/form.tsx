@@ -52,7 +52,7 @@ const RepoForm = ({ data, onChange }: IProps) => {
     return [
       { label: "", value: "" },
       ...items.map((item, i) => ({
-        label: item.replace("_", " "),
+        label: `${item.replace("_", " ")} ${values[i] ? `(${values[i]})` : ""}`,
         value: values[i],
       })),
     ];

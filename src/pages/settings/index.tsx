@@ -1,7 +1,8 @@
 import useSettings from "./useSettings";
 
 const SettingsPage = () => {
-  const { features_text, invalid_json, settings, updateValue } = useSettings();
+  const { features, features_text, invalid_json, settings, updateValue } =
+    useSettings();
 
   return (
     <section className="container mt-4">
@@ -9,8 +10,12 @@ const SettingsPage = () => {
       <div className="row">
         <div className="col">
           <div className="mb-3">
-            <label htmlFor="v" className="form-label">
-              Link pesquisa de tarefas externas (id da tarefa adicionado ao final do link)
+            <label
+              htmlFor="v"
+              title="board_external_search"
+              className="form-label">
+              Link pesquisa de tarefas externas (id da tarefa adicionado ao
+              final do link)
             </label>
             <input
               type="text"
@@ -27,7 +32,7 @@ const SettingsPage = () => {
       <div className="row">
         <div className="col">
           <div className="mb-3">
-            <label htmlFor="features" className="form-label">
+            <label htmlFor="features" title="features" className="form-label">
               Features com descrição (JSON)
             </label>
             <textarea
@@ -36,25 +41,27 @@ const SettingsPage = () => {
               id="features"
               name="features"
               rows={8}
-              value={settings.features}
+              value={features}
               placeholder="[{id:'FETR-0001', label: 'COMUNICAÇÃO'}]"
-              onChange={(e) => updateValue(e.target.name, e.target.value)}></textarea>
+              onChange={(e) =>
+                updateValue(e.target.name, e.target.value)
+              }></textarea>
             <span className="text-danger">{invalid_json}</span>
           </div>
         </div>
         <div className="col">
           <div className="mb-3">
-            <label htmlFor="respostaInput" className="form-label">
+            <label
+              htmlFor="respostaInput"
+              title="features_text"
+              className="form-label">
               Features importadas no [Tarefas]
             </label>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: features_text,
-              }}
+            <pre
               className="form-control text-bg-light"
-              style={{
-                minHeight: 180,
-              }}></div>
+              style={{ minHeight: 180, fontSize: "0.75rem" }}>
+              {features_text}
+            </pre>
           </div>
         </div>
       </div>
