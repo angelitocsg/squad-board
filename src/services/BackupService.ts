@@ -95,7 +95,8 @@ export class BackupService {
             const it: any = {};
             columns.forEach((col, i) => {
               it[col] =
-                detailColumns?.indexOf(col) !== -1 && line[i] !== undefined
+                (detailColumns?.indexOf(col) ?? -1) >= 0 &&
+                line[i] !== undefined
                   ? JSON.parse(line[i])
                   : line[i];
             });
