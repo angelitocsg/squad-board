@@ -22,7 +22,7 @@ export default class Repo {
   get type() {
     return this._type;
   }
-  private _deploySequence: number;
+  private _deploySequence: string;
   get deploySequence() {
     return this._deploySequence;
   }
@@ -80,7 +80,7 @@ export default class Repo {
     productId: string,
     repository: string,
     type: TRepository,
-    deploySequence: number = 1.0,
+    deploySequence: string = "0.0",
     siglaApp?: string,
     description?: string,
     codeBase?: TCodeBase,
@@ -123,7 +123,7 @@ export default class Repo {
     productId: string,
     repository: string,
     type: TRepository,
-    deploySequence: number = 1.0,
+    deploySequence: string = "0.0",
     siglaApp?: string,
     description?: string,
     codeBase?: TCodeBase,
@@ -170,7 +170,7 @@ export default class Repo {
     productId: string,
     repository: string,
     type: TRepository,
-    deploySequence: number = 1.0,
+    deploySequence: string = "0.0",
     siglaApp?: string,
     description?: string,
     codeBase?: TCodeBase,

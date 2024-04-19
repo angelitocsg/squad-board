@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useService } from "../../../../di/DecouplerContext";
+import { TBadge } from "../../../core/components/DisplayTable/BadgeType";
 import FormInput from "../../../core/components/FormInput";
 import FormInputFilter from "../../../core/components/FormInputFilter";
 import SelectInput, {
@@ -50,10 +51,10 @@ const RepoForm = ({ data, onChange }: IProps) => {
     var items = Object.keys(EnvStatusType);
     var values = Object.values(EnvStatusType);
     return [
-      { label: "", value: "" },
       ...items.map((item, i) => ({
-        label: `${item.replace("_", " ")} ${values[i] ? `(${values[i]})` : ""}`,
+        label: `${item.replace("_", " ")}`,
         value: values[i],
+        color: values[i].toString() as TBadge,
       })),
     ];
   };
@@ -145,6 +146,15 @@ const RepoForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
+        <div className="col">
+          <FormInput
+            type="text"
+            label="Versão Pipeline"
+            field="pipelineVersion"
+            value={state.pipelineVersion}
+            onChange={handleChange}
+          />
+        </div>
         <div className="col-2">
           <FormInput
             type="text"
@@ -176,19 +186,11 @@ const RepoForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-        <div className="col">
-          <FormInput
-            type="text"
-            label="Versão Pipeline"
-            field="pipelineVersion"
-            value={state.pipelineVersion}
-            onChange={handleChange}
-          />
-        </div>
       </div>
       <div className="row">
         <div className="col">
           <SelectInput
+            variation="checkbox"
             label="Desenvolvimento"
             field="devStatus"
             value={state.devStatus}
@@ -198,6 +200,7 @@ const RepoForm = ({ data, onChange }: IProps) => {
         </div>
         <div className="col">
           <SelectInput
+            variation="checkbox"
             label="Homologação"
             field="homStatus"
             value={state.homStatus}
@@ -207,6 +210,7 @@ const RepoForm = ({ data, onChange }: IProps) => {
         </div>
         <div className="col">
           <SelectInput
+            variation="checkbox"
             label="Produção"
             field="prodStatus"
             value={state.prodStatus}
@@ -214,14 +218,12 @@ const RepoForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
         </div>
-      </div>
-      <div className="row">
-        <div className="col">
+        <div className="col-6">
           <FormInput
             type="textarea"
             label="Anotações"
             field="notes"
-            rows={5}
+            rows={6}
             value={state.notes}
             onTextAreaChange={handleChange}
           />

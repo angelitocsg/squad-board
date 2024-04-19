@@ -10,7 +10,7 @@ export default class RepoModel {
   product?: string = "";
   repository: string = "";
   type: TRepository = RepositoryType.DEP;
-  deploySequence: number = 1.0;
+  deploySequence: string = "0.0";
   siglaApp?: string = "";
   description?: string = "";
   codeBase?: TCodeBase;

@@ -9,7 +9,7 @@ export default class RepoDTO {
   productId!: string;
   repository!: string;
   type!: TRepository;
-  deploySequence!: number;
+  deploySequence!: string;
   siglaApp?: string;
   description?: string;
   codeBase?: TCodeBase;

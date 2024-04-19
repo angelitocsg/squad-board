@@ -56,10 +56,7 @@ const useTableRepository = () => {
             ...RepoModel.fromDomain(item),
             product: products.find((x) => x.id === item.productId)?.name,
             repoName: item.repository.split("/")[1],
-            gmuds:
-              gmuds.filter((x) => x.repositoryId === item.id).length === 0
-                ? ""
-                : "SIM",
+            descriptionNotes: `${item.description} ${item.notes ? "(...)" : ""}`,
           };
         }),
       );
@@ -165,7 +162,7 @@ const useTableRepository = () => {
 
   const tColumns: IColumns[] = [
     { field: "product", title: "Produto" },
-    { field: "description", title: "Descrição" },
+    { field: "descriptionNotes", title: "Descrição" },
     { field: "repoName", title: "Repositório" },
     { field: "type", title: "Tipo", type: CellType.BADGE },
     { field: "deploySequence", title: "Sequência" },
