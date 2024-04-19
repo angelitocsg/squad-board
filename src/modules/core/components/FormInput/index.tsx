@@ -14,6 +14,7 @@ interface IFormInput extends IFormInputRightButton {
   type: "text" | "tel" | "email" | "textarea" | "date" | "time";
   value?: string | number | readonly string[];
   defaultValue?: string | number | readonly string[];
+  list?: string;
   disabled?: boolean;
   readOnly?: boolean;
   placeholder?: string;
@@ -28,6 +29,7 @@ const FormInput = ({
   type,
   value,
   defaultValue,
+  list,
   disabled,
   readOnly,
   placeholder,
@@ -66,6 +68,7 @@ const FormInput = ({
           type={type}
           value={value}
           defaultValue={defaultValue}
+          list={list}
           disabled={disabled}
           readOnly={readOnly}
           placeholder={placeholder}
