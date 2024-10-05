@@ -20,6 +20,7 @@ import ProjectsPage from "./pages/projects";
 import GmudReport from "./pages/projects/reports/GmudReport";
 import SettingsPage from "./pages/settings";
 import Main from "./shared/Main";
+import MailingEditor from "./modules/mailing-editor/application/pages";
 
 const router = createBrowserRouter(
   [
@@ -79,6 +80,10 @@ const router = createBrowserRouter(
             {
               path: "/utils/sprint-planning",
               element: <SprintPlanningHome />,
+            },
+            {
+              path: "/utils/mailing-editor",
+              element: <MailingEditor />,
             },
           ],
         },

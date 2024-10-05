@@ -23,6 +23,7 @@ const NavUtils = () => {
     <NavDropdown label="Utilitários">
       <NavDropdownItem label="Notificações" link="/notifications" />
       <NavDropdownItem label="Editor FAQ" link="/faq-editor" />
+      <NavDropdownItem label="Editor de e-mail" link="/utils/mailing-editor" />
       <NavDropdownDivider />
       <NavDropdownItem label="Planejamento" link="/utils/sprint-planning" />
       <NavDropdownItem label="Aplicações" link="/projects" />

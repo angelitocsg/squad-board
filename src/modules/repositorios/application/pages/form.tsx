@@ -165,13 +165,16 @@ const RepoForm = ({ data, onChange }: IProps) => {
             onChange={handleChange}
           />
           <datalist id="deploySequenceOptions">
-            <option value="0.0">0.0</option>
-            <option value="1.1">1.1</option>
-            <option value="1.2">1.2</option>
+            <option value="0.0">0.0 (indefinido)</option>
+            <option value="1.0">1.0 (infra)</option>
+            <option value="1.1">1.1 (aplicação)</option>
+            <option value="1.2">1.2 (gtw 1.0)</option>
             <option value="1.3">1.3</option>
+            <option value="2.0">2.0 (cloudfront)</option>
             <option value="2.1">2.1</option>
             <option value="2.2">2.2</option>
             <option value="2.3">2.3</option>
+            <option value="3.0">3.0</option>
             <option value="3.1">3.1</option>
             <option value="3.2">3.2</option>
             <option value="3.3">3.3</option>

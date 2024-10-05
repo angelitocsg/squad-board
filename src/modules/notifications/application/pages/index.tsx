@@ -93,11 +93,11 @@ const NotificationsPage = () => {
             <div className="col">
               <FormInput
                 type="text"
-                label={`Texto botão (Máximo 15 caracteres. Atual: ${
+                label={`Texto botão (Máximo 30 caracteres. Atual: ${
                   notification.txb?.length ?? 0
                 })`}
                 field="txb"
-                maxLength={15}
+                maxLength={30}
                 value={notification.txb}
                 placeholder="ex: ok, entendi"
                 onChange={(e) => updateValue(e.target.name, e.target.value)}
@@ -106,11 +106,11 @@ const NotificationsPage = () => {
             <div className="col">
               <FormInput
                 type="text"
-                label={`Texto checkbox [opcional] (Máximo 15 caracteres. Atual: ${
+                label={`Texto checkbox [opcional] (Máximo 50 caracteres. Atual: ${
                   notification.chk?.length ?? 0
                 })`}
                 field="chk"
-                maxLength={30}
+                maxLength={50}
                 value={notification.chk}
                 placeholder="ex: estou ciente do comunicado"
                 onChange={(e) => updateValue(e.target.name, e.target.value)}
