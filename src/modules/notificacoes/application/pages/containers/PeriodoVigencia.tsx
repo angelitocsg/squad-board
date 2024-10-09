@@ -1,12 +1,12 @@
 import FormInput from "../../../../../modules/core/components/FormInput";
-import { NotificationModel } from "../../data/NotificationModel";
+import NotificacaoModel from "../../data/NotificacaoModel";
 
 interface IProps {
-  notification: NotificationModel;
-  updateValue: (field: string, value: any) => void;
+  notification: NotificacaoModel;
+  onChange: (e: any) => void;
 }
 
-const PeriodoVigencia = ({ notification, updateValue }: IProps) => {
+const PeriodoVigencia = ({ notification, onChange: handleChange }: IProps) => {
   return (
     <div className="row">
       <div className="col">
@@ -15,7 +15,7 @@ const PeriodoVigencia = ({ notification, updateValue }: IProps) => {
           label="Data início da vigência"
           field="st"
           value={notification.st}
-          onChange={(e) => updateValue(e.target.name, e.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="col">
@@ -24,7 +24,7 @@ const PeriodoVigencia = ({ notification, updateValue }: IProps) => {
           label="Hora início da vigência"
           field="sth"
           value={notification.sth}
-          onChange={(e) => updateValue(e.target.name, e.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="col">
@@ -33,7 +33,7 @@ const PeriodoVigencia = ({ notification, updateValue }: IProps) => {
           label="Data final da vigência"
           field="ed"
           value={notification.ed}
-          onChange={(e) => updateValue(e.target.name, e.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="col">
@@ -42,7 +42,7 @@ const PeriodoVigencia = ({ notification, updateValue }: IProps) => {
           label="Hora final da vigência"
           field="edh"
           value={notification.edh}
-          onChange={(e) => updateValue(e.target.name, e.target.value)}
+          onChange={handleChange}
         />
       </div>
     </div>

@@ -13,8 +13,8 @@ export enum ComponentEnum {
 }
 
 export enum BehaviorEnum {
-  UmaVez = "0",
-  UmaVezDia = "1",
+  UmaVez = 0,
+  UmaVezDia = 1,
 }
 
 export type TBannerStyle =

@@ -1,5 +1,5 @@
 import { ISelectOptions } from "../../../../modules/core/components/SelectInput";
-import { BehaviorEnum, ComponentEnum, StyleEnum } from "./NotificationTypes";
+import { BehaviorEnum, ComponentEnum, StyleEnum } from "../../domain/NotificationTypes";
 
 const vv_cp: ISelectOptions[] = [
   { label: "Banner", value: ComponentEnum.Banner },
@@ -32,6 +32,6 @@ const vv_mf: ISelectOptions[] = [
   { label: "MFE Embedamento IBConsig", value: "mf-corban-legado-embed" },
   { label: "MFE FAQ", value: "mf-faq-ui" },
   { label: "MFE Relatórios", value: "mf-corban-relatorios" },
-].map((x) => ({ label: `${x.label} (${x.value})`, value: x.value }));
+];
 
 export { vv_cp, vv_t, vv_fx, vv_mf };

@@ -1,12 +1,15 @@
 import FormInput from "../../../../../modules/core/components/FormInput";
-import { NotificationModel } from "../../data/NotificationModel";
+import NotificacaoModel from "../../data/NotificacaoModel";
 
 interface IProps {
-  notification: NotificationModel;
-  updateValue: (field: string, value: any) => void;
+  notification: NotificacaoModel;
+  onChange: (e: any) => void;
 }
 
-export const Redirecionamento = ({ notification, updateValue }: IProps) => {
+export const Redirecionamento = ({
+  notification,
+  onChange: handleChange,
+}: IProps) => {
   return (
     <div className="row">
       <div className="col">
@@ -16,7 +19,7 @@ export const Redirecionamento = ({ notification, updateValue }: IProps) => {
           field="lk"
           maxLength={100}
           value={notification.lk}
-          onChange={(e) => updateValue(e.target.name, e.target.value)}
+          onChange={handleChange}
         />
       </div>{" "}
       <div className="col">
@@ -26,7 +29,7 @@ export const Redirecionamento = ({ notification, updateValue }: IProps) => {
           field="pg"
           maxLength={50}
           value={notification.pg}
-          onChange={(e) => updateValue(e.target.name, e.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="col">
@@ -36,7 +39,7 @@ export const Redirecionamento = ({ notification, updateValue }: IProps) => {
           field="op"
           maxLength={50}
           value={notification.op}
-          onChange={(e) => updateValue(e.target.name, e.target.value)}
+          onChange={handleChange}
         />
       </div>
     </div>
