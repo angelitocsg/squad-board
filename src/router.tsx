@@ -4,7 +4,8 @@ import GestaoMudancaHome from "./modules/gestao-mudanca/application/pages";
 import HubConsumidoresHome from "./modules/hub/application/pages";
 import HubAcessosHome from "./modules/hub/application/pages/acessos";
 import HubContatosHome from "./modules/hub/application/pages/contatos";
-import NotificationsPage from "./modules/notifications/application/pages";
+import MailingEditor from "./modules/mailing-editor/application/pages";
+import NotificacoesPage from "./modules/notificacoes/application/pages";
 import { PainelProdutos } from "./modules/paineis/application/pages";
 import ProdutoDigitalHome from "./modules/produto-digital/application/pages";
 import SiglaPage from "./modules/produto-digital/application/pages/siglas";
@@ -20,7 +21,6 @@ import ProjectsPage from "./pages/projects";
 import GmudReport from "./pages/projects/reports/GmudReport";
 import SettingsPage from "./pages/settings";
 import Main from "./shared/Main";
-import MailingEditor from "./modules/mailing-editor/application/pages";
 
 const router = createBrowserRouter(
   [
@@ -51,7 +51,7 @@ const router = createBrowserRouter(
         },
         {
           path: "/notifications",
-          element: <NotificationsPage />,
+          element: <NotificacoesPage />,
         },
         {
           path: "/faq-editor",

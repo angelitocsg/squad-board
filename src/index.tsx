@@ -16,7 +16,10 @@ import ContatoStore from "./modules/hub/application/data/ContatoStore";
 import AcessoRepositoryLocalStorage from "./modules/hub/repository/AcessoRepositoryLocalStorage";
 import ConsumidorRepositoryLocalStorage from "./modules/hub/repository/ConsumidorRepositoryLocalStorage";
 import ContatoRepositoryLocalStorage from "./modules/hub/repository/ContatoRepositoryLocalStorage";
-import NotificationStore from "./modules/notifications/application/data/NotificationStore";
+import InputDataStore from "./modules/notificacoes/application/data/InputDataStore";
+import NotificacaoStore from "./modules/notificacoes/application/data/NotificacaoStore";
+import ListaMfeRepositoryLocalStorage from "./modules/notificacoes/repository/ListaMfeRepositoryLocalStorage";
+import NotificacaoRepositoryLocalStorage from "./modules/notificacoes/repository/NotificacaoRepositoryLocalStorage";
 import ProductStore from "./modules/produto-digital/application/data/ProductStore";
 import SiglaStore from "./modules/produto-digital/application/data/SiglaStore";
 import ProductRepositoryLocalStorage from "./modules/produto-digital/repository/ProductRepositoryLocalStorage";
@@ -61,7 +64,10 @@ locator.register("AcessoRepository", AcessoRepositoryLocalStorage);
 locator.register("ContatoStore", ContatoStore);
 locator.register("ContatoRepository", ContatoRepositoryLocalStorage);
 
-locator.register("NotificationStore", NotificationStore);
+locator.register("InputDataStore", InputDataStore);
+locator.register("NotificacaoStore", NotificacaoStore);
+locator.register("ListaMfeRepository", ListaMfeRepositoryLocalStorage);
+locator.register("NotificacaoRepository", NotificacaoRepositoryLocalStorage);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

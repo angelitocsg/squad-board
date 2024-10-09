@@ -8,7 +8,7 @@ export class ServiceLocator {
 
   resolve<T>(abstraction: string) {
     if (!this.serviceMap.has(abstraction))
-      throw Error("No service of this abstraction has been registered.");
+      throw Error(`No service of this abstraction has been registered. ${abstraction}`);
 
     if (!this.serviceInstances.has(abstraction)) {
       console.log(">> new instance", abstraction);

@@ -30,6 +30,7 @@ const DynamicTableLine = ({ lineKey, columns, line, actions, onFieldChange }: IP
               type="text"
               name={cl.field}
               value={value}
+              title={`campo: ${cl.field}`}
               autoComplete="off"
               style={{
                 width: cl.width,

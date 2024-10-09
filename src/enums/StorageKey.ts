@@ -14,4 +14,6 @@ export enum StorageKey {
   DATA_HUB_CONSUMIDORES = "data_hub_consumidores",
   DATA_HUB_ACESSOS = "data_hub_acessos",
   DATA_HUB_CONTATOS = "data_hub_contatos",
+  DATA_NOTIFICACOES = "data_notificacoes",
+  DATA_NOTIFICACOES_CONFIG = "data_notificacoes_config"
 }
