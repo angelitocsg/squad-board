@@ -4,7 +4,7 @@ type IButton = {
 };
 
 export type IHeaderActions = {
-  buttonSave: IButton;
+  buttonSave?: IButton;
   buttonImport?: IButton;
   buttonExport?: IButton;
 };

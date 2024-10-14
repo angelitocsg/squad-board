@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useService } from "../../../../../di/DecouplerContext";
+import { StorageKey } from "../../../../../enums/StorageKey";
+import { BackupService } from "../../../../../services/BackupService";
 import DynamicTable, {
   IActions,
   IColumns,
 } from "../../../../core/components/DynamicTable";
+import { IHeaderActions } from "../../../../core/components/DynamicTable/headerActions";
 import ListaMfeRepository from "../../../repository/ListaMfeRepository";
 import MfeDTO from "../../../repository/MfeDTO";
 import { vv_mf } from "../../data/SelectOptions";
@@ -62,12 +65,34 @@ const ListaMfes = () => {
       setLines(lines.filter((x) => x.id !== line.id));
   };
 
+  const handleImport = () => {
+    BackupService.importCsvToData(StorageKey.DATA_NOTIFICACOES_CONFIG);
+  };
+
+  const handleExport = () => {
+    BackupService.exportDataAsCsv(
+      listaMfeRepository.export(),
+      StorageKey.DATA_NOTIFICACOES_CONFIG,
+    );
+  };
+
   const tActions: IActions[] = [
     {
       label: "excluir",
       onClick: handleDelete,
     },
   ];
+
+  const tHeaderButtons: IHeaderActions = {
+    buttonImport: {
+      label: "Importar",
+      action: handleImport,
+    },
+    buttonExport: {
+      label: "Exportar",
+      action: handleExport,
+    },
+  };
 
   const interval = useRef<any>(0);
   const last = useRef<any>(lines);
@@ -95,6 +120,7 @@ const ListaMfes = () => {
       <DynamicTable
         actions={tActions}
         columns={tColumns}
+        headerButtons={tHeaderButtons}
         lines={lines}
         onFieldChange={handleFieldChange}
       />

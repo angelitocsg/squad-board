@@ -37,6 +37,11 @@ export default class ListaMfeRepositoryLocalStorage
     return this.data;
   }
 
+  export() {
+    this.load();
+    return this.data;
+  }
+
   update(entities: MfeDTO[]) {
     this.load();
     this._data.next(entities);

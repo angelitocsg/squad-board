@@ -12,4 +12,5 @@ export default interface ListaMfeRepository {
   data$: Observable<MfeDTO[]>;
   getAll: () => MfeDTO[];
   update: (entities: MfeDTO[]) => MfeDTO[];
+  export: () => MfeDTO[];
 }
