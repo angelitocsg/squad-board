@@ -15,16 +15,6 @@ export const Redirecionamento = ({
       <div className="col">
         <FormInput
           type="text"
-          label="Redirecionar para link/ação ao clicar"
-          field="lk"
-          maxLength={100}
-          value={notification.lk}
-          onChange={handleChange}
-        />
-      </div>{" "}
-      <div className="col">
-        <FormInput
-          type="text"
           label="Rota dentro do MFE"
           field="pg"
           maxLength={50}
@@ -39,6 +29,16 @@ export const Redirecionamento = ({
           field="op"
           maxLength={50}
           value={notification.op}
+          onChange={handleChange}
+        />
+      </div>{" "}
+      <div className="col">
+        <FormInput
+          type="text"
+          label="Redirecionar para link/ação ao clicar"
+          field="lk"
+          maxLength={100}
+          value={notification.lk}
           onChange={handleChange}
         />
       </div>

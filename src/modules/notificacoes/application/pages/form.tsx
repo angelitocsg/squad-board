@@ -18,6 +18,9 @@ type IProps = {
 
 const NotificacaoForm = ({ data, onChange }: IProps) => {
   const [state, setState] = useState<NotificacaoModel>(data);
+  const [formMode] = useState<"New" | "Edit">(
+    data.id ? "Edit" : "New",
+  );
   const [isModal, setIsModal] = useState<boolean>(false);
   const [listaMfes, setListaMfes] = useState<ISelectOptions[]>([]);
   const listaMfeRepository =
@@ -69,12 +72,24 @@ const NotificacaoForm = ({ data, onChange }: IProps) => {
   return (
     <div>
       <div className="row">
-        <div className="col">
+        <div className="col-2">
+          <FormInput
+            type="text"
+            label="ID"
+            field="id"
+            placeholder="id automático"
+            value={state.id}
+            disabled={formMode === "Edit"}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-2">
           <SelectInput
             label="Componente"
             field="cp"
             value={state.cp}
             options={vv_cp}
+            disabled={formMode === "Edit"}
             onChange={handleChange}
           />
         </div>
@@ -150,10 +165,10 @@ const NotificacaoForm = ({ data, onChange }: IProps) => {
             type="textarea"
             label={
               isModal
-                ? "Mensagem"
+                ? "Mensagem*"
                 : `Mensagem (Máximo 200 caracteres. Atual: ${
                     state.m?.length ?? 0
-                  })`
+                  })*`
             }
             field="m"
             rows={4}

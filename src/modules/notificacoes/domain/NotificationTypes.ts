@@ -15,6 +15,9 @@ export enum ComponentEnum {
 export enum BehaviorEnum {
   UmaVez = 0,
   UmaVezDia = 1,
+  Sempre = 2,
+  Customizada = 3,
+  Indefinida = 99
 }
 
 export type TBannerStyle =

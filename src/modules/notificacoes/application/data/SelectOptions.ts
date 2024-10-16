@@ -24,6 +24,8 @@ const vv_t: { banner: ISelectOptions[]; modal: ISelectOptions[] } = {
 const vv_fx: ISelectOptions[] = [
   { label: "Exibir apenas uma vez", value: BehaviorEnum.UmaVez },
   { label: "Exibir uma vez por dia", value: BehaviorEnum.UmaVezDia },
+  { label: "Exibir sempre", value: BehaviorEnum.Sempre },
+  { label: "Customizada", value: BehaviorEnum.Customizada },
 ];
 
 const vv_mf: ISelectOptions[] = [

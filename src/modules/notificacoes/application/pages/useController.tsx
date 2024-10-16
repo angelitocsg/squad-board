@@ -164,7 +164,7 @@ const useController = () => {
     modalService
       .config({
         title: `editar notificação (${line.id.split("-")[0]})`,
-        size: "large",
+        size: "xlarge",
         buttonOkLabel: "Salvar",
         buttonOkAction: handleSave,
         children: () => (

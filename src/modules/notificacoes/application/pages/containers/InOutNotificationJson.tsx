@@ -8,9 +8,7 @@ import NotificacaoModel from "../../data/NotificacaoModel";
 
 const InOutNotificationJson = () => {
   const [invalid_json, set_invalid_json] = useState<string | undefined>();
-  const [input_data, set_input_data] = useState(
-    JSON.stringify({ usuario: "" }),
-  );
+  const [input_data, set_input_data] = useState("{}");
   const [output_data, set_output_data] = useState("");
   const inputDataStore = useService<InputDataStore>("InputDataStore");
   const notificacaoRepository = useService<NotificacaoRepository>(
