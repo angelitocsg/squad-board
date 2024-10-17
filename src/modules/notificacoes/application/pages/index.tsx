@@ -16,20 +16,20 @@ const NotificacoesPage = () => {
       <InOutNotificationJson />
 
       <TabGroup>
-        <Tab tabId="conteudo" tabLabel="Conteúdo" />
         <Tab tabId="notificacao" active tabLabel="Notificações" />
         <Tab tabId="mfes" tabLabel="Microfrontends" />
+        <Tab tabId="conteudo" tabLabel="Conteúdo" />
       </TabGroup>
 
       <TabContentGroup>
-        <TabContent tabId="conteudo">
-          <ConteudoAtual />
-        </TabContent>
         <TabContent tabId="notificacao" active>
           <NotificacoesRegistradas />
         </TabContent>
         <TabContent tabId="mfes">
           <ListaMfes />
+        </TabContent>
+        <TabContent tabId="conteudo">
+          <ConteudoAtual />
         </TabContent>
       </TabContentGroup>
     </PageLayout>
