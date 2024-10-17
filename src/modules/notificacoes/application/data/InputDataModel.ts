@@ -3,9 +3,7 @@ import NotificacaoModel from "./NotificacaoModel";
 const MESSAGES = "messages";
 
 export default class InputDataModel {
-  content: {
-    [key: string]: string | string[] | undefined;
-  };
+  content: { [key: string]: string | undefined };
   messages: NotificacaoModel[];
 
   constructor(content: string) {

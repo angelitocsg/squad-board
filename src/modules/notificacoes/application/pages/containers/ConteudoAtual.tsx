@@ -1,76 +1,91 @@
 import { useEffect, useState } from "react";
 
 import { useService } from "../../../../../di/DecouplerContext";
+import DynamicTable, {
+  IActions,
+  IColumns,
+} from "../../../../core/components/DynamicTable";
+import KeyValueDTO from "../../../repository/KeyValueDTO";
 import InputDataModel from "../../data/InputDataModel";
 import InputDataStore from "../../data/InputDataStore";
 
 export const ConteudoAtual = () => {
-  const [keys, setKeys] = useState<string[]>([]);
+  const [lines, setLines] = useState<KeyValueDTO[]>([]);
   const inputDataStore = useService<InputDataStore>("InputDataStore");
-  const [inputData, setInputData] = useState<InputDataModel>(new InputDataModel("{}"));
+  const [inputData, setInputData] = useState<InputDataModel>(
+    new InputDataModel("{}"),
+  );
+
+  const tColumns: IColumns[] = [
+    { field: "key", title: "Chave" },
+    { field: "value", title: "Valor" },
+  ];
+
+  const handleDelete = (line: KeyValueDTO) => {
+    if (window.confirm("Excluir item?")) {
+      const linesUpdated = lines.filter((x) => x.id !== line.id);
+      setLines(linesUpdated);
+      updateStore(linesUpdated);
+    }
+  };
+
+  const tActions: IActions[] = [
+    {
+      label: "excluir",
+      onClick: handleDelete,
+    },
+  ];
 
   useEffect(() => {
-    var subscriber = inputDataStore.current$.subscribe((value) => {
+    const subscriber = inputDataStore.current$.subscribe((value) => {
       setInputData(value ?? inputData);
-      setKeys(Object.keys(value.content).filter((f) => f !== "messages"));
+      const keys = Object.keys(value.content).filter((f) => f !== "messages");
+      const newEmpty = new KeyValueDTO();
+      setLines([
+        ...keys.map(
+          (k) =>
+            new KeyValueDTO(null, k, (inputData.content[k] as string) ?? ""),
+        ),
+        newEmpty,
+      ]);
+      if (keys.length === 0) setLines([newEmpty]);
     });
     return () => {
       subscriber.unsubscribe();
     };
   }, [inputData, inputDataStore]);
 
-  const handleChange = (e: any) => {
+  const handleFieldChange = (line: KeyValueDTO, field: any, value: any) => {
+    const linesUpdated = lines.map((curLine) =>
+      curLine.id === line.id ? { ...curLine, [field]: value } : curLine,
+    );
+    setLines(linesUpdated);
+    updateStore(linesUpdated);
+  };
+
+  const updateStore = (linesUpdated: KeyValueDTO[]) => {
     inputDataStore.updateCurrent({
       ...inputData,
-      content: {
-        ...inputData.content,
-        [e.target.name]: e.target.value,
-      },
+      content: linesUpdated
+        .filter((c) => c.key)
+        .reduce((p, c) => {
+          return { ...p, [c.key]: c.value };
+        }, {}),
     });
   };
 
   return (
-    <div className="card">
-      <div className="card-body">
-        <table className="table table-hover table-sm">
-          <thead className="table-light">
-            <tr>
-              <th>Chave</th>
-              <th>Valor</th>
-            </tr>
-          </thead>
-          <tbody>
-            {keys.map((k) => (
-              <tr key={k}>
-                <td>{k}</td>
-                <td>
-                  <input
-                    type="text"
-                    className="form-control form-control-sm"
-                    name={k}
-                    value={
-                      typeof inputData.content[k] === "string"
-                        ? inputData.content[k]
-                        : JSON.stringify(inputData.content[k])
-                    }
-                    onChange={handleChange}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          {!keys && (
-            <tfoot className="p-1 pv-2">
-              <tr>
-                <td colSpan={2}>
-                  <span className="p-1 pv-2">Sem conteúdo prévio</span>
-                </td>
-              </tr>
-            </tfoot>
-          )}
-        </table>
-      </div>
-    </div>
+    <>
+      <p>
+        Lista de chave e valor utilizados no campo input-data do Quickspark.
+      </p>
+      <DynamicTable
+        actions={tActions}
+        columns={tColumns}
+        lines={lines}
+        onFieldChange={handleFieldChange}
+      />
+    </>
   );
 };
 

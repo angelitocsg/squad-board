@@ -25,7 +25,7 @@ const ListaMfes = () => {
 
   useEffect(() => {
     listaMfeRepository.getAll();
-    var subscriber = listaMfeRepository.data$.subscribe((items) => {
+    const subscriber = listaMfeRepository.data$.subscribe((items) => {
       last.current = items.filter((x) => x.label && x.value);
       const newEmpty = new MfeDTO();
       setEmptyLine(newEmpty);
